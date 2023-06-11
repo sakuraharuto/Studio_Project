@@ -7,19 +7,22 @@ using UnityEngine.UI;
 public class DoorFunction : MonoBehaviour
 {
     [SerializeField]
+    public Transform Player;
     public GameObject Canvas;
     public Button OpenButton;
     public Button UnlockButton;
+    
+    Animation DoorAnim;
 
-
-    public bool isOpened;
-    public bool isLocked;
+    bool isOpened;
+    bool isLocked;
 
     // Start is called before the first frame update
     void Start()
     {
         isOpened = false;
         isLocked = true;
+        DoorAnim = gameObject.GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -35,11 +38,29 @@ public class DoorFunction : MonoBehaviour
         isOpened = true;
         Canvas.SetActive(false);
 
-        Destroy(GetComponent<NavMeshObstacle>());
+        // Door open to Right
+        //if (Player.position.x > transform.position.x)
+        //{
+            //Debug.Log("Open to right");
+            //DoorAnim.Play("DoorOpen_cw");
+
+        //}
+        //// Door open to Left
+        //if (Player.position.x < transform.position.x)
+        //{
+
+        //}
+
+        Destroy(GetComponent<NavMeshObstacle>(), 1.5f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        //if (isLocked)
+        //{
+
+        //}
+
         //Debug.Log(other.gameObject.name);
         if (!isOpened)
         { 
@@ -50,9 +71,5 @@ public class DoorFunction : MonoBehaviour
             }
         }
 
-        //if (isLocked)
-        //{
-
-        //}
     }
 }
