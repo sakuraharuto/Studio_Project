@@ -25,12 +25,6 @@ public class SearchPoint : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Search()
     {
         Debug.Log("Searching");

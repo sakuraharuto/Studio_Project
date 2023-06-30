@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
         defaultZPosition = transform.position.z;
         agent.speed = moveSpeed; // 设置 NavMeshAgent 的移动速度
     }
-
+    
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
