@@ -5,8 +5,8 @@ using UnityEngine;
 public class ItemGrid : MonoBehaviour
 {   
     // tile config
-    const float tileSizeWidth = 32;
-    const float tileSizeHeight = 32; 
+    public const float tileSizeWidth = 32;
+    public const float tileSizeHeight = 32; 
 
     RectTransform rectTransform;
     
@@ -19,11 +19,8 @@ public class ItemGrid : MonoBehaviour
     [SerializeField]
     int gridSizeHeight = 10;
 
-    [SerializeField]
-    GameObject itemPrefab;
-
     //offset
-    float scaleFactor = 1.43625f;
+    public const float scaleFactor = 1.43625f;
 
     // Start is called before the first frame update
     private void Start()
@@ -31,14 +28,20 @@ public class ItemGrid : MonoBehaviour
         rectTransform = GetComponent<RectTransform>(); 
         Init(gridSizeWidth, gridSizeHeight);
 
-        InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
-        PlaceItem(inventoryItem, 0, 0);
     }
 
     public InventoryItem PickUpItem(int x, int y)
     {
         InventoryItem toReturn = inventoryItemSlot[x, y];
-        inventoryItemSlot[x, y] = null;
+
+        for(int ix = 0; ix < toReturn.itemData.width; ix++)
+        {
+            for(int iy = 0; iy < toReturn.itemData.height; iy++)
+            {
+                inventoryItemSlot[toReturn.onGridPositionX + ix, toReturn.onGridPositionY + iy] = null;
+            }
+        }
+        
         return toReturn;
     }
 
@@ -66,11 +69,22 @@ public class ItemGrid : MonoBehaviour
     {
         RectTransform rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(this.rectTransform);
-        inventoryItemSlot[posX, posY] = inventoryItem;
+
+        for(int x = 0; x < inventoryItem.itemData.width; x++)
+        {
+            for(int y = 0; y < inventoryItem.itemData.height; y++)
+            {
+                inventoryItemSlot[posX + x, posY + y] = inventoryItem;
+                
+            }
+        }
+
+        inventoryItem.onGridPositionX = posX;
+        inventoryItem.onGridPositionY = posY;
 
         Vector2 position = new Vector2();
-        position.x = posX * tileSizeWidth + tileSizeWidth / 2;
-        position.y = -(posY * tileSizeHeight + tileSizeHeight / 2); 
+        position.x = posX * tileSizeWidth + tileSizeWidth * inventoryItem.itemData.width / 2;
+        position.y = -(posY * tileSizeHeight + tileSizeHeight * inventoryItem.itemData.height / 2); 
 
         rectTransform.localPosition = position;
     }

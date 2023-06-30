@@ -4421,7 +4421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &588972139
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4495,7 +4495,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSizeWidth: 5
   gridSizeHeight: 10
-  itemPrefab: {fileID: 964789412533931169, guid: 9670a3f48d968404580f6e3b4dfe2c2d, type: 3}
 --- !u!114 &588972143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6306,6 +6305,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedItemGrid: {fileID: 0}
+  items:
+  - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
+  - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
+  - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
+  itemPrefab: {fileID: 964789412533931169, guid: 9670a3f48d968404580f6e3b4dfe2c2d, type: 3}
+  canvasTransform: {fileID: 1096870804}
 --- !u!1 &876645679
 GameObject:
   m_ObjectHideFlags: 0

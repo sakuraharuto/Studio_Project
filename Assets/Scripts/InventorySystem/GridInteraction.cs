@@ -18,7 +18,6 @@ public class GridInteraction : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnPointerEnter(PointerEventData eventDatd)
     {
         Debug.Log("Pointer Enter");
-        //Debug.Log(itemGrid.GetTileGridPosition(Input.mousePosition));
         inverntoryController.selectedItemGrid = itemGrid;
     }
 
