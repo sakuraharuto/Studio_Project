@@ -5,9 +5,18 @@ using UnityEngine;
 public class InventoryController : MonoBehaviour
 {   
     [HideInInspector]
-    public ItemGrid selectedItemGrid;
+    private ItemGrid selectedItemGrid;
+
+    public ItemGrid SelectedItemGrid {
+        get => selectedItemGrid;
+        set {
+            selectedItemGrid = value;
+            itemHighlight.SetParent(value);
+        }
+    } 
 
     InventoryItem selectedItem;
+    InventoryItem overlapItem;
     RectTransform rectTransform;
 
     [SerializeField]
@@ -16,6 +25,13 @@ public class InventoryController : MonoBehaviour
     GameObject itemPrefab;
     [SerializeField]
     Transform canvasTransform;
+
+    ItemHighlight itemHighlight;
+
+    private void Awake()
+    {
+        itemHighlight = GetComponent<ItemHighlight>();
+    }
 
     // Update is called once per frame
     private void Update()
@@ -28,13 +44,56 @@ public class InventoryController : MonoBehaviour
             CreateRandomItem();
         }
 
-        if(selectedItemGrid == null) { return; }
+        if(selectedItemGrid == null) 
+        { 
+            itemHighlight.Show(false);
+            return; 
+        }
+        
+        HandleHighlight();
 
         if(Input.GetMouseButtonDown(0))
         {   
             LeftMouseButtonPress();
         }
 
+    }
+    
+    Vector2Int previousPosition;
+    InventoryItem itemToHighlight;
+    private void HandleHighlight()
+    {   
+        Vector2Int positionOnGrid = GetTileGridPosition();
+
+        if(previousPosition == positionOnGrid) { return; }
+        
+        previousPosition = positionOnGrid;
+        if(selectedItem == null)
+        {   
+            itemToHighlight = selectedItemGrid.GetItem(positionOnGrid.x, positionOnGrid.y);
+            if(itemToHighlight != null)
+            {   
+                itemHighlight.Show(true);
+                itemHighlight.SetSize(itemToHighlight);
+                itemHighlight.SetPosition(selectedItemGrid, itemToHighlight);
+            }
+            else
+            {
+                itemHighlight.Show(false);
+            }
+        }
+        else
+        {
+            itemHighlight.Show(selectedItemGrid.BoundaryCheck(
+                positionOnGrid.x, 
+                positionOnGrid.y, 
+                selectedItem.itemData.width,
+                selectedItem.itemData.height)
+                );
+            
+            itemHighlight.SetSize(selectedItem);
+            itemHighlight.SetPosition(selectedItemGrid, selectedItem, positionOnGrid.x, positionOnGrid.y);
+        }
     }
 
     private void CreateRandomItem()
@@ -51,8 +110,8 @@ public class InventoryController : MonoBehaviour
 
 
     private void LeftMouseButtonPress()
-    {
-        Vector2Int tileGridPosition = selectedItemGrid.GetTileGridPosition(Input.mousePosition);
+    {   
+        Vector2Int tileGridPosition = GetTileGridPosition();
 
         if(selectedItem == null)
         {   
@@ -63,10 +122,32 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private void PlaceItem(Vector2Int tileGridPosition)
+    private Vector2Int GetTileGridPosition()
     {
-        selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y);
-        selectedItem = null;
+        Vector2 position = Input.mousePosition;
+
+        if(selectedItem != null)
+        {
+            position.x -= (selectedItem.itemData.width - 1) * ItemGrid.tileSizeWidth / 2;
+            position.y += (selectedItem.itemData.height - 1) * ItemGrid.tileSizeHeight / 2;
+        }
+
+        return selectedItemGrid.GetTileGridPosition(position);
+    }
+
+    private void PlaceItem(Vector2Int tileGridPosition)
+    {   
+        bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem);
+        if(complete)
+        {
+            selectedItem = null;
+            if(overlapItem != null)
+            {
+                selectedItem = overlapItem;
+                overlapItem = null;
+                rectTransform = selectedItem.GetComponent<RectTransform>();
+            }
+        }
     }
 
     private void PickUpItem(Vector2Int tileGridPosition)
