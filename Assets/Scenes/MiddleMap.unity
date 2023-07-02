@@ -979,6 +979,7 @@ GameObject:
   - component: {fileID: 198849843}
   - component: {fileID: 198849842}
   - component: {fileID: 198849841}
+  - component: {fileID: 198849847}
   m_Layer: 0
   m_Name: Subway
   m_TagString: Untagged
@@ -1283,6 +1284,23 @@ Transform:
   m_Father: {fileID: 1793356062}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &198849847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198849840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3904413fa63b44deb9a41dd0bc3dd31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBuildingClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  buildingName: Subway
+  sceneName: Subway
 --- !u!43 &247264044
 Mesh:
   m_ObjectHideFlags: 0
@@ -1453,7 +1471,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh35884
+  m_Name: pb_Mesh28032
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5741,7 +5759,8 @@ MonoBehaviour:
   onBuildingClicked:
     m_PersistentCalls:
       m_Calls: []
-  buildingName: Scene 1
+  buildingName: Convenience Shop
+  sceneName: Scene 1
 --- !u!1 &579995019
 GameObject:
   m_ObjectHideFlags: 0
@@ -7803,7 +7822,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25418
+  m_Name: pb_Mesh28244
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8469,7 +8488,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25526
+  m_Name: pb_Mesh28372
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13298,7 +13317,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25074
+  m_Name: pb_Mesh27882
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

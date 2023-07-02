@@ -15,13 +15,13 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    private void CreateDialogEnter(string buildingName)
+    private void CreateDialogEnter(BuildingEventData eventData)
     {
         // 动态创建对话框，并设置其父对象为Canvas
         GameObject dialogEnterObj = Instantiate(dialogEnterPrefab, canvas.transform);
         DialogEnter dialogEnterScript = dialogEnterObj.GetComponent<DialogEnter>();
 
         // 设置建筑物信息
-        dialogEnterScript.SetBuildingName(buildingName);
+        dialogEnterScript.SetBuildingName(eventData.buildingName,eventData.sceneName);
     }
 }
