@@ -40,8 +40,16 @@ public class InventoryController : MonoBehaviour
         
         // get item on mouse
         if(Input.GetKeyDown(KeyCode.Space))
+        {   
+            if(selectedItem == null)
+            {
+                CreateRandomItem();
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.F))
         {
-            CreateRandomItem();
+            InsertRandomItem();
         }
 
         if(selectedItemGrid == null) 
@@ -51,14 +59,37 @@ public class InventoryController : MonoBehaviour
         }
         
         HandleHighlight();
-
+        
         if(Input.GetMouseButtonDown(0))
         {   
             LeftMouseButtonPress();
         }
 
+        // DestroyItem()
+        // {
+
+        // }
+
     }
     
+    private void InsertRandomItem()
+    {   
+        if(selectedItemGrid == null) { return; }
+        CreateRandomItem();
+        InventoryItem itemToInsert = selectedItem;
+        selectedItem = null;
+        InsertItem(itemToInsert);
+    }
+
+    private void InsertItem(InventoryItem itemToInsert)
+    {   
+        Vector2Int? posOnGrid = selectedItemGrid.FindSpaceForObject(itemToInsert);
+
+        if(posOnGrid == null) { return; }
+
+        selectedItemGrid.PlaceItem(itemToInsert, posOnGrid.Value.x, posOnGrid.Value.y);
+    }
+
     Vector2Int previousPosition;
     InventoryItem itemToHighlight;
     private void HandleHighlight()
@@ -103,6 +134,7 @@ public class InventoryController : MonoBehaviour
 
         rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(canvasTransform);
+        rectTransform.SetAsLastSibling();
 
         int selectedItemID = UnityEngine.Random.Range(0, items.Count);
         inventoryItem.Set(items[selectedItemID]);
@@ -135,6 +167,11 @@ public class InventoryController : MonoBehaviour
         return selectedItemGrid.GetTileGridPosition(position);
     }
 
+    // private void DestroyItem()
+    // {
+
+    // }
+
     private void PlaceItem(Vector2Int tileGridPosition)
     {   
         bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem);
@@ -146,6 +183,7 @@ public class InventoryController : MonoBehaviour
                 selectedItem = overlapItem;
                 overlapItem = null;
                 rectTransform = selectedItem.GetComponent<RectTransform>();
+                rectTransform.SetAsLastSibling();
             }
         }
     }
