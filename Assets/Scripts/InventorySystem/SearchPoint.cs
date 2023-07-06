@@ -58,4 +58,12 @@ public class SearchPoint : MonoBehaviour
             SearchButton.SetActive(true);
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        { 
+            SearchButton.SetActive(false);
+        }
+    }
 }

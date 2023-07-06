@@ -13,7 +13,7 @@ public class ItemGrid : MonoBehaviour
     // UI Panel
     InventoryItem[,] inventoryItemSlot;
 
-    // package config
+    // UI config
     [SerializeField]
     int gridSizeWidth = 5;
     [SerializeField]

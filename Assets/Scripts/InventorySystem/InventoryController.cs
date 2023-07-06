@@ -101,6 +101,7 @@ public class InventoryController : MonoBehaviour
         previousPosition = positionOnGrid;
         if(selectedItem == null)
         {   
+            // IndexOutRangeException error
             itemToHighlight = selectedItemGrid.GetItem(positionOnGrid.x, positionOnGrid.y);
             if(itemToHighlight != null)
             {   
