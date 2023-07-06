@@ -6,23 +6,38 @@ using UnityEngine.UI;
 
 public class DoorFunction : MonoBehaviour
 {
-    [SerializeField]
     public Transform Player;
-    public GameObject Canvas;
-    public Button OpenButton;
-    public Button UnlockButton;
-    
-    Animation DoorAnim;
 
+    [SerializeField]
+    public GameObject Canvas;
+    [Header("Door Rotation Config")]
+    [SerializeField]
+    private float rotationSpeed = 1f;
+    [SerializeField]
+    private float rotationAmount = 0f;
+    private float rotationDirection = 0f;
+
+    // check for animation
+    private bool Opened = false;
+    private Vector3 StartRotation;
+    private Vector3 Forward;
+
+    private Coroutine AnimCoroutine;
+
+    // check door status for path finder
     bool isOpened;
     bool isLocked;
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        // check for later use
         isOpened = false;
-        isLocked = true;
-        DoorAnim = gameObject.GetComponent<Animation>();
+        // isLocked = true;
+
+        StartRotation = transform.rotation.eulerAngles;
+        Forward = transform.right;
+
     }
 
     // Update is called once per frame
@@ -31,45 +46,120 @@ public class DoorFunction : MonoBehaviour
         
     }
 
-    public void Open()
+    public void OpenButton()
     {
-        Debug.Log("Door is open");
+        // Debug.Log("Open");
+        
+        Canvas.SetActive(false);
+        OpenDoor(Player.position);
+
+        Destroy(GetComponent<NavMeshObstacle>(), 0.5f);
+    }
+
+    public void OpenDoor(Vector3 UserPosition)
+    {
+
+        if (!Opened)
+        {
+            if (AnimCoroutine != null)
+            {
+                StopCoroutine(AnimCoroutine);
+            }
+
+            float dot = Vector3.Dot(Forward, (UserPosition - transform.position).normalized);
+            AnimCoroutine = StartCoroutine(DoRotationOpen(dot));
+        }
+    }
+
+    private IEnumerator DoRotationOpen(float ForwardAmount)
+    {
+        Debug.Log("Door is Openning");
+
+        Quaternion startRotation = transform.rotation;
+        Quaternion endRotation;
+
+        if(ForwardAmount >= rotationDirection)
+        {
+            endRotation = Quaternion.Euler(new Vector3(0, StartRotation.y - rotationAmount, 0));
+        }
+        else
+        {
+            endRotation = Quaternion.Euler(new Vector3(0, StartRotation.y + rotationAmount, 0));    
+        }
+
+        float time = 0;
+        while(time < 1)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
+            yield return null;
+            time += Time.deltaTime * rotationSpeed;
+        }
 
         isOpened = true;
-        Canvas.SetActive(false);
+        Opened = true;
+    }
 
-        // Door open to Right
-        //if (Player.position.x > transform.position.x)
-        //{
-            //Debug.Log("Open to right");
-            //DoorAnim.Play("DoorOpen_cw");
+    public void CloseDoor()
+    {
+        if(Opened)
+        {
+            if(AnimCoroutine != null)
+            {
+                StopCoroutine (AnimCoroutine);
+            }
 
-        //}
-        //// Door open to Left
-        //if (Player.position.x < transform.position.x)
-        //{
+            AnimCoroutine = StartCoroutine(DoRotationClose());
+        }
+    }
 
-        //}
+    private IEnumerator DoRotationClose()
+    {
+        Debug.Log("Door is Closing");
 
-        Destroy(GetComponent<NavMeshObstacle>(), 1.5f);
+        Quaternion startRotation = transform.rotation;
+        Quaternion endRotation = Quaternion.Euler(StartRotation);
+
+        Opened = false;
+
+        float time = 0;
+        while(time < 1)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
+            yield return null;
+            time += Time.deltaTime * rotationSpeed;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (isLocked)
-        //{
-
-        //}
-
-        //Debug.Log(other.gameObject.name);
-        if (!isOpened)
-        { 
-            if (other.gameObject.name == "Player")
+        if (other.TryGetComponent<CharacterController>(out CharacterController Controller))
+        {   
+            // first time or locked, show the button
+            if (!isOpened || isLocked)
             {
-                Debug.Log("Show Door UI");
                 Canvas.SetActive(true);
             }
+
+            // opened before, automatically open the door
+            if (isOpened)
+            {
+                OpenDoor(Player.position);
+            }
+
         }
 
     }
+    private void OnTriggerExit(Collider other)
+    {   
+        Canvas.SetActive(false);
+        if(other.TryGetComponent<CharacterController>(out CharacterController Controller))
+        {
+            if(Opened)
+            {
+                CloseDoor();
+            }
+        }
+        
+    }
+
 }
