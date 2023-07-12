@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit)&&hit.collider.gameObject.layer==3)
             {
                 Vector3 targetPosition = hit.point;
                 targetPosition.z = defaultZPosition;
