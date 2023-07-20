@@ -4,7 +4,7 @@ public class DialogEnter : MonoBehaviour
 {
     public string buildingName;
     public string sceneName;// 建筑物名称或标识符
-    
+    public GameObject loadPanel;
     
     public void SetBuildingName(string building,string scene)
     {
@@ -14,8 +14,21 @@ public class DialogEnter : MonoBehaviour
 
     public void ConfirmEnter()
     {
-        // 根据建筑物信息加载对应的建筑物场景
+        loadPanel = GameObject.Find("LoadPanel");
+        if (loadPanel)
+        {
+            loadPanel.GetComponent<changeSceneAfterAnimation>().currentDialog = this;
+            loadPanel.GetComponent<Animator>().Play("LoadPanelIn");
+        }
+        else {
+            SceneManager.LoadScene(sceneName);
+        }
+        
+    }
+
+    public void LoadScene() {
         SceneManager.LoadScene(sceneName);
+
     }
 
     public void CancelEnter()
