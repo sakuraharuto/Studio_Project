@@ -10,22 +10,26 @@ public class ItemGrid : MonoBehaviour
 
     RectTransform rectTransform;
     
-    // UI Panel
+    Vector2 positionOnGrid;
+    Vector2Int tileGridPosition = new Vector2Int();
+
+    // Create Grid
     InventoryItem[,] inventoryItemSlot;
 
-    // UI config
+    // Grid config
     [SerializeField]
     int gridSizeWidth = 5;
     [SerializeField]
     int gridSizeHeight = 10;
 
-    //offset
+    // offset
     public const float scaleFactor = 1.43625f;
 
-    // Start is called before the first frame update
-    private void Start()
+    // Start is called before the first frame update 
+    private void Awake()
     {
         rectTransform = GetComponent<RectTransform>(); 
+        // scaleFactor = rectTransform.localScale.x;
         Init(gridSizeWidth, gridSizeHeight);
     }
 
@@ -40,6 +44,7 @@ public class ItemGrid : MonoBehaviour
         return toReturn;
     }
 
+    // pick up item, the grid on panel will not be occupied.
     private void CleanGridReference(InventoryItem item)
     {
         for(int ix = 0; ix < item.itemData.width; ix++)
@@ -63,8 +68,6 @@ public class ItemGrid : MonoBehaviour
         return inventoryItemSlot[x, y];
     }
 
-    Vector2 positionOnGrid = new Vector2();
-    Vector2Int tileGridPosition = new Vector2Int();
     public Vector2Int GetTileGridPosition(Vector2 mousePosition)
     {   
         positionOnGrid.x = mousePosition.x - rectTransform.position.x;
@@ -72,6 +75,9 @@ public class ItemGrid : MonoBehaviour
         
         tileGridPosition.x = (int)(positionOnGrid.x / (tileSizeWidth * scaleFactor));
         tileGridPosition.y = (int)(positionOnGrid.y / (tileSizeHeight * scaleFactor));
+
+        // tileGridPosition.x = (int)(positionOnGrid.x / (tileSizeWidth));
+        // tileGridPosition.y = (int)(positionOnGrid.y / (tileSizeHeight));
 
         return tileGridPosition;
     }
@@ -122,18 +128,18 @@ public class ItemGrid : MonoBehaviour
     
     public void PlaceItem(InventoryItem inventoryItem, int posX, int posY)
     {
-         RectTransform rectTransform = inventoryItem.GetComponent<RectTransform>();
+        RectTransform rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(this.rectTransform);
 
+        // occupy grids on the panel
         for(int x = 0; x < inventoryItem.itemData.width; x++)
         {
             for(int y = 0; y < inventoryItem.itemData.height; y++)
             {
                 inventoryItemSlot[posX + x, posY + y] = inventoryItem;
-                
             }
         }
-
+ 
         inventoryItem.onGridPositionX = posX;
         inventoryItem.onGridPositionY = posY;
 
@@ -150,7 +156,7 @@ public class ItemGrid : MonoBehaviour
         return position;
     }
 
-    private bool OverlapCheck(int posX, int posY, int width, int height, ref InventoryItem overlapItem)
+    public bool OverlapCheck(int posX, int posY, int width, int height, ref InventoryItem overlapItem)
     {   
         for(int x = 0; x < width; x++)
         {
@@ -218,12 +224,5 @@ public class ItemGrid : MonoBehaviour
 
         return true;
     }
-
-
-
-
-
-
-
 
 }

@@ -1,3 +1,5 @@
+// Making Grid interactable 
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +11,7 @@ public class GridInteraction : MonoBehaviour, IPointerEnterHandler, IPointerExit
     InventoryController inverntoryController;
     ItemGrid itemGrid;
 
-    private void Awake()
+    private void Start()
     {
         inverntoryController = FindObjectOfType(typeof(InventoryController)) as InventoryController;
         itemGrid = GetComponent<ItemGrid>();

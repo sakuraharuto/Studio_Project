@@ -19,6 +19,10 @@ public class InventoryItem : MonoBehaviour
         Vector2 size = new Vector2();
         size.x = itemData.width * ItemGrid.tileSizeWidth * ItemGrid.scaleFactor;
         size.y = itemData.height * ItemGrid.tileSizeHeight * ItemGrid.scaleFactor;
+
+        // size.x = itemData.width * ItemGrid.tileSizeWidth;
+        // size.y = itemData.height * ItemGrid.tileSizeHeight;
+
         GetComponent<RectTransform>().sizeDelta = size;
     }
 }

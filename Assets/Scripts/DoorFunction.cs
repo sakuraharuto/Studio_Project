@@ -72,4 +72,9 @@ public class DoorFunction : MonoBehaviour
         }
 
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Canvas.SetActive(false);
+    }
 }

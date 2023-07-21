@@ -1,3 +1,5 @@
+//All interaction the player will do with all the inventory grids
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +28,7 @@ public class InventoryController : MonoBehaviour
     [SerializeField]
     Transform canvasTransform;
 
+    [SerializeField]
     ItemHighlight itemHighlight;
 
     private void Awake()
@@ -65,13 +68,36 @@ public class InventoryController : MonoBehaviour
             LeftMouseButtonPress();
         }
 
-        // DestroyItem()
-        // {
-
-        // }
-
+        // ProcessMouseInput();
     }
     
+    // private void ProcessMouseInput()
+    // {
+    //     if(selectedItem != null)
+    //     {   
+    //         rectTransform.position = Input.mousePosition;
+    //         //selectedItemGrid.position = Input.mousePosition;
+    //     }
+
+    //     if(selectedItemGrid == null) { return; }
+
+    //     if(Input.GetMouseButtonDown(0))
+    //     {
+    //         positionOnGrid = selectedItemGrid.GetTileGridPosition(Input.mousePosition);
+    //         if(selectedItem == null)
+    //         {
+    //             selectedItem = selectedItemGrid.PickUpItem(positionOnGrid);
+    //             rectTransform = selectedItem.GetComponent<RectTransform>();
+    //         }
+    //         else
+    //         {
+    //             selectedItemGrid.PlaceItem(selectedItem, positionOnGrid.x, positionOnGrid.y);
+    //             selectedItem = null;
+    //             rectTransform = null;
+    //         }
+    //     }
+    // }
+
     private void InsertRandomItem()
     {   
         if(selectedItemGrid == null) { return; }
@@ -95,6 +121,7 @@ public class InventoryController : MonoBehaviour
     private void HandleHighlight()
     {   
         Vector2Int positionOnGrid = GetTileGridPosition();
+        itemHighlight.SetParent(selectedItemGrid);
 
         if(previousPosition == positionOnGrid) { return; }
         
@@ -155,7 +182,7 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private Vector2Int GetTileGridPosition()
+    public Vector2Int GetTileGridPosition()
     {
         Vector2 position = Input.mousePosition;
 
@@ -168,12 +195,7 @@ public class InventoryController : MonoBehaviour
         return selectedItemGrid.GetTileGridPosition(position);
     }
 
-    // private void DestroyItem()
-    // {
-
-    // }
-
-    private void PlaceItem(Vector2Int tileGridPosition)
+    public void PlaceItem(Vector2Int tileGridPosition)
     {   
         bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem);
         if(complete)
@@ -189,7 +211,7 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private void PickUpItem(Vector2Int tileGridPosition)
+    public void PickUpItem(Vector2Int tileGridPosition)
     {
         selectedItem = selectedItemGrid.PickUpItem(tileGridPosition.x, tileGridPosition.y);
         if(selectedItem != null)
