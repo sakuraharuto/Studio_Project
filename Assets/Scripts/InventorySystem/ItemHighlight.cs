@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ItemHighlight : MonoBehaviour
 {
-    [SerializeField]
-    RectTransform highlighter; 
+    [SerializeField] RectTransform highlighter; 
 
     public void Show(bool b)
     {
@@ -33,7 +32,7 @@ public class ItemHighlight : MonoBehaviour
 
     public void SetParent(ItemGrid targetGrid)
     {   
-        if(targetGrid == null) { return; }
+        if(targetGrid == null) { return; } 
         highlighter.SetParent(targetGrid.GetComponent<RectTransform>());
     }
 

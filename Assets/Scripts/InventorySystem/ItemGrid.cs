@@ -17,10 +17,8 @@ public class ItemGrid : MonoBehaviour
     InventoryItem[,] inventoryItemSlot;
 
     // Grid config
-    [SerializeField]
-    int gridSizeWidth = 5;
-    [SerializeField]
-    int gridSizeHeight = 10;
+    [SerializeField] int gridSizeWidth = 5;
+    [SerializeField] int gridSizeHeight = 10;
 
     // offset
     public const float scaleFactor = 1.43625f;
@@ -198,7 +196,7 @@ public class ItemGrid : MonoBehaviour
         return true;
     }
 
-    bool PositionCheck(int posX, int posY)
+    public bool PositionCheck(int posX, int posY)
     {
         if(posX < 0 || posY < 0)
         {

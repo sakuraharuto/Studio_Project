@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {   
-    [HideInInspector]
-    private ItemGrid selectedItemGrid;
+    [HideInInspector] private ItemGrid selectedItemGrid;
 
     public ItemGrid SelectedItemGrid {
         get => selectedItemGrid;
@@ -21,14 +20,10 @@ public class InventoryController : MonoBehaviour
     InventoryItem overlapItem;
     RectTransform rectTransform;
 
-    [SerializeField]
-    List<ItemData> items;
-    [SerializeField]
-    GameObject itemPrefab;
-    [SerializeField]
-    Transform canvasTransform;
+    [SerializeField] List<ItemData> items;
+    [SerializeField] GameObject itemPrefab;
+    [SerializeField] Transform canvasTransform;
 
-    [SerializeField]
     ItemHighlight itemHighlight;
 
     private void Awake()
@@ -107,7 +102,7 @@ public class InventoryController : MonoBehaviour
         InsertItem(itemToInsert);
     }
 
-    private void InsertItem(InventoryItem itemToInsert)
+    public void InsertItem(InventoryItem itemToInsert)
     {   
         Vector2Int? posOnGrid = selectedItemGrid.FindSpaceForObject(itemToInsert);
 
@@ -121,14 +116,14 @@ public class InventoryController : MonoBehaviour
     private void HandleHighlight()
     {   
         Vector2Int positionOnGrid = GetTileGridPosition();
-        itemHighlight.SetParent(selectedItemGrid);
 
         if(previousPosition == positionOnGrid) { return; }
         
+        if(selectedItemGrid.PositionCheck(positionOnGrid.x, positionOnGrid.y) == false) { return; }
+
         previousPosition = positionOnGrid;
         if(selectedItem == null)
         {   
-            // IndexOutRangeException error
             itemToHighlight = selectedItemGrid.GetItem(positionOnGrid.x, positionOnGrid.y);
             if(itemToHighlight != null)
             {   
