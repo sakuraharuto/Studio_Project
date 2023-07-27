@@ -27,12 +27,11 @@ public class ItemGrid : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>(); 
-        // scaleFactor = rectTransform.localScale.x;
-        Init(gridSizeWidth, gridSizeHeight);
+        Init();
     }
 
     public InventoryItem PickUpItem(int x, int y)
-    {
+    {   
         InventoryItem toReturn = inventoryItemSlot[x, y];
 
         if(toReturn == null) { return null; }
@@ -54,10 +53,11 @@ public class ItemGrid : MonoBehaviour
         }
     }
 
-    private void Init(int width, int height)
-    {
-        inventoryItemSlot = new InventoryItem[width, height];
-        Vector2 size = new Vector2(width * tileSizeWidth, height * tileSizeHeight);
+    public void Init()
+    {   
+        rectTransform = GetComponent<RectTransform>();
+        inventoryItemSlot = new InventoryItem[gridSizeWidth, gridSizeHeight];
+        Vector2 size = new Vector2(gridSizeWidth * tileSizeWidth, gridSizeHeight * tileSizeHeight);
         rectTransform.sizeDelta = size;
     }
     
@@ -80,15 +80,15 @@ public class ItemGrid : MonoBehaviour
         return tileGridPosition;
     }
 
-    public Vector2Int? FindSpaceForObject(InventoryItem itemToInsert)
+    public Vector2Int? FindSpaceForObject(ItemData itemData)
     {   
-        int height = gridSizeHeight - itemToInsert.itemData.height + 1;
-        int width = gridSizeWidth - itemToInsert.itemData.width + 1;
+        int height = gridSizeHeight - itemData.height + 1;
+        int width = gridSizeWidth - itemData.width + 1;
         for(int y = 0; y < height; y++)
         {
             for(int x = 0; x < width; x++)
             {
-                if(CheckAvailableSpace(x, y, itemToInsert.itemData.width, itemToInsert.itemData.height) == true)
+                if(CheckAvailableSpace(x, y, itemData.width, itemData.height) == true)
                 {
                     return new Vector2Int(x, y);
                 }

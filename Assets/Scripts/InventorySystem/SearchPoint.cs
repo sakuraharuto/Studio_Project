@@ -6,45 +6,42 @@ using TMPro;
 public class SearchPoint : MonoBehaviour
 {   
     // UI
-    [SerializeField] private GameObject searchButton;
-    [SerializeField] public GameObject searchPointPanel;
-    [SerializeField] public GameObject packagePanel;
+    [SerializeField] GameObject searchButton;
+    [SerializeField] GameObject packagePanel;
+    [SerializeField] GameObject searchPointPanel;
 
     // Function
     [SerializeField] InventoryController inventoryController;
-    public ItemGrid searchPointItemGrid;
+    [SerializeField] ItemGrid searchPointItemGrid;
 
-    // public InventoryItem[] items;
-    [SerializeField] List<ItemGrid> items;
-    public ItemGrid item;
+    [SerializeField] List<ItemData> items;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
+    {
+        searchPointItemGrid.Init();
+        ArrangeItems();
+    }
+
+    private void Update()
     {
         
     }
 
-    private void Awake()
-    {
-        ResourceArrange();
-    }
-
-    // public void AddItem(ItemData itemData)
-    // {
-
-    // }
-
-    public void ResourceArrange()
+    public void ArrangeItems()
     {   
         for(int i=0; i<items.Count; i++)
         {
-            item = items[i];
+            ItemData itemToPlace = items[i]; 
+
+            Vector2Int? positionToPlace = searchPointItemGrid.FindSpaceForObject(itemToPlace);
+            if (positionToPlace == null) { return; }
+            InventoryItem newItem = inventoryController.CreateNewInventoryItem(itemToPlace);
+            searchPointItemGrid.PlaceItem(newItem, positionToPlace.Value.x, positionToPlace.Value.y);
         }
-        // inventoryController.InsertItem(item);
-        // inventoryItem.Set(items[selectedItemID]);
     }
 
-    public void Search()
+    // -----UI Interaction-----
+    public void OpenPanel()
     {
         searchButton.SetActive(false);
         searchPointPanel.SetActive(true);

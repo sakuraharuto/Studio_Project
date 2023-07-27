@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {   
-    [SerializeField] ItemGrid mainInventoryItemGrid;
+    //[SerializeField] ItemGrid mainInventoryItemGrid;
 
     // Start is called before the first frame update
     void Start()
@@ -18,10 +18,5 @@ public class Inventory : MonoBehaviour
         
     }
 
-    public bool AddItem(ItemData itemData)
-    {
-        
 
-        return true;
-    }
 }

@@ -33,65 +33,33 @@ public class InventoryController : MonoBehaviour
 
     // Update is called once per frame
     private void Update()
-    {   
+    {
         ItemIconDrag();
-        
-        // get item on mouse
-        if(Input.GetKeyDown(KeyCode.Space))
-        {   
-            if(selectedItem == null)
-            {
-                CreateRandomItem();
-            }
-        }
 
-        if(Input.GetKeyDown(KeyCode.F))
+        if (selectedItemGrid == null)
         {
-            InsertRandomItem();
+            itemHighlight.Show(false);
+            return;
         }
 
-        if(selectedItemGrid == null) 
-        { 
-            itemHighlight.Show(false);
-            return; 
-        }
-        
         HandleHighlight();
-        
-        if(Input.GetMouseButtonDown(0))
-        {   
+
+        if (Input.GetMouseButtonDown(0))
+        {
             LeftMouseButtonPress();
         }
 
-        // ProcessMouseInput();
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            CreateRandomItem();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            InsertRandomItem(); 
+        }
+
     }
-    
-    // private void ProcessMouseInput()
-    // {
-    //     if(selectedItem != null)
-    //     {   
-    //         rectTransform.position = Input.mousePosition;
-    //         //selectedItemGrid.position = Input.mousePosition;
-    //     }
-
-    //     if(selectedItemGrid == null) { return; }
-
-    //     if(Input.GetMouseButtonDown(0))
-    //     {
-    //         positionOnGrid = selectedItemGrid.GetTileGridPosition(Input.mousePosition);
-    //         if(selectedItem == null)
-    //         {
-    //             selectedItem = selectedItemGrid.PickUpItem(positionOnGrid);
-    //             rectTransform = selectedItem.GetComponent<RectTransform>();
-    //         }
-    //         else
-    //         {
-    //             selectedItemGrid.PlaceItem(selectedItem, positionOnGrid.x, positionOnGrid.y);
-    //             selectedItem = null;
-    //             rectTransform = null;
-    //         }
-    //     }
-    // }
 
     private void InsertRandomItem()
     {   
@@ -104,7 +72,7 @@ public class InventoryController : MonoBehaviour
 
     public void InsertItem(InventoryItem itemToInsert)
     {   
-        Vector2Int? posOnGrid = selectedItemGrid.FindSpaceForObject(itemToInsert);
+        Vector2Int? posOnGrid = selectedItemGrid.FindSpaceForObject(itemToInsert.itemData);
 
         if(posOnGrid == null) { return; }
 
@@ -151,18 +119,31 @@ public class InventoryController : MonoBehaviour
     }
 
     private void CreateRandomItem()
-    {
-        InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
-        selectedItem = inventoryItem;
+    {   
+        int selectedItemID = UnityEngine.Random.Range(0, items.Count);
+        CreateNewInventoryItem(items[selectedItemID]);
+    }
+
+    public InventoryItem CreateNewInventoryItem(ItemData itemData)
+    {   
+        GameObject newItem = Instantiate(itemPrefab);
+        InventoryItem inventoryItem = newItem.GetComponent<InventoryItem>();
 
         rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(canvasTransform);
-        rectTransform.SetAsLastSibling();
+        // RectTransform newItemRectTransform = newItem.GetComponent<RectTransform>();
+        // newItemRectTransform.SetParent(canvasTransform);
 
-        int selectedItemID = UnityEngine.Random.Range(0, items.Count);
-        inventoryItem.Set(items[selectedItemID]);
+        inventoryItem.Set(itemData);
+
+        return inventoryItem;
     }
 
+    public void SelectItem(InventoryItem inventoryItem)
+    {
+        selectedItem = inventoryItem;
+        rectTransform = inventoryItem.GetComponent<RectTransform>();
+    }
 
     private void LeftMouseButtonPress()
     {   
@@ -215,7 +196,7 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private void ItemIconDrag()
+    public void ItemIconDrag()
     {
         if(selectedItem != null)
         {
