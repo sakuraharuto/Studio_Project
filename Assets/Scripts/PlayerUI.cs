@@ -7,11 +7,10 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] public GameObject Package;
     [SerializeField] public GameObject PackageClose;
     [SerializeField] public GameObject PackageButton;
-    
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
-        
+        Package.SetActive(false);
     }
 
     // Update is called once per frame
