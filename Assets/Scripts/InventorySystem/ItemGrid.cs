@@ -21,7 +21,8 @@ public class ItemGrid : MonoBehaviour
     [SerializeField] int gridSizeHeight = 10;
 
     // offset
-    public const float scaleFactor = 1.43625f;
+    //public const float scaleFactor = 1.43625f;
+    public const float scaleFactor = 1.65625f;
 
     // Start is called before the first frame update 
     private void Awake()
