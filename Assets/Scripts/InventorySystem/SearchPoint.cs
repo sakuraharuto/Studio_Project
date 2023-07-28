@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class SearchPoint : MonoBehaviour
 {   
@@ -17,14 +16,15 @@ public class SearchPoint : MonoBehaviour
     [SerializeField] List<ItemData> items;
 
     private void Awake()
-    {
+    {   
         searchPointItemGrid.Init();
         ArrangeItems();
+        searchPointPanel.SetActive(false);
     }
 
     private void Update()
     {
-        
+    
     }
 
     public void ArrangeItems()

@@ -71,10 +71,10 @@ public class InventoryController : MonoBehaviour
     }
 
     public void InsertItem(InventoryItem itemToInsert)
-    {   
-        Vector2Int? posOnGrid = selectedItemGrid.FindSpaceForObject(itemToInsert.itemData);
+    {
+        Vector2Int? posOnGrid = SelectedItemGrid.FindSpaceForObject(itemToInsert.itemData);
 
-        if(posOnGrid == null) { return; }
+        if (posOnGrid == null) { return; }
 
         selectedItemGrid.PlaceItem(itemToInsert, posOnGrid.Value.x, posOnGrid.Value.y);
     }
@@ -131,8 +131,6 @@ public class InventoryController : MonoBehaviour
 
         rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(canvasTransform);
-        // RectTransform newItemRectTransform = newItem.GetComponent<RectTransform>();
-        // newItemRectTransform.SetParent(canvasTransform);
 
         inventoryItem.Set(itemData);
 
@@ -203,11 +201,5 @@ public class InventoryController : MonoBehaviour
             rectTransform.position = Input.mousePosition;
         }
     }
-
-
-
-
-
-
 
 }

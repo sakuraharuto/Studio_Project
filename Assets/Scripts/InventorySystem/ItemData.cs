@@ -10,7 +10,6 @@ public enum EquipmentSlot
     Medicine
 }
 
-
 [CreateAssetMenu]
 public class ItemData : ScriptableObject
 {
