@@ -1,61 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class SearchPoint : MonoBehaviour
-{
-    [SerializeField]
-    private GameObject SearchButton;
-    [SerializeField]
-    public GameObject SearchPointGrid;
-    [SerializeField]
-    public GameObject PackageGrid;
+{   
+    // UI
+    [SerializeField] GameObject searchButton;
+    [SerializeField] GameObject packagePanel;
+    [SerializeField] GameObject searchPointPanel;
 
-    // public bool isOpen;
-    public GameObject[] items;
+    // Function
+    [SerializeField] InventoryController inventoryController;
+    [SerializeField] ItemGrid searchPointItemGrid;
 
-    // test for text
-    // public TextMeshProUGUI Text;
-    // private string itemList;
+    [SerializeField] List<ItemData> items;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // isOpen = false;
+    private void Awake()
+    {   
+        searchPointItemGrid.Init();
+        ArrangeItems();
+        searchPointPanel.SetActive(false);
     }
 
-    public void Search()
+    private void Update()
     {
-        Debug.Log("Look what we found here!");
+    
+    }
 
-        // isOpen = true;
-        SearchButton.SetActive(false);
-        SearchPointGrid.SetActive(true);
-        PackageGrid.SetActive(true);
+    public void ArrangeItems()
+    {   
+        for(int i=0; i<items.Count; i++)
+        {
+            ItemData itemToPlace = items[i]; 
 
-        // GetNames();
-        // Text.GetComponent<TextMeshProUGUI>().text = itemList;
+            Vector2Int? positionToPlace = searchPointItemGrid.FindSpaceForObject(itemToPlace);
+            if (positionToPlace == null) { return; }
+            InventoryItem newItem = inventoryController.CreateNewInventoryItem(itemToPlace);
+            searchPointItemGrid.PlaceItem(newItem, positionToPlace.Value.x, positionToPlace.Value.y);
+        }
+    }
+
+    // -----UI Interaction-----
+    public void OpenPanel()
+    {
+        searchButton.SetActive(false);
+        searchPointPanel.SetActive(true);
+        packagePanel.SetActive(true);
     }
 
     public void ClosePanel()
     {
-        SearchPointGrid.SetActive(false);
+        searchPointPanel.SetActive(false);
+        searchButton.SetActive(true);
     }
-
-    // private void GetNames()
-    // {
-    //     for(int i = 0; i < items.Length; i++)
-    //     {
-    //         itemList += items[i].name + "\n";
-    //     }
-    // }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         { 
-            SearchButton.SetActive(true);
+            searchButton.SetActive(true);
         }
     }
 
@@ -63,7 +66,7 @@ public class SearchPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         { 
-            SearchButton.SetActive(false);
+            searchButton.SetActive(false);
         }
     }
 }

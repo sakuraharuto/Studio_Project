@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EquipmentSlot
+{ 
+    None,
+    Weapon,
+    Armor,
+    Medicine
+}
+
 [CreateAssetMenu]
 public class ItemData : ScriptableObject
 {
