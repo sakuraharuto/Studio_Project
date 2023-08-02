@@ -11,8 +11,10 @@ public class PlayerMovement : MonoBehaviour
     private float defaultZPosition;
     private bool isMoving = false;
 
+    private GameObject teleportDoor;
+
     private void Start()
-    {
+    {   
         defaultZPosition = transform.position.z;
         agent.speed = moveSpeed; // 设置 NavMeshAgent 的移动速度
     }
@@ -27,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
             if (Physics.Raycast(ray, out hit)&&hit.collider.gameObject.layer==3)
             {
                 Vector3 targetPosition = hit.point;
+                targetPosition = hit.point;
                 targetPosition.z = defaultZPosition;
 
                 agent.SetDestination(targetPosition);
@@ -51,5 +54,30 @@ public class PlayerMovement : MonoBehaviour
     void HideFeedbackUI()
     {
         feedbackUI.SetActive(false);
+    }
+
+    // 上下楼传送
+    public void Teleport()
+    {
+        transform.position = teleportDoor.GetComponent<TeleportPoint>().GetTeleportLocation().position;
+        agent.SetDestination(transform.position);
+
+        Debug.Log("Teleport to location: " + transform.position);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("TeleportDoor"))
+        {
+            teleportDoor = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("TeleportDoor"))
+        {
+            teleportDoor = null;
+        }
     }
 }
