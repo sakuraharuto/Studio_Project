@@ -654,7 +654,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1270
+  m_Name: pb_Mesh-15688
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12788,6 +12788,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3618892534516678601, guid: 3dfe058c2ea6b11448f13a3f6dd9cdbf, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 874797765}
     - target: {fileID: 3618892535090823029, guid: 3dfe058c2ea6b11448f13a3f6dd9cdbf, type: 3}
       propertyPath: player
       value: 
@@ -14752,6 +14756,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 4557968192879321878, guid: b283526c7b6541b41a1e16e606e8e0a0, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 874797765}
     - target: {fileID: 4557968194478791673, guid: b283526c7b6541b41a1e16e606e8e0a0, type: 3}
       propertyPath: m_Name
       value: Door
