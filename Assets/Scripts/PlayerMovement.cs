@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private float defaultZPosition;
     private bool isMoving = false;
 
-    private GameObject teleportDoor;
+    [SerializeField]public GameObject teleportDoor;
 
     private void Start()
     {   
@@ -21,6 +21,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (teleportDoor) {
+            Debug.Log("已赋值" + teleportDoor);
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -59,10 +63,14 @@ public class PlayerMovement : MonoBehaviour
     // 上下楼传送
     public void Teleport()
     {
-        transform.position = teleportDoor.GetComponent<TeleportPoint>().GetTeleportLocation().position;
-        agent.SetDestination(transform.position);
+       
+            transform.position = teleportDoor.GetComponent<TeleportPoint>().GetTeleportLocation().position;
+            agent.SetDestination(transform.position);
 
-        Debug.Log("Teleport to location: " + transform.position);
+            Debug.Log("Teleport to location: " + transform.position);
+        
+     
+     
     }
 
     private void OnTriggerEnter(Collider other)
