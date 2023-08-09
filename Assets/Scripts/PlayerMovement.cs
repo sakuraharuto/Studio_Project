@@ -63,9 +63,10 @@ public class PlayerMovement : MonoBehaviour
     // 上下楼传送
     public void Teleport()
     {
-       
+        GetComponent<NavMeshAgent>().enabled = false;
             transform.position = teleportDoor.GetComponent<TeleportPoint>().GetTeleportLocation().position;
-            agent.SetDestination(transform.position);
+        GetComponent<NavMeshAgent>().enabled = true;
+        agent.SetDestination(transform.position);
 
             Debug.Log("Teleport to location: " + transform.position);
         
