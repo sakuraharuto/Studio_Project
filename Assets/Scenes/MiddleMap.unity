@@ -1572,7 +1572,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh49444
+  m_Name: pb_Mesh39954
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5324,7 +5324,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh49574
+  m_Name: pb_Mesh35502
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5861,7 +5861,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   buildingName: Convenience Shop
-  sceneName: Scene 1
+  sceneName: 7-11
 --- !u!1 &579995019
 GameObject:
   m_ObjectHideFlags: 0
@@ -6206,7 +6206,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh49780
+  m_Name: pb_Mesh35720
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7923,7 +7923,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh49666
+  m_Name: pb_Mesh35606
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9099,8 +9099,9 @@ GameObject:
   - component: {fileID: 1085214239}
   - component: {fileID: 1085214238}
   - component: {fileID: 1085214237}
+  - component: {fileID: 1085214243}
   m_Layer: 0
-  m_Name: Accessories Store
+  m_Name: Luxury Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9447,6 +9448,23 @@ Transform:
   m_Father: {fileID: 1793356062}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1085214243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085214236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3904413fa63b44deb9a41dd0bc3dd31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBuildingClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  buildingName: Luxury Shop
+  sceneName: Luxury Shop
 --- !u!43 &1136057657
 Mesh:
   m_ObjectHideFlags: 0
@@ -11208,7 +11226,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh49384
+  m_Name: pb_Mesh35322
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11646,8 +11664,9 @@ GameObject:
   - component: {fileID: 1503121099}
   - component: {fileID: 1503121098}
   - component: {fileID: 1503121097}
+  - component: {fileID: 1503121103}
   m_Layer: 0
-  m_Name: GunShop
+  m_Name: Gun Store
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11994,6 +12013,23 @@ Transform:
   m_Father: {fileID: 1793356062}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1503121103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503121096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3904413fa63b44deb9a41dd0bc3dd31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBuildingClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  buildingName: Gun Store
+  sceneName: Gun Store
 --- !u!43 &1513293246
 Mesh:
   m_ObjectHideFlags: 0
@@ -12500,8 +12536,9 @@ GameObject:
   - component: {fileID: 1629960001}
   - component: {fileID: 1629960000}
   - component: {fileID: 1629959999}
+  - component: {fileID: 1629960005}
   m_Layer: 0
-  m_Name: Medicine
+  m_Name: Pharmacy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12848,6 +12885,23 @@ Transform:
   m_Father: {fileID: 1793356062}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1629960005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629959998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3904413fa63b44deb9a41dd0bc3dd31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBuildingClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  buildingName: Pharmacy
+  sceneName: Pharmacy
 --- !u!1 &1682819219
 GameObject:
   m_ObjectHideFlags: 0
@@ -13530,7 +13584,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh49294
+  m_Name: pb_Mesh35222
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13694,7 +13748,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh49646
+  m_Name: pb_Mesh35586
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
