@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CheckLeaving : MonoBehaviour
 {
+    public GameObject KeyUI;
     public PopUpManager popupManager;// Start is called before the first frame update
     private bool canLeave = false;
     private void OnTriggerStay(Collider other)
@@ -11,6 +12,7 @@ public class CheckLeaving : MonoBehaviour
         if (other.tag == "Player")
         {
             canLeave = true;
+            KeyUI.SetActive(true);
         }
            
        
@@ -20,6 +22,7 @@ public class CheckLeaving : MonoBehaviour
         if (other.tag == "Player")
         {
             canLeave = false;
+            KeyUI.SetActive(false);
         }
     }
 
