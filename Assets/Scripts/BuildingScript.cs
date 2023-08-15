@@ -29,7 +29,38 @@ public class BuildingScript : MonoBehaviour
         onBuildingClicked.Invoke(eventData);
     }
 
-   
+
+
+
+    private Vector3 originalScale;
+    private bool isMouseOver = false;
+
+    private void Start()
+    {
+        originalScale = transform.localScale;
+    }
+
+    private void OnMouseEnter()
+    {
+        isMouseOver = true;
+        transform.localScale = originalScale * 1.1f;
+    }
+
+    private void OnMouseExit()
+    {
+        isMouseOver = false;
+        transform.localScale = originalScale;
+    }
+
+    private void Update()
+    {
+        if (isMouseOver && Input.GetMouseButtonDown(0)) // Adjust the condition if needed
+        {
+            // Perform an action when the object is clicked while the mouse is over it
+            Debug.Log("Object Clicked!");
+        }
+    }
+
     
 }
 
