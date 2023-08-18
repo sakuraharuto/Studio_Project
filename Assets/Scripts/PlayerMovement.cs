@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement Setting")]
     public Camera mainCamera;
     public NavMeshAgent agent;
     public float moveSpeed = 5f; // 移动速度
@@ -11,7 +13,10 @@ public class PlayerMovement : MonoBehaviour
     private float defaultZPosition;
     private bool isMoving = false;
 
-    [SerializeField]public GameObject teleportDoor;
+    [Header("Function Setting")]
+    public GameObject searchPoint;
+    
+    [HideInInspector] public GameObject teleportDoor;
 
     private void Start()
     {   
@@ -69,9 +74,11 @@ public class PlayerMovement : MonoBehaviour
         agent.SetDestination(transform.position);
 
             Debug.Log("Teleport to location: " + transform.position);
-        
-     
-     
+    }
+
+    public GameObject GetSearchPoint()
+    {
+        return searchPoint;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -80,6 +87,11 @@ public class PlayerMovement : MonoBehaviour
         {
             teleportDoor = other.gameObject;
         }
+
+        if(other.CompareTag("SearchPoint"))
+        {
+            searchPoint = other.gameObject;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -87,6 +99,11 @@ public class PlayerMovement : MonoBehaviour
         if(other.CompareTag("TeleportDoor"))
         {
             teleportDoor = null;
+        }
+
+        if (other.CompareTag("SearchPoint"))
+        {   
+            searchPoint = null;
         }
     }
 }

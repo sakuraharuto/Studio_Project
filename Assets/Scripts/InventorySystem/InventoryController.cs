@@ -26,6 +26,10 @@ public class InventoryController : MonoBehaviour
 
     ItemHighlight itemHighlight;
 
+    [Header("UI Setting")]
+    [SerializeField] PlayerMovement player;
+    [SerializeField] GameObject storageGrid;
+
     private void Awake()
     {
         itemHighlight = GetComponent<ItemHighlight>();
@@ -204,4 +208,16 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    void ResetPanel()
+    {
+        //remove the item from the item list
+        player.GetSearchPoint().GetComponent<SearchPoint>().items.Clear();
+    }
+
+    public void Close()
+    {
+        storageGrid.SetActive(false);
+        player.GetSearchPoint().GetComponent<SearchPoint>().searchButton.SetActive(true);
+        player.GetSearchPoint().GetComponent<SearchPoint>().items.Clear();
+    }
 }

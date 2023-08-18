@@ -3,28 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SearchPoint : MonoBehaviour
-{   
+{
     // UI
-    [SerializeField] GameObject searchButton;
-    [SerializeField] GameObject packagePanel;
-    [SerializeField] GameObject searchPointPanel;
+    [Header("UI Setting")]
+    [SerializeField] public GameObject searchButton;
+    [SerializeField] public GameObject packagePanel;
+    [SerializeField] public GameObject searchPointGridPanel;
 
     // Function
+    [Header("Function Setting")]
     [SerializeField] InventoryController inventoryController;
     [SerializeField] ItemGrid searchPointItemGrid;
 
-    [SerializeField] List<ItemData> items;
+    public List<ItemData> items;
+    public List<ItemData> allItems;
 
-    private void Awake()
-    {   
-        searchPointItemGrid.Init();
-        ArrangeItems();
-        searchPointPanel.SetActive(false);
-    }
+    [SerializeField] PlayerMovement player;
 
-    private void Update()
+    //private void Awake()
+    //{   
+    //    searchPointItemGrid.Init();
+    //}
+
+    private void Start()
     {
-    
+        searchPointItemGrid.Init();
     }
 
     public void ArrangeItems()
@@ -40,24 +43,39 @@ public class SearchPoint : MonoBehaviour
         }
     }
 
-    // -----UI Interaction-----
-    public void OpenPanel()
+    public void RefreshResource()
     {
-        searchButton.SetActive(false);
-        searchPointPanel.SetActive(true);
-        packagePanel.SetActive(true);
+        int newItemCount = Random.Range(1, allItems.Count);
+
+        for(int i=0; i< newItemCount; i++)
+        {
+            int randomItem = Random.Range(0, allItems.Count);
+            items.Add(allItems[randomItem]);
+        }
     }
 
-    public void ClosePanel()
+    // -----UI Interaction-----
+    public void Open()
     {
-        searchPointPanel.SetActive(false);
-        searchButton.SetActive(true);
+        items = player.GetSearchPoint().GetComponent<SearchPoint>().items;
+        for (int i = 0; i < items.Count; i++)
+        {
+            inventoryController.CreateNewInventoryItem(items[i]);
+        }
+        ArrangeItems();
+
+        searchButton.SetActive(false);
+        searchPointGridPanel.SetActive(true);
+        packagePanel.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        { 
+        {
+            Debug.Log("Player Detected.");
+            RefreshResource();
+
             searchButton.SetActive(true);
         }
     }
@@ -66,6 +84,8 @@ public class SearchPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         { 
+            items.Clear();
+
             searchButton.SetActive(false);
         }
     }
