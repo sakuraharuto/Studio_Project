@@ -74,13 +74,14 @@ public class SearchPoint : MonoBehaviour
             Debug.Log("Player Detected.");
             searchButton.SetActive(true);
 
-            //if (t == 1)
-            //{
-            //    return;
-            //}
-            //else { 
+            if (t == 1)
+            {
+                return;
+            }
+            else
+            {
                 RefreshResource();
-            //}
+            }
 
         }
     }
