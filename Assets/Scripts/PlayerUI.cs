@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] public GameObject Package;
+    [SerializeField] public GameObject PackageGrid;
     [SerializeField] public GameObject PackageClose;
     [SerializeField] public GameObject PackageButton;
 
     private void Awake()
     {
-        Package.SetActive(false);
+        PackageGrid.SetActive(false);
     }
 
     // Update is called once per frame
@@ -21,13 +21,13 @@ public class PlayerUI : MonoBehaviour
 
     public void OpenPackage()
     {
-        Package.SetActive(true);
+        PackageGrid.SetActive(true);
         PackageButton.SetActive(false);
     }
 
     public void ClosePackage()
     {
-        Package.SetActive(false);
+        PackageGrid.SetActive(false);
         PackageButton.SetActive(true);
     }
 }

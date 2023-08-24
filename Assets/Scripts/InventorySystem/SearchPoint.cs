@@ -15,18 +15,16 @@ public class SearchPoint : MonoBehaviour
     [SerializeField] InventoryController inventoryController;
     [SerializeField] ItemGrid searchPointItemGrid;
 
+    [Header("Item List")]
     public List<ItemData> items;
     public List<ItemData> allItems;
 
     [SerializeField] PlayerMovement player;
 
-    //private void Awake()
-    //{   
-    //    searchPointItemGrid.Init();
-    //}
+    static int t = 1;
 
     private void Start()
-    {
+    {   
         searchPointItemGrid.Init();
     }
 
@@ -44,7 +42,7 @@ public class SearchPoint : MonoBehaviour
     }
 
     public void RefreshResource()
-    {
+    {   
         int newItemCount = Random.Range(1, allItems.Count);
 
         for(int i=0; i< newItemCount; i++)
@@ -74,9 +72,16 @@ public class SearchPoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player Detected.");
-            RefreshResource();
-
             searchButton.SetActive(true);
+
+            //if (t == 1)
+            //{
+            //    return;
+            //}
+            //else { 
+                RefreshResource();
+            //}
+
         }
     }
 
@@ -87,6 +92,8 @@ public class SearchPoint : MonoBehaviour
             items.Clear();
 
             searchButton.SetActive(false);
+
+            t++;
         }
     }
 }

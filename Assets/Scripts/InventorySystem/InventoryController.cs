@@ -208,12 +208,6 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    void ResetPanel()
-    {
-        //remove the item from the item list
-        player.GetSearchPoint().GetComponent<SearchPoint>().items.Clear();
-    }
-
     public void Close()
     {
         storageGrid.SetActive(false);
