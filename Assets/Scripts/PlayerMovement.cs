@@ -1,13 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Setting")]
-    public Camera mainCamera;
-    public NavMeshAgent agent;
-    public float moveSpeed = 5f; // 移动速度
+    public float moveSpeed = 5f; //移动速度
     public GameObject feedbackUI; // UI反馈对象
 
     private float defaultZPosition;
@@ -21,33 +18,34 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {   
         defaultZPosition = transform.position.z;
-        agent.speed = moveSpeed; // 设置 NavMeshAgent 的移动速度
     }
 
     private void Update()
     {
-        if (teleportDoor) {
+        if (teleportDoor) 
+        {
             Debug.Log("已赋值" + teleportDoor);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        MoveCharacter();
+    }
+
+    void MoveCharacter()
+    {
+        float horizontal = Input.GetAxis("Horizontal"); //获取玩家的横向输入
+
+        if(horizontal != 0)
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            Vector3 moveDirection = new Vector3(horizontal, 0f, 0f).normalized; //创建移动方向
+            Vector3 targetPosition = transform.position + moveDirection * moveSpeed * Time.deltaTime; //计算目标位置
 
-            if (Physics.Raycast(ray, out hit)&&hit.collider.gameObject.layer==3)
-            {
-                Vector3 targetPosition = hit.point;
-                targetPosition = hit.point;
-                targetPosition.z = defaultZPosition;
+            transform.position = targetPosition;
+            transform.forward = moveDirection;
+            isMoving = true;
 
-                agent.SetDestination(targetPosition);
-                ShowFeedbackUI(targetPosition);
-                isMoving = true;
-            }
+            ShowFeedbackUI(targetPosition);
         }
-
-        if (isMoving && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        else if(isMoving)
         {
             isMoving = false;
             HideFeedbackUI();
@@ -68,12 +66,8 @@ public class PlayerMovement : MonoBehaviour
     // 上下楼传送
     public void Teleport()
     {
-        GetComponent<NavMeshAgent>().enabled = false;
-            transform.position = teleportDoor.GetComponent<TeleportPoint>().GetTeleportLocation().position;
-        GetComponent<NavMeshAgent>().enabled = true;
-        agent.SetDestination(transform.position);
-
-            Debug.Log("Teleport to location: " + transform.position);
+        transform.position = teleportDoor.GetComponent<TeleportPoint>().GetTeleportLocation().position;
+        Debug.Log("Teleport to location: " + transform.position);
     }
 
     public GameObject GetSearchPoint()
