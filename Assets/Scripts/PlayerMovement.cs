@@ -12,17 +12,20 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Function Setting")]
     public GameObject searchPoint;
-    
+
+    private Rigidbody rb; // 添加Rigidbody引用
+
     [HideInInspector] public GameObject teleportDoor;
 
     private void Start()
-    {   
+    {
         defaultZPosition = transform.position.z;
+        rb = GetComponent<Rigidbody>(); // 初始化Rigidbody引用
     }
 
     private void Update()
     {
-        if (teleportDoor) 
+        if (teleportDoor)
         {
             Debug.Log("已赋值" + teleportDoor);
         }
@@ -34,19 +37,26 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal"); //获取玩家的横向输入
 
-        if(horizontal != 0)
+        if (horizontal != 0)
         {
             Vector3 moveDirection = new Vector3(horizontal, 0f, 0f).normalized; //创建移动方向
-            Vector3 targetPosition = transform.position + moveDirection * moveSpeed * Time.deltaTime; //计算目标位置
+            Vector3 moveVelocity = moveDirection * moveSpeed;
 
-            transform.position = targetPosition;
+            // 保持y轴速度，以考虑重力
+            moveVelocity.y = rb.velocity.y;
+
+            rb.velocity = moveVelocity;
+
             transform.forward = moveDirection;
             isMoving = true;
 
-            ShowFeedbackUI(targetPosition);
+            ShowFeedbackUI(transform.position + moveDirection);
         }
-        else if(isMoving)
+        else if (isMoving)
         {
+            Vector3 stopVelocity = new Vector3(0, rb.velocity.y, 0);
+            rb.velocity = stopVelocity;
+
             isMoving = false;
             HideFeedbackUI();
         }
@@ -77,12 +87,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("TeleportDoor"))
+        if (other.CompareTag("TeleportDoor"))
         {
             teleportDoor = other.gameObject;
         }
 
-        if(other.CompareTag("SearchPoint"))
+        if (other.CompareTag("SearchPoint"))
         {
             searchPoint = other.gameObject;
         }
@@ -90,13 +100,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("TeleportDoor"))
+        if (other.CompareTag("TeleportDoor"))
         {
             teleportDoor = null;
         }
 
         if (other.CompareTag("SearchPoint"))
-        {   
+        {
             searchPoint = null;
         }
     }

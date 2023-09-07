@@ -10979,6 +10979,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
   itemPrefab: {fileID: 964789412533931169, guid: 9670a3f48d968404580f6e3b4dfe2c2d, type: 3}
   canvasTransform: {fileID: 1198593320}
+  player: {fileID: 0}
+  storageGrid: {fileID: 0}
 --- !u!114 &362412115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12405,11 +12407,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 1}
-      - {x: -9.185519, y: 1.1992271}
-      - {x: -10.602672, y: -6.1502914}
-      - {x: 51.99753, y: -6.372842}
-      - {x: 50.80294, y: 1.1992283}
+    - - {x: 4.182361, y: 9.804978}
+      - {x: -15.789255, y: -5.624633}
+      - {x: -17.426529, y: -20.018137}
+      - {x: 34.6077, y: -20.24068}
+      - {x: 33.413116, y: 8.903587}
 --- !u!4 &487761546
 Transform:
   m_ObjectHideFlags: 0

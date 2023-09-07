@@ -2100,12 +2100,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchButton: {fileID: 268586724}
   packagePanel: {fileID: 357832334}
-  searchPointPanel: {fileID: 1966442328}
+  searchPointGridPanel: {fileID: 0}
   inventoryController: {fileID: 1012213566}
   searchPointItemGrid: {fileID: 1966442331}
   items:
   - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
   - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
+  allItems: []
+  player: {fileID: 0}
 --- !u!65 &406237952
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7026,6 +7028,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
   itemPrefab: {fileID: 964789412533931169, guid: 9670a3f48d968404580f6e3b4dfe2c2d, type: 3}
   canvasTransform: {fileID: 1898747682}
+  player: {fileID: 0}
+  storageGrid: {fileID: 0}
 --- !u!114 &1012213567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9501,13 +9505,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchButton: {fileID: 1632415748}
   packagePanel: {fileID: 357832334}
-  searchPointPanel: {fileID: 102850242}
+  searchPointGridPanel: {fileID: 0}
   inventoryController: {fileID: 1012213566}
   searchPointItemGrid: {fileID: 102850245}
   items:
   - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
   - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
   - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
+  allItems: []
+  player: {fileID: 0}
 --- !u!65 &1460547149
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12386,10 +12392,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7927002986765568581, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
-      propertyPath: Package
-      value: 
-      objectReference: {fileID: 357832334}
-    - target: {fileID: 7927002986765568581, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
       propertyPath: PackageClose
       value: 
       objectReference: {fileID: 2987343}
@@ -12401,10 +12403,6 @@ PrefabInstance:
       propertyPath: feedbackUI
       value: 
       objectReference: {fileID: 1228686785}
-    - target: {fileID: 7927002986765568604, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1347846745}
     - target: {fileID: 7927002986765568605, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
       propertyPath: m_Name
       value: Player

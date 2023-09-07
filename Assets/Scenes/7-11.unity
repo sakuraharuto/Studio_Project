@@ -11797,10 +11797,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7927002986765568581, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
-      propertyPath: Package
-      value: 
-      objectReference: {fileID: 2098165228}
-    - target: {fileID: 7927002986765568581, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
       propertyPath: PackageClose
       value: 
       objectReference: {fileID: 551851359}
@@ -11812,10 +11808,6 @@ PrefabInstance:
       propertyPath: feedbackUI
       value: 
       objectReference: {fileID: 41225604}
-    - target: {fileID: 7927002986765568604, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1559188318}
     - target: {fileID: 7927002986765568605, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
       propertyPath: m_Name
       value: Player
@@ -14345,6 +14337,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
   itemPrefab: {fileID: 964789412533931169, guid: 9670a3f48d968404580f6e3b4dfe2c2d, type: 3}
   canvasTransform: {fileID: 1707372812}
+  player: {fileID: 0}
+  storageGrid: {fileID: 0}
 --- !u!114 &1885710961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14553,7 +14547,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh41522
+  m_Name: pb_Mesh27288
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
