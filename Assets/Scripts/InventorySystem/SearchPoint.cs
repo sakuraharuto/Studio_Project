@@ -28,6 +28,18 @@ public class SearchPoint : MonoBehaviour
         searchPointItemGrid.Init();
     }
 
+    private void Update()
+    {
+        if (searchButton.activeSelf ) {
+
+            if (Input.GetKeyUp(KeyCode.E)) {
+
+                Open();
+
+            }
+        }
+    }
+
     public void ArrangeItems()
     {   
         for(int i=0; i<items.Count; i++)

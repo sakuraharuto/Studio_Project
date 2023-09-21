@@ -9,7 +9,9 @@ public class PlayerMovement : MonoBehaviour
 
     private float defaultZPosition;
     private bool isMoving = false;
-
+    private bool canTeleport = false;
+    private bool canOpenDoor = false;
+   
     [Header("Function Setting")]
     public GameObject searchPoint;
 
@@ -31,6 +33,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         MoveCharacter();
+
+        if (Input.GetKeyUp(KeyCode.W)&&canTeleport) {
+            Teleport();
+
+        }
+
+
+
     }
 
     void MoveCharacter()
@@ -90,11 +100,13 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("TeleportDoor"))
         {
             teleportDoor = other.gameObject;
+            canTeleport = true;
         }
 
         if (other.CompareTag("SearchPoint"))
         {
             searchPoint = other.gameObject;
+            
         }
     }
 
@@ -103,11 +115,13 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("TeleportDoor"))
         {
             teleportDoor = null;
+            canTeleport = false;
         }
 
         if (other.CompareTag("SearchPoint"))
         {
             searchPoint = null;
+         
         }
     }
 }

@@ -21,7 +21,6 @@ public class DoorFunction : MonoBehaviour
     private bool Opened = false;
     private Vector3 StartRotation;
     private Vector3 Forward;
-
     private Coroutine AnimCoroutine;
 
     // check door status for path finder
@@ -43,7 +42,24 @@ public class DoorFunction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Canvas.activeSelf)
+        {
+            if ((!isOpened || isLocked) && Input.GetKeyUp(KeyCode.R))
+            {
+
+                OpenButton();
+            }
+            else if (isOpened && Input.GetKeyUp(KeyCode.R))
+            {
+                if (Opened)
+                {
+                    CloseDoor();
+                }
+
+            }
+
+        }
+     
     }
 
     public void OpenButton()
@@ -53,7 +69,7 @@ public class DoorFunction : MonoBehaviour
         Canvas.SetActive(false);
         OpenDoor(Player.position);
 
-        Destroy(GetComponent<NavMeshObstacle>(), 0.5f);
+        //Destroy(GetComponent<NavMeshObstacle>(), 0.5f);
     }
 
     public void OpenDoor(Vector3 UserPosition)
@@ -132,6 +148,7 @@ public class DoorFunction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.TryGetComponent<CharacterController>(out CharacterController Controller))
         {   
             // first time or locked, show the button
@@ -150,7 +167,8 @@ public class DoorFunction : MonoBehaviour
 
     }
     private void OnTriggerExit(Collider other)
-    {   
+    {
+        
         Canvas.SetActive(false);
         if(other.TryGetComponent<CharacterController>(out CharacterController Controller))
         {
@@ -161,5 +179,7 @@ public class DoorFunction : MonoBehaviour
         }
         
     }
+
+ 
 
 }
