@@ -10,9 +10,11 @@ public class Unit : MonoBehaviour
     public int currentHP;
     public int currentShield;
 
-    public int damage;
+    //public int damage;
+    //public int shield;
 
-    public int shield;
+    public List<CardObject> UsedDeck;
+    public List<CardObject> NewDeck;
 
     public void TakeDamage(int dmg)
     {   
@@ -28,14 +30,12 @@ public class Unit : MonoBehaviour
             currentHP -= dmg;
             Debug.Log("Current Shield: " + currentShield);
             Debug.Log("\nCurrent Hp: " + currentHP);
-            CheckAlive();
         }
         else
         {   
             currentHP -= dmg;
             Debug.Log("Current Shield: " + currentShield);
             Debug.Log("\nCurrent Hp: " + currentHP);
-            CheckAlive();
         }
     }
     
