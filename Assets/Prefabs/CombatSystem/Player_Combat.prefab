@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1434996730909452519}
   - component: {fileID: 7458889905779775183}
   - component: {fileID: 8567998212609673617}
+  - component: {fileID: -7560457089711258380}
   m_Layer: 0
   m_Name: Player_Combat
   m_TagString: Untagged
@@ -100,5 +101,16 @@ MonoBehaviour:
   maxHP: 50
   currentHP: 50
   currentShield: 0
-  UsedDeck: []
-  NewDeck: []
+--- !u!114 &-7560457089711258380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110885202674192799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66981aa0ad3d1f74287265cf8524465e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deck: []

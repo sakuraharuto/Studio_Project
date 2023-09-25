@@ -1329,8 +1329,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1478407004}
-  - component: {fileID: 1478407006}
   - component: {fileID: 1478407005}
+  - component: {fileID: 1478407006}
   m_Layer: 0
   m_Name: CombatManager
   m_TagString: Untagged
@@ -1370,6 +1370,7 @@ MonoBehaviour:
   playerPosition: {fileID: 111213393}
   enemyPosition: {fileID: 1381077962}
   state: 0
+  playerCardManager: {fileID: 1478407006}
 --- !u!114 &1478407006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1379,9 +1380,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1478407002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b4913ed45090e4898394f0da2bd41d, type: 3}
+  m_Script: {fileID: 11500000, guid: 66981aa0ad3d1f74287265cf8524465e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deck: []
 --- !u!1 &1880103620
 GameObject:
   m_ObjectHideFlags: 0

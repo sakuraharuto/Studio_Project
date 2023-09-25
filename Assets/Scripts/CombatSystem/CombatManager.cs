@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TurnState { START, PLAYERTURN, ENEMYTURN, WIN, LOST, FLEE }
+public enum TurnState { START, INITIAL, PLAYERTURN, ENEMYTURN, WIN, LOST, FLEE }
+// gameplay flow:
+// 1.Start ==> Initial units position + Draw cards + show UI
+// 2.InitialTurn ==> Draw cards from deck, 5 cards each turn
+// 3.Player Turn
+// 4.InitialTurn ==> Draws cards for enemy
+// 5.Enemy Turn 
+// 6.End = Win/Defeat/Flee
 
 public class CombatManager : MonoBehaviour
 {
-    //public static CombatManager instance = new CombatManager();
-
     public GameObject player;
     public GameObject enemy;
 
@@ -18,17 +23,20 @@ public class CombatManager : MonoBehaviour
     Unit enemyUnit;
 
     public TurnState state;
-    
-    //CardObject card;
+
+    [SerializeField]
+    PlayerCardManager playerCardManager;
+    //CardManager cardManager;
 
     // Start is called before the first frame update
     void Start()
     {
         state = TurnState.START;
-        SetupCombat();
+        playerCardManager.Init();
+        StartCoroutine(SetupCombat());
     }
     
-    void SetupCombat()
+    IEnumerator SetupCombat()
     {
         //Combat Start
         //Initial Positions of Player and Enemy 
@@ -36,6 +44,15 @@ public class CombatManager : MonoBehaviour
         Instantiate(enemy, enemyPosition);
 
         //Initial Player cards deck
+
+        yield return new WaitForSeconds(2f);
+        PlayerTurn();
+    }
+
+    //
+    void TurnInitial()
+    {
+        //cardManager.InitCards();
     }
 
     void PlayerTurn()
@@ -49,7 +66,6 @@ public class CombatManager : MonoBehaviour
 
         //drop cards
 
-        
         if (isDead)
         {
             state = TurnState.WIN;
