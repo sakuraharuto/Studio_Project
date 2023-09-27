@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardObject
 {
+    public Dictionary<string, string> data;
+
     [Header("Card Config")]
     public string id;
     public string cardName;
@@ -14,8 +17,12 @@ public class CardObject
     public int cost;
     public int damage;
     public int shield;
+    
+    public void Init(Dictionary<string, string> data)
+    {
+        this.data = data;
+    }
 
-    //Player player;
     public string GetID() { return id; }
 
     public int GetCost() { return cost; }

@@ -9,8 +9,8 @@ public class CardManager : MonoBehaviour
     public List<string> cardDeck;
     public List<string> usedDeck;
 
-    CardObject card;
-
+    //CardObject card;
+    Card card;
     public void Init()
     {
         cardDeck = new List<string>();
@@ -38,36 +38,44 @@ public class CardManager : MonoBehaviour
         return cardDeck.Count > 0;  
     }
 
-    public string GetCardID()
+    public string GetCardName()
     {
-        return card.GetID();
+        return card.GetName();
     }
 
-    public void InitCards()
-    {   
-        for(int i = 0; i < 5; i++)
-        {
-            cardDeck.Add("1001");
-            cardDeck.Add("1002");
-        }
-        cardDeck.Add("1003");
-        cardDeck.Add("1004");
-    }
+    //public void InitCards()
+    //{   
+    //    for(int i = 0; i < 5; i++)
+    //    {
+    //        cardDeck.Add("1001");
+    //        cardDeck.Add("1002");
+    //    }
+    //    cardDeck.Add("1003");
+    //    cardDeck.Add("1004");
+    //}
 
     // shuffle, used deck ==> deck
     public void Shuffle()
     {
-
+        Debug.Log("Shuffle cards deck.");
+        for(int i = 0; i < cardDeck.Count-1; i++)
+        {
+            int tempPos = Random.Range(1, cardDeck.Count);
+            cardDeck[tempPos] = usedDeck[i];
+            usedDeck.RemoveAt(i);
+        }
     }
 
     // return card at the last position in the list
     public string DrawCard()
-    {   
-        string id = cardDeck[cardDeck.Count - 1];
+    {
+        Debug.Log("Draw ONE card from the top of card deck.");
+
+        string name = cardDeck[cardDeck.Count - 1];
 
         cardDeck.RemoveAt(cardDeck.Count - 1);
 
-        return id;
+        return name;
     }
 
 }
