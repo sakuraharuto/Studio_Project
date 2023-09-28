@@ -23,19 +23,25 @@ public class CombatManager : MonoBehaviour
     [HideInInspector] public Unit playerUnit;
     [HideInInspector] public Unit enemyUnit;
 
-    [Header("Turn")]
+    [Header("Turn State")]
     public TurnState state;
 
     [Header("Combat Config")]
-    [SerializeField] PlayerCardManager playerCardManager;
     [SerializeField] CombatUI combatUI;
+    [SerializeField] List<string> Deck;
 
     // Start is called before the first frame update
     void Start()
     {
+        Deck = new List<string>();
+
         state = TurnState.START;
         //combatUI.Start(); 
-        playerCardManager.Init();
+        PlayerCardManager.Instance.Init();
+        CardManager.Instance.Init();
+
+        Deck.AddRange(CardManager.Instance.cardDeck);
+
         StartCoroutine(SetupCombat());
     }
     
@@ -46,7 +52,7 @@ public class CombatManager : MonoBehaviour
         Instantiate(player, playerPosition);
         Instantiate(enemy, enemyPosition);
         playerUnit = player.GetComponent<Unit>();
-        combatUI.Start();
+        //combatUI.Start();
 
         yield return new WaitForSeconds(2f);
         PlayerTurn();
@@ -137,5 +143,19 @@ public class CombatManager : MonoBehaviour
     {   
         state = TurnState.ENEMYTURN;
         EnemyTurn();
+    }
+
+    public void DrawCardFromDeck()
+    {
+        Debug.Log("The card is: " + CardManager.Instance.DrawCard());
+
+    }
+
+    public void PrintDeck()
+    {
+        for (int i = 0; i < Deck.Count; i++)
+        {
+            Debug.Log(Deck[i]);
+        }
     }
 }

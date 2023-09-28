@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 // save player cards and decks
-public class PlayerCardManager : MonoBehaviour
+public class PlayerCardManager
 {
-    CardManager cardManager;
+    public static PlayerCardManager Instance = new PlayerCardManager();
 
     [Header("Card List")]
     public List<string> deck;
 
     public void Init()
     {
-        Debug.Log("Player has cards");
+        //Debug.Log("Player has cards");
         deck = new List<string>();
 
+        //Assign cards in deck
         deck.Add("Attack");
         deck.Add("Attack");
         deck.Add("Attack");
@@ -28,8 +29,4 @@ public class PlayerCardManager : MonoBehaviour
         deck.Add("Item");
     }
     
-    public void DrawCard()
-    {
-        deck.Add(cardManager.DrawCard());
-    }
 }

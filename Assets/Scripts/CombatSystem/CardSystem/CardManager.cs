@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardManager : MonoBehaviour
-{
-    PlayerCardManager playerCardManager;
+public class CardManager
+{   
+    public static CardManager Instance = new CardManager();
 
     public List<string> cardDeck;
     public List<string> usedDeck;
@@ -17,10 +17,10 @@ public class CardManager : MonoBehaviour
         usedDeck = new List<string>();
 
         List<string> tempDeck = new List<string>();
-        tempDeck.AddRange(playerCardManager.deck);
-        
+        tempDeck.AddRange(PlayerCardManager.Instance.deck);
+
         //shuffle player's deck for each combat
-        while(tempDeck.Count > 0)
+        while (tempDeck.Count > 0)
         {
             int tempPos = Random.Range(0, tempDeck.Count);
 
@@ -28,7 +28,6 @@ public class CardManager : MonoBehaviour
 
             tempDeck.RemoveAt(tempPos);
         }
-
         Debug.Log(cardDeck.Count);
     }
 
@@ -42,17 +41,6 @@ public class CardManager : MonoBehaviour
     {
         return card.GetName();
     }
-
-    //public void InitCards()
-    //{   
-    //    for(int i = 0; i < 5; i++)
-    //    {
-    //        cardDeck.Add("1001");
-    //        cardDeck.Add("1002");
-    //    }
-    //    cardDeck.Add("1003");
-    //    cardDeck.Add("1004");
-    //}
 
     // shuffle, used deck ==> deck
     public void Shuffle()
