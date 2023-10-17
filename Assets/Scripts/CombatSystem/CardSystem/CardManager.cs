@@ -1,3 +1,4 @@
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +10,10 @@ public class CardManager
     public List<string> cardDeck;
     public List<string> usedDeck;
 
-    //CardObject card;
+
+    // CardObject card;
     Card card;
+
     public void Init()
     {
         cardDeck = new List<string>();
@@ -28,7 +31,7 @@ public class CardManager
 
             tempDeck.RemoveAt(tempPos);
         }
-        Debug.Log(cardDeck.Count);
+        //Debug.Log(cardDeck.Count);
     }
 
     // check for shuffle
@@ -37,10 +40,10 @@ public class CardManager
         return cardDeck.Count > 0;  
     }
 
-    public string GetCardName()
-    {
-        return card.GetName();
-    }
+    //public string GetCardName()
+    //{
+    //    return card.GetName();
+    //}
 
     // shuffle, used deck ==> deck
     public void Shuffle()
@@ -57,13 +60,22 @@ public class CardManager
     // return card at the last position in the list
     public string DrawCard()
     {
-        Debug.Log("Draw ONE card from the top of card deck.");
-
+        // Debug.Log("Draw ONE card from the top of card deck.");
+        Debug.Log(cardDeck.Count);
         string name = cardDeck[cardDeck.Count - 1];
-
         cardDeck.RemoveAt(cardDeck.Count - 1);
 
         return name;
     }
+
+    //public string GetCard(string name)
+    //{   
+    //    int index = cardDeck.Count - 1;
+    //    if (cardDeck[index] == name)
+    //    {
+    //        return cardDeck[index];
+    //    }
+    //    return null;
+    //}
 
 }

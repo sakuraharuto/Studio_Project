@@ -13,8 +13,8 @@ public class Unit : MonoBehaviour
     //public int damage;
     //public int shield;
 
-    public List<CardObject> UsedDeck;
-    public List<CardObject> NewDeck;
+    //public List<Card> UsedDeck;
+    //public List<Card> NewDeck;
 
     public void TakeDamage(int dmg)
     {   

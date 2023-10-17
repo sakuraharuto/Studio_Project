@@ -12,21 +12,36 @@ public class PlayerCardManager
     public void Init()
     {
         //Debug.Log("Player has cards");
-        deck = new List<string>();
+        deck = new List<string>
+        {
+            // Assign cards in deck
+            "Attack",
+            "Attack",
+            "Attack",
+            "Attack",
 
-        //Assign cards in deck
-        deck.Add("Attack");
-        deck.Add("Attack");
-        deck.Add("Attack");
-        deck.Add("Attack");
+            "Shield",
+            "Shield",
+            "Shield",
+            "Shield",
 
-        deck.Add("Shield");
-        deck.Add("Shield");
-        deck.Add("Shield");
-        deck.Add("Shield");
+            "Special",
+            "Item"
 
-        deck.Add("Special");
-        deck.Add("Item");
+            // test deck
+            //"Attack",
+            //"Attack",
+            //"Attack",
+            //"Attack",
+            
+            //"Attack",
+            //"Attack",
+            //"Attack",
+            //"Attack",
+            
+            //"Attack",
+            //"Attack"
+        };
     }
     
 }

@@ -13,7 +13,9 @@ public enum TurnState { START, INITIAL, PLAYERTURN, ENEMYTURN, WIN, LOST, FLEE }
 // 6.End = Win/Defeat/Flee
 
 public class CombatManager : MonoBehaviour
-{
+{   
+    public static CombatManager instance;
+
     [Header("Character Initial")]
     public GameObject player;
     public GameObject enemy;
@@ -27,16 +29,21 @@ public class CombatManager : MonoBehaviour
     public TurnState state;
 
     [Header("Combat Config")]
-    [SerializeField] CombatUI combatUI;
+    //[SerializeField] CombatUI combatUI;
     [SerializeField] List<string> Deck;
+
+    //[Header("test")]
+    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        Deck = new List<string>();
+        instance = this;
 
         state = TurnState.START;
-        //combatUI.Start(); 
+        Deck = new List<string>();
+
         PlayerCardManager.Instance.Init();
         CardManager.Instance.Init();
 
@@ -49,22 +56,28 @@ public class CombatManager : MonoBehaviour
     {
         //Combat Start
         //Initial Positions of Player and Enemy 
+
         Instantiate(player, playerPosition);
         Instantiate(enemy, enemyPosition);
         playerUnit = player.GetComponent<Unit>();
+
         //combatUI.Start();
 
-        yield return new WaitForSeconds(2f);
-        PlayerTurn();
+        //yield return new WaitForSeconds(2f);
+        yield return null;
+        //PlayerTurn();
+        TurnInitial();
     }
 
-    //
     void TurnInitial()
     {
-        Debug.Log("Start Combat !!!");
-        //Draw cards
-        //uiManager.GetUI<CombatUI>("CombatUI").CreateCardItem(3);
-        //uiManager.GetUI<CombatUI>("CombatUI").UpdateCardPosition();
+        // Debug.Log("Prepare for player's turn");
+        // UIManager.Instance.GetUI<CombatUI>("CombatUI").CreateCardItem(3);   // initxial hand card
+        // Instantiate(cardPrefab, handLeftPoint);
+
+        CombatUI.instance.CreateCardItem(3);
+        CombatUI.instance.UpdateCardPosition();
+
     }
 
     void PlayerTurn()
@@ -74,9 +87,9 @@ public class CombatManager : MonoBehaviour
         //bool isDead = enemyUnit.CheckAlive();
 
         //Draw cards
-        
-        //uiManager.GetUI<CombatUI>("CombatUI").CreateCardItem(3);
-        //uiManager.GetUI<CombatUI>("CombatUI").UpdateCardPosition();
+
+        //UIManager.Instance.GetUI<CombatUI>("Card").CreateCardItem(3);
+        //UIManager.Instance.GetUI<CombatUI>("Card").UpdateCardPosition();
 
         //use cards
 
@@ -148,7 +161,7 @@ public class CombatManager : MonoBehaviour
     public void DrawCardFromDeck()
     {
         Debug.Log("The card is: " + CardManager.Instance.DrawCard());
-
+        //UIManager.Instance.GetUI<CombatUI>("Card").CreateCardItem(1);
     }
 
     public void PrintDeck()

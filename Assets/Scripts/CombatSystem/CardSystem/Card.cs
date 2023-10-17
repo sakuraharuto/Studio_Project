@@ -8,6 +8,7 @@ public class Card : ScriptableObject
     [Header("Card Config")]
     public string cardName;
     public string description;
+    public bool isAOE;
 
     public Sprite image;
 
@@ -16,7 +17,6 @@ public class Card : ScriptableObject
     public int shield;
 
     public string GetName(){ return cardName; }
-    
     public int GetManaCost() { return manaCost;}
     public int GetDamage() { return damage;}
     public int GetShield() {  return shield;}

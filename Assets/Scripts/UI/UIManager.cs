@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    // public static UIManager Instance;
+    public static UIManager Instance;
 
-    private Transform canvas;
+    [SerializeField] private Transform canvas;
 
     private List<UIBase> uiList;
 
     private void Awake()
     {
-        //Instance = this;
-        canvas = GameObject.Find("Canvas").transform;
+        Instance = this;
+        //canvas = GameObject.Find("Canvas").transform;
 
         uiList = new List<UIBase>();
     }
@@ -70,7 +70,8 @@ public class UIManager : MonoBehaviour
 
     public UIBase Find(string uiName)
     {
-        for(int i = 0; i < uiList.Count; i++)
+        Debug.Log(uiList.Count);
+        for (int i = 0; i < uiList.Count; i++)
         {
             if (uiList[i].name == uiName)
             {
@@ -83,6 +84,7 @@ public class UIManager : MonoBehaviour
     public T GetUI<T>(string uiName) where T : UIBase
     {
         UIBase ui = Find(uiName);
+        Debug.Log(ui);
         if( ui != null )
         {
             return ui.GetComponent<T>();

@@ -5,13 +5,13 @@ using UnityEngine.UI;
 using TMPro;
 
 public class CombatUI : UIBase
-{   
-    // [Header("Manager Config")]
-    CombatManager combatManager;
-    CardManager cardManager;
-    PlayerCardManager playerCardManager;
+{
+    [Header("Manager Config")]
+    public static CombatUI instance;
+    public Transform canvasTF;
 
-    // [Header("Cards UI")]
+
+    [Header("Icons")]
     //private Text deckCount;
     //private Text usedDeckCount;
     //private Text costCount;
@@ -20,7 +20,7 @@ public class CombatUI : UIBase
     public TMP_Text usedDeckCount;
     public TMP_Text costCount;
 
-    // [Header("Player HUD")]
+    [Header("Player HUD")]
     //character HUD
     //private Text hp;
     //private Text shield;
@@ -28,86 +28,117 @@ public class CombatUI : UIBase
     public TMP_Text shield;
 
     [Header("Cards UI")]
-    //private List<CardObject> cardDeck;
-    public List<Card> cardDeck;
+    public GameObject cardPrefab;   // show as hand card
+    [SerializeField] private RectTransform handLeftPoint;
+    [SerializeField] private float offset;
 
-    [SerializeField]
-    Transform leftPos;
+    // store all cards and data
+    public Card[] allCards;
+    public List<GameObject> cardList;
 
+    // public CardDisplay[] allCards;
+    //public Card card;
 
     public void Awake()
-    {
-        //deckCount = transform.Find("Canvas/CardDeck_icon/Count").GetComponent<Text>();
-        //usedDeckCount = transform.Find("Canvas/UsedCardsDeck_icon/Count").GetComponent<Text>();
-        //costCount = transform.Find("Canvas/Cost_icon/Count").GetComponent<Text>();
+    {   
+        instance = this;
 
-        //deckCount = transform.Find("Canvas/CardDeck_icon/Count").GetComponent<TextMeshPro>();
-        //usedDeckCount = transform.Find("Canvas/UsedCardsDeck_icon/Count").GetComponent<TextMeshPro>();
-        //costCount = transform.Find("Canvas/Cost_icon/Count").GetComponent<TextMeshPro>();
+        canvasTF = GameObject.Find("Canvas").transform;
 
-        costCount.text = combatManager.playerUnit.cost.ToString();
-        deckCount.text = cardManager.cardDeck.Count.ToString();
-        usedDeckCount.text = cardManager.usedDeck.Count.ToString();
+        // load all cards
+        allCards = Resources.LoadAll<Card>("Cards");
+        Debug.Log("cards: " + allCards.Length);
+
     }
 
     public void Start()
     {
-        UpdateCost();
-        UpdateCardsDeck();
-        UpdateUsedCardsDeck();
+        //UpdateCost();
+        //UpdateCardsDeck();
+        //UpdateUsedCardsDeck();
     }
 
     public void UpdateCost()
     {
-        costCount.text = combatManager.playerUnit.cost.ToString();
+        costCount.text = CombatManager.instance.playerUnit.cost.ToString();
+        Debug.Log("Player has: " + costCount.text);
     }
 
     public void UpdateCardsDeck()
     {
-        deckCount.text = cardManager.cardDeck.Count.ToString();
+        deckCount.text = CardManager.Instance.cardDeck.Count.ToString();
     }
 
     public void UpdateUsedCardsDeck()
     {
-        usedDeckCount.text = cardManager.usedDeck.Count.ToString();
+        usedDeckCount.text = CardManager.Instance.usedDeck.Count.ToString();
     }
 
     public void UpdateCurrentHP()
     {
-        hp.text = combatManager.playerUnit.currentHP.ToString();
+        hp.text = CombatManager.instance.playerUnit.currentHP.ToString();
+        Debug.Log("Player has: " + hp.text);
     }
 
     public void UpdateShield()
     {
-        shield.text = combatManager.playerUnit.currentShield.ToString();
+        shield.text = CombatManager.instance.playerUnit.currentShield.ToString();
+        Debug.Log("Player has: " + shield.text);
     }
 
+    // count => draw COUNT cards from deck
     public void CreateCardItem(int count)
     {
-        if(count > playerCardManager.deck.Count)
+        if(count > PlayerCardManager.Instance.deck.Count)
         {
-            count = playerCardManager.deck.Count;
+            count = PlayerCardManager.Instance.deck.Count;
         }
-        //for(int i = 0; i < count; i++)
-        //{
-        //    GameObject obj = Instantiate()
-        //    obj.GetComponent<RectTransform>().anchorPosition = new Vector2(posX, posY);
-        //    var item = obj.AddComponent<CardObject>();
-        //    string id = combatCardManager.DrawCard();
-        //    // Dictionary<string, string> data =
-        //    item.Init(data);
-        //    cardDeck.Add(item);
-        //}
+
+        for (int i = 0; i < count; i++)
+        {
+            Card card = DrawCard();
+
+            GameObject obj = Instantiate(cardPrefab, canvasTF);
+            obj.GetComponent<CardDisplay>().cardImage.sprite = card.image;
+
+            cardList.Add(obj);  // update hand card deck
+        }
     }
 
+    public Card DrawCard()
+    {
+        // get the card on the top of deck
+        string name = CardManager.Instance.DrawCard();
+
+        // find the card based on name
+        foreach(var Card in allCards)
+        {
+            //Debug.Log(name);
+            if(Card.GetName() == name)
+            {
+                //Debug.Log("The card is " + name);
+                return Card;
+            }
+        }
+
+        return null;
+    }
+
+    // arrange positions of hand cards
     public void UpdateCardPosition()
     {
-        //float offset = 100f;
-        //for(int i = 0; i < cardDeck.Count; i++)
-        //{
-        //    cardDeck.[i].GetComponent<RectTransform>().DOAnchorPos(leftPos, 0.5f);
-        //    leftPos.position.x += offset;
-        //}
+        Debug.Log("Moving");
+        
+        float offset = 480f / cardList.Count;
+        Vector2 handPos = new Vector2(-handLeftPoint.anchoredPosition.x, handLeftPoint.anchoredPosition.y);
+
+        for (int i = 0; i < cardList.Count; i++)
+        {   
+            //Vector2 handPos = new Vector2()
+            cardList[i].GetComponent<RectTransform>().anchoredPosition = handPos;
+            handPos.x += offset;
+            
+        }
     }
 
 }
