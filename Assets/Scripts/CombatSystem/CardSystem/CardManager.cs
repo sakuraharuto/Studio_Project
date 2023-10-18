@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CardManager
 {   
-    public static CardManager Instance = new CardManager();
+    public static CardManager instance = new CardManager();
 
     public List<string> cardDeck;
     public List<string> usedDeck;
@@ -20,7 +20,7 @@ public class CardManager
         usedDeck = new List<string>();
 
         List<string> tempDeck = new List<string>();
-        tempDeck.AddRange(PlayerCardManager.Instance.deck);
+        tempDeck.AddRange(PlayerCardManager.instance.deck);
 
         //shuffle player's deck for each combat
         while (tempDeck.Count > 0)
@@ -61,7 +61,7 @@ public class CardManager
     public string DrawCard()
     {
         // Debug.Log("Draw ONE card from the top of card deck.");
-        Debug.Log(cardDeck.Count);
+        // Debug.Log(cardDeck.Count);
         string name = cardDeck[cardDeck.Count - 1];
         cardDeck.RemoveAt(cardDeck.Count - 1);
 

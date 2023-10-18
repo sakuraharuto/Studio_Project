@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro.EditorUtilities;
 using UnityEngine;
 
-public enum TurnState { START, INITIAL, PLAYERTURN, ENEMYTURN, WIN, LOST, FLEE }
+public enum TurnState { INITIAL, START, END, PLAYERTURN, ENEMYTURN, WIN, LOST, FLEE }
 // gameplay flow:
 // 1.Start ==> Initial units position + Draw cards + show UI
 // 2.InitialTurn ==> Draw cards from deck, 5 cards each turn
@@ -29,7 +29,6 @@ public class CombatManager : MonoBehaviour
     public TurnState state;
 
     [Header("Combat Config")]
-    //[SerializeField] CombatUI combatUI;
     [SerializeField] List<string> Deck;
 
     //[Header("test")]
@@ -41,13 +40,13 @@ public class CombatManager : MonoBehaviour
     {
         instance = this;
 
-        state = TurnState.START;
+        state = TurnState.INITIAL;
         Deck = new List<string>();
 
-        PlayerCardManager.Instance.Init();
-        CardManager.Instance.Init();
+        PlayerCardManager.instance.Init();
+        CardManager.instance.Init();
 
-        Deck.AddRange(CardManager.Instance.cardDeck);
+        Deck.AddRange(CardManager.instance.cardDeck);
 
         StartCoroutine(SetupCombat());
     }
@@ -61,25 +60,31 @@ public class CombatManager : MonoBehaviour
         Instantiate(enemy, enemyPosition);
         playerUnit = player.GetComponent<Unit>();
 
-        //combatUI.Start();
-
         //yield return new WaitForSeconds(2f);
         yield return null;
         //PlayerTurn();
-        TurnInitial();
+        CombatInitial();
     }
 
-    void TurnInitial()
-    {
-        // Debug.Log("Prepare for player's turn");
+    // Initial player hand cards
+    void CombatInitial()
+    {   
+        
         // UIManager.Instance.GetUI<CombatUI>("CombatUI").CreateCardItem(3);   // initxial hand card
         // Instantiate(cardPrefab, handLeftPoint);
 
-        CombatUI.instance.CreateCardItem(3);
+        CombatUI.instance.CreateCardItem(1);
         CombatUI.instance.UpdateCardPosition();
 
     }
 
+    // prepare phase of each turn
+    void TurnStart()
+    {
+
+    }
+
+    // player actions
     void PlayerTurn()
     {
         Debug.Log("Current Turn: " + state);
@@ -107,6 +112,17 @@ public class CombatManager : MonoBehaviour
         //}
     }
 
+    // settle phase for each turn
+    void TurnEnd()
+    {
+        // settle player actions
+
+        // switch turn
+        state = TurnState.ENEMYTURN;
+        EnemyTurn();
+    }
+
+    // enemy actions
     void EnemyTurn()
     {
         Debug.Log("Current Turn: " + state);
@@ -152,15 +168,9 @@ public class CombatManager : MonoBehaviour
         Debug.Log("Defeat !!!");
     }
 
-    public void TurnEnd()
-    {   
-        state = TurnState.ENEMYTURN;
-        EnemyTurn();
-    }
-
     public void DrawCardFromDeck()
     {
-        Debug.Log("The card is: " + CardManager.Instance.DrawCard());
+        Debug.Log("The card is: " + CardManager.instance.DrawCard());
         //UIManager.Instance.GetUI<CombatUI>("Card").CreateCardItem(1);
     }
 

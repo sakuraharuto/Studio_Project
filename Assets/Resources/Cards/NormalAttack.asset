@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7f87c9bddb86ba42aee56dcc5aa8206, type: 3}
-  m_Name: Attack
+  m_Name: NormalAttack
   m_EditorClassIdentifier: 
-  cardName: Attack
+  cardName: NormalAttack
   description: Attack the enemy, and reduce 1 hp.
+  isAOE: 0
   image: {fileID: 21300000, guid: 752cdc9b839036f4ead98691d33b8550, type: 3}
   manaCost: 1
-  damage: 1
+  damage: 10
   shield: 0

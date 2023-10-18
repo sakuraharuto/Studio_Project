@@ -4,7 +4,7 @@ using UnityEngine;
 // save player cards and decks
 public class PlayerCardManager
 {
-    public static PlayerCardManager Instance = new PlayerCardManager();
+    public static PlayerCardManager instance = new PlayerCardManager();
 
     [Header("Card List")]
     public List<string> deck;
@@ -15,18 +15,18 @@ public class PlayerCardManager
         deck = new List<string>
         {
             // Assign cards in deck
-            "Attack",
-            "Attack",
-            "Attack",
-            "Attack",
+            "NormalAttack",
+            "NormalAttack",
+            "NormalAttack",
+            "NormalAttack",
 
-            "Shield",
-            "Shield",
-            "Shield",
-            "Shield",
+            //"Shield",
+            //"Shield",
+            //"Shield",
+            //"Shield",
 
-            "Special",
-            "Item"
+            //"Special",
+            //"Item"
 
             // test deck
             //"Attack",
