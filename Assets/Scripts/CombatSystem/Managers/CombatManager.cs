@@ -18,9 +18,9 @@ public class CombatManager : MonoBehaviour
 
     [Header("Character Initial")]
     public GameObject player;
-    public GameObject enemy;
+    // public GameObject enemy;
     public Transform playerPosition;
-    public Transform enemyPosition;
+    // public Transform enemyPosition;
 
     [HideInInspector] public Unit playerUnit;
     [HideInInspector] public Unit enemyUnit;
@@ -29,11 +29,10 @@ public class CombatManager : MonoBehaviour
     public TurnState state;
 
     [Header("Combat Config")]
+    [SerializeField] int count;
     [SerializeField] List<string> Deck;
 
     //[Header("test")]
-    
-
 
     // Start is called before the first frame update
     void Start()
@@ -53,16 +52,13 @@ public class CombatManager : MonoBehaviour
     
     IEnumerator SetupCombat()
     {
-        //Combat Start
-        //Initial Positions of Player and Enemy 
-
         Instantiate(player, playerPosition);
-        Instantiate(enemy, enemyPosition);
+        // Instantiate(enemy, enemyPosition);
         playerUnit = player.GetComponent<Unit>();
 
-        //yield return new WaitForSeconds(2f);
-        yield return null;
-        //PlayerTurn();
+        yield return new WaitForSeconds(2f);
+        // yield return null;
+        
         CombatInitial();
     }
 
@@ -73,7 +69,7 @@ public class CombatManager : MonoBehaviour
         // UIManager.Instance.GetUI<CombatUI>("CombatUI").CreateCardItem(3);   // initxial hand card
         // Instantiate(cardPrefab, handLeftPoint);
 
-        CombatUI.instance.CreateCardItem(1);
+        CombatUI.instance.CreateCardItem(count);
         CombatUI.instance.UpdateCardPosition();
 
     }
@@ -88,34 +84,15 @@ public class CombatManager : MonoBehaviour
     void PlayerTurn()
     {
         Debug.Log("Current Turn: " + state);
-        //Check isAlive?
-        //bool isDead = enemyUnit.CheckAlive();
-
-        //Draw cards
-
-        //UIManager.Instance.GetUI<CombatUI>("Card").CreateCardItem(3);
-        //UIManager.Instance.GetUI<CombatUI>("Card").UpdateCardPosition();
-
-        //use cards
-
-        //drop cards
-
-        //if (true)
-        //{
-        //    state = TurnState.WIN;
-        //    //EndCombat();
-        //}
-        //else
-        //{
-        //    state = TurnState.ENEMYTURN;
-        //    EnemyTurn();
-        //}
     }
 
     // settle phase for each turn
     void TurnEnd()
     {
+        Debug.Log("Current Turn: " + state);
         // settle player actions
+
+        // chech character alive ? continue : end
 
         // switch turn
         state = TurnState.ENEMYTURN;
@@ -126,31 +103,11 @@ public class CombatManager : MonoBehaviour
     void EnemyTurn()
     {
         Debug.Log("Current Turn: " + state);
-        //bool isDead = playerUnit.CheckAlive();
-        //if(isDead)
-        //if (true)
-        //{
-        //    state = TurnState.LOST;
-        //    EndCombat();
-        //}
-        //else
-        //{
-        //    state = TurnState.PLAYERTURN;
-        //    PlayerTurn();
-        //}
     }
 
     void EndCombat()
     {
         Debug.Log("Combat Summary");
-        //if (state == TurnState.WIN)
-        //{
-        //    Debug.Log("You win!");
-        //}
-        //else if (state == TurnState.LOST)
-        //{
-        //    Debug.Log("You lost!");
-        //}
     }
 
     void Flee()
@@ -170,8 +127,17 @@ public class CombatManager : MonoBehaviour
 
     public void DrawCardFromDeck()
     {
-        Debug.Log("The card is: " + CardManager.instance.DrawCard());
-        //UIManager.Instance.GetUI<CombatUI>("Card").CreateCardItem(1);
+        Debug.Log("click");
+        
+        if(CardManager.instance.HasCards())
+        {
+            CombatUI.instance.CreateCardItem(1);
+            CombatUI.instance.UpdateCardPosition();
+        }
+        else
+        {
+            Debug.Log("No un-used cards");
+        }
     }
 
     public void PrintDeck()
@@ -180,5 +146,15 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log(Deck[i]);
         }
+    }
+
+    public void CheckDeck()
+    {
+        Debug.Log(CardManager.instance.cardDeck.Count);
+    }
+
+    public void TakeDamage(int dmg)
+    {
+        Debug.Log("Take " + dmg + " damage from the card");
     }
 }

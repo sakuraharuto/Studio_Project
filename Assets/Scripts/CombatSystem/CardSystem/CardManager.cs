@@ -3,26 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Manager all interaction of cards and deck
 public class CardManager
 {   
     public static CardManager instance = new CardManager();
 
-    public List<string> cardDeck;
-    public List<string> usedDeck;
-
+    public List<string> cardDeck;  //
+    public List<string> usedDeck;   
 
     // CardObject card;
-    Card card;
 
     public void Init()
-    {
+    {   
         cardDeck = new List<string>();
         usedDeck = new List<string>();
 
+        //load cards into deck and shuffle
         List<string> tempDeck = new List<string>();
         tempDeck.AddRange(PlayerCardManager.instance.deck);
-
-        //shuffle player's deck for each combat
         while (tempDeck.Count > 0)
         {
             int tempPos = Random.Range(0, tempDeck.Count);
@@ -31,7 +29,6 @@ public class CardManager
 
             tempDeck.RemoveAt(tempPos);
         }
-        //Debug.Log(cardDeck.Count);
     }
 
     // check for shuffle
@@ -39,11 +36,6 @@ public class CardManager
     {
         return cardDeck.Count > 0;  
     }
-
-    //public string GetCardName()
-    //{
-    //    return card.GetName();
-    //}
 
     // shuffle, used deck ==> deck
     public void Shuffle()
@@ -60,22 +52,11 @@ public class CardManager
     // return card at the last position in the list
     public string DrawCard()
     {
-        // Debug.Log("Draw ONE card from the top of card deck.");
-        // Debug.Log(cardDeck.Count);
         string name = cardDeck[cardDeck.Count - 1];
         cardDeck.RemoveAt(cardDeck.Count - 1);
+        //Debug.Log("Deck has "+ cardDeck.Count + " cards left.");
 
         return name;
     }
-
-    //public string GetCard(string name)
-    //{   
-    //    int index = cardDeck.Count - 1;
-    //    if (cardDeck[index] == name)
-    //    {
-    //        return cardDeck[index];
-    //    }
-    //    return null;
-    //}
 
 }

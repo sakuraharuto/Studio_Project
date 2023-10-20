@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEditor;
 
 public class CombatUI : UIBase
 {
@@ -29,21 +30,23 @@ public class CombatUI : UIBase
 
     [Header("Cards UI")]
     public GameObject cardPrefab;   // show as hand card
-    [SerializeField] private RectTransform handLeftPoint;
+
+    [SerializeField] private Transform handPoint;
 
     // store all cards and data
-    public Card[] allCards;
-    // public List<GameObject> cardList;
+    public CardData[] allCards;
+
+    // list of hand cards to arrange position
     public List<CardDisplay> cardList;
 
     public void Awake()
     {   
         instance = this;
 
-        canvasTF = GameObject.Find("Canvas").transform;
+        // canvasTF = GameObject.Find("Canvas").transform;
 
         // load all cards
-        allCards = Resources.LoadAll<Card>("Cards");
+        allCards = Resources.LoadAll<CardData>("Cards");
 
     }
 
@@ -63,7 +66,7 @@ public class CombatUI : UIBase
     public void UpdateCardsDeck()
     {
         // deckCount.text = CardManager.instance.cardDeck.Count.ToString();
-        deckCount.text = "10";
+        //deckCount.text = "10";
     }
 
     public void UpdateUsedCardsDeck()
@@ -91,55 +94,35 @@ public class CombatUI : UIBase
             count = PlayerCardManager.instance.deck.Count;
         }
 
+        Debug.Log("Draw "+ count + " cards from deck");
+
         for (int i = 0; i < count; i++)
-        {
-            //Card card = DrawCard();
+        {   
+            // Access data from scriptableObject
+            CardData data = DrawCard();
+            // instantiate a card object
+            GameObject obj = Instantiate(cardPrefab, handPoint.transform);
+            // initial card UI
+            CardDisplay cardDisplay = obj.GetComponent<CardDisplay>();
+            cardDisplay.InitialDisplay(data);
+            // add to hand card list
+            cardList.Add(obj.GetComponent<CardDisplay>());
 
-            //GameObject obj = Instantiate(cardPrefab, canvasTF);
-
-            StartCoroutine(SetCardData());
-            //obj.GetComponent<CardDisplay>().cardImage.sprite = card.image;
-            //obj.GetComponent<CardDisplay>().cardName = card.name;
-            //CardDisplay cardDisplay = obj.GetComponent<CardDisplay>();
-            //cardDisplay.card = card;
-
-            // attach component to card
-            // obj.AddComponent(Type.GetType(card.name));
-
-            // cardList.Add(obj);  // update hand card
-            // cardList.Add(item);
         }
     }
 
-    IEnumerator SetCardData()
-    {
-        Card card = DrawCard();
-
-        GameObject obj = Instantiate(cardPrefab, canvasTF);
-
-        obj.GetComponent<CardDisplay>().cardImage.sprite = card.image;
-        obj.GetComponent<CardDisplay>().cardName = card.name;
-
-        CardDisplay cardDisplay = obj.GetComponent<CardDisplay>();
-        cardDisplay.card = card;
-        yield return null;
-
-        // attach component to card
-        obj.AddComponent(Type.GetType(card.name));
-
-    }
-
-    public Card DrawCard()
+    // return data from ScriptablObject
+    public CardData DrawCard()
     {
         // get the card on the top of deck
         string name = CardManager.instance.DrawCard();
 
         // find the card based on name
-        foreach(var Card in allCards)
+        foreach(var CardData in allCards)
         {
-            if(Card.GetName() == name)
+            if(CardData.cardName == name)
             {
-                return Card;
+                return CardData;
             }
         }
 
@@ -150,12 +133,11 @@ public class CombatUI : UIBase
     public void UpdateCardPosition()
     {   
         float offset = 480f / cardList.Count;
-        Vector2 handPos = new Vector2(handLeftPoint.anchoredPosition.x, handLeftPoint.anchoredPosition.y);
+        Vector2 handPos = new Vector2(-handPoint.position.x, handPoint.position.y);
 
         for (int i = 0; i < cardList.Count; i++)
-        {   
-            //Vector2 handPos = new Vector2()
-            //cardList[i].GetComponent<RectTransform>().anchoredPosition = handPos;
+        {
+            cardList[i].GetComponent<RectTransform>().anchoredPosition = handPos;
             handPos.x += offset;
         }
     }

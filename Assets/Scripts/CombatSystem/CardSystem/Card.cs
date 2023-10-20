@@ -1,22 +1,50 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-// save all card data
-[CreateAssetMenu(fileName = "New Card", menuName = "Card")]
-public class Card : ScriptableObject
+// card item base class
+public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    [HideInInspector]
+    public CardData data;
+
     [Header("Card Config")]
+    //[HideInInspector]
+    public Image cardImage;
+    //[HideInInspector]
     public string cardName;
-    public string description;
-    public bool isAOE;
 
-    public Sprite image;
+    //public Image cardImage;
+    //public string cardName;
+    //public TMP_Text descriptionText;
 
-    public int manaCost;
-    public int damage;
-    public int shield;
+    //public TMP_Text costText;
+    //public TMP_Text attackText;
+    //public TMP_Text shieldText;
 
-    public string GetName(){ return cardName; }
-    public int GetManaCost() { return manaCost;}
-    public int GetDamage() { return damage;}
-    public int GetShield() {  return shield;}
+    public virtual void InitialData()
+    {
+
+    }
+
+    public virtual void OnPointerEnter(PointerEventData eventData)
+    {
+        //Debug.Log("On " + cardName);
+    }
+
+    public virtual void OnPointerExit(PointerEventData eventData)
+    {
+
+    }
+
+    public virtual void OnPointerDown(PointerEventData eventData)
+    {
+        CardManager.instance.usedDeck.Add(cardName);
+        Debug.Log(CardManager.instance.usedDeck.Count);
+    }
+
+    public virtual void CardFunction()
+    {
+
+    }
 }

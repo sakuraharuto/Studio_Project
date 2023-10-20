@@ -3,43 +3,20 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class CardDisplay : Card
 {
-    public Card card;
+    public void InitialDisplay(CardData data)  
+    {   
+        // set visual
+        cardImage.sprite = data.image;
+        cardName = data.cardName;
 
-    [Header("Card UI")]
-    public Image cardImage;
-    //public TMP_Text nameText;
-    //public TMP_Text descriptionText;
-
-    //public TMP_Text costText;
-    //public TMP_Text attackText;
-    //public TMP_Text shieldText;
-
-    private int index;
-    public string cardName;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log("This card is: " + card);
-    }
-
-    // hovering on card
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        Debug.Log("On " + cardName);
-        //transform.
-        
-        
-        
-        //transform.DOScale(1.5f, 0.25f);
-        //index = transform.GetSiblingIndex();
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-
+        // add function script
+        System.Type cardType = System.Type.GetType(data.cardName);
+        Card newCard = (Card)gameObject.AddComponent(cardType);
+        // initial functon
+        newCard.data = data;
+        newCard.InitialData();
     }
     
 }

@@ -1,28 +1,25 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class NormalAttack : MonoBehaviour, IPointerDownHandler
-{
-    // public Card card;
-    public CardDisplay cardDisplay;
+public class NormalAttack : Card
+{   
+    private int dmg;
 
-    private int dmg = 0;
-
-    // Start is called before the first frame update
-    void Start()
+    public override void InitialData()
     {   
-        cardDisplay = GetComponent<CardDisplay>();
-        dmg = cardDisplay.card.damage;
+        cardName = data.name;
+        dmg = data.damage;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void CardFunction()
     {
-        cardDisplay = GetComponent<CardDisplay>();
+        CombatManager.instance.TakeDamage(dmg);
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public override void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("The damage is " + dmg);
+        base.OnPointerDown(eventData);
+        CardFunction();
     }
+
 }

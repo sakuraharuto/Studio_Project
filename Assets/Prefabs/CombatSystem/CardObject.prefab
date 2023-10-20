@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2196156096235731896}
   - component: {fileID: 2617593410824480224}
   m_Layer: 5
-  m_Name: Card
+  m_Name: CardObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,9 +121,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6650913384327855659}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57f84f8886e64fb4a82fe32614c13ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
   cardImage: {fileID: 2749730499427643085}
+  cardName: 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 // save player cards and decks
 public class PlayerCardManager
 {
@@ -11,7 +12,6 @@ public class PlayerCardManager
 
     public void Init()
     {
-        //Debug.Log("Player has cards");
         deck = new List<string>
         {
             // Assign cards in deck
@@ -20,6 +20,13 @@ public class PlayerCardManager
             "NormalAttack",
             "NormalAttack",
 
+            "NormalAttack",
+            "NormalAttack",
+            "NormalAttack",
+            "NormalAttack",
+
+            "NormalAttack",
+            "NormalAttack"
             //"Shield",
             //"Shield",
             //"Shield",

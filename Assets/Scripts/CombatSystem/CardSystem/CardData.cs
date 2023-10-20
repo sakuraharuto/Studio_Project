@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CardData : MonoBehaviour
+// save all card data
+[CreateAssetMenu(fileName = "New Card", menuName = "CardObject")]
+public class CardData : ScriptableObject
 {
-    public string data;
+    [Header("Card Config")]
+    public string cardName;
+    public string description;
+    public bool isAOE;
 
-    //public List<Dictionary<string, string>> listdata;
+    public Sprite image;
 
-    public void Init(string data)
-    {
-        this.data = data;
-    }
+    public int manaCost;
+    public int damage;
+    public int shield;
 }

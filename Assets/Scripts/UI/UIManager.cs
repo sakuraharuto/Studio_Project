@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance;
+    public static UIManager instance;
 
     [SerializeField] private Transform canvas;
 
@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        instance = this;
         //canvas = GameObject.Find("Canvas").transform;
 
         uiList = new List<UIBase>();
