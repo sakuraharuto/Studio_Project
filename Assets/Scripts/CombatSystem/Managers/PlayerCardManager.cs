@@ -27,27 +27,6 @@ public class PlayerCardManager
 
             "NormalAttack",
             "NormalAttack"
-            //"Shield",
-            //"Shield",
-            //"Shield",
-            //"Shield",
-
-            //"Special",
-            //"Item"
-
-            // test deck
-            //"Attack",
-            //"Attack",
-            //"Attack",
-            //"Attack",
-            
-            //"Attack",
-            //"Attack",
-            //"Attack",
-            //"Attack",
-            
-            //"Attack",
-            //"Attack"
         };
     }
     

@@ -69,16 +69,19 @@ public class UIManager : MonoBehaviour
     }
 
     public UIBase Find(string uiName)
-    {
-        Debug.Log(uiList.Count);
-        for (int i = 0; i < uiList.Count; i++)
-        {
-            if (uiList[i].name == uiName)
-            {
-                return uiList[i];
-            }
-        }
-        return null;
+    {   
+        UIBase ui = FindObjectOfType<UIBase>();
+
+        return ui;
+        //Debug.Log(uiList.Count);
+        //for (int i = 0; i < uiList.Count; i++)
+        //{
+        //    if (uiList[i].name == uiName)
+        //    {
+        //        return uiList[i];
+        //    }
+        //}
+        //return null;
     }
 
     public T GetUI<T>(string uiName) where T : UIBase

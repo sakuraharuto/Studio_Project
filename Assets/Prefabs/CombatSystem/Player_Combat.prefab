@@ -100,4 +100,4 @@ MonoBehaviour:
   maxHP: 50
   currentHP: 50
   currentShield: 0
-  cost: 5
+  cost: 10

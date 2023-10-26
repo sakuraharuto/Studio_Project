@@ -13,10 +13,6 @@ public class CombatUI : UIBase
     public Transform canvasTF;
 
     [Header("Icons")]
-    //private TMP_Text deckCount;
-    //private TMP_Text usedDeckCount;
-    //private TMP_Text costCount;
-
     public TMP_Text deckCount;
     public TMP_Text usedDeckCount;
     public TMP_Text costCount;
@@ -40,33 +36,47 @@ public class CombatUI : UIBase
     public List<CardDisplay> cardList;
 
     public void Awake()
-    {   
+    {
         instance = this;
-
-        // canvasTF = GameObject.Find("Canvas").transform;
 
         // load all cards
         allCards = Resources.LoadAll<CardData>("Cards");
 
+        //Debug.Log(CombatManager.instance.playerUnit.cost);
+
+        StartCoroutine(AssignUIText());
+        //assign player ui data
+        //deckCount.text = PlayerCardManager.instance.deck.Count.ToString();
+        //usedDeckCount.text = cardList.Count.ToString();
+        //costCount.text = CombatManager.instance.playerUnit.cost.ToString();
+
     }
+
+    IEnumerator AssignUIText()
+    {
+        yield return null;
+        //assign player ui data
+        deckCount.text = PlayerCardManager.instance.deck.Count.ToString();
+        usedDeckCount.text = cardList.Count.ToString();
+        costCount.text = CombatManager.instance.playerUnit.cost.ToString();
+    }
+
 
     public void Start()
     {
-        //UpdateCost();
         UpdateCardsDeck();
-        //UpdateUsedCardsDeck();
+        UpdateUsedCardsDeck();
+        UpdateCost();
     }
 
     public void UpdateCost()
     {
         costCount.text = CombatManager.instance.playerUnit.cost.ToString();
-        Debug.Log("Player has: " + costCount.text);
     }
 
     public void UpdateCardsDeck()
     {
-        // deckCount.text = CardManager.instance.cardDeck.Count.ToString();
-        //deckCount.text = "10";
+        deckCount.text = CardManager.instance.cardDeck.Count.ToString();
     }
 
     public void UpdateUsedCardsDeck()
@@ -94,7 +104,7 @@ public class CombatUI : UIBase
             count = PlayerCardManager.instance.deck.Count;
         }
 
-        Debug.Log("Draw "+ count + " cards from deck");
+        // Debug.Log("Draw "+ count + " cards from deck");
 
         for (int i = 0; i < count; i++)
         {   
@@ -142,4 +152,34 @@ public class CombatUI : UIBase
         }
     }
 
+    // delete card after use
+    public void RemoveCard(Card card)
+    {
+        // disable card function
+        card.enabled = false;
+        CardDisplay panel = card.GetComponent<CardDisplay>();
+        // add this card into used-card deck
+        CardManager.instance.usedDeck.Add(card.cardName);
+        // update used-card deck count ui
+        usedDeckCount.text = CardManager.instance.usedDeck.Count.ToString();
+        // remove from hand-cards list
+        cardList.Remove(panel);
+        // update hands-card pos
+        UpdateCardPosition();
+
+        Destroy(card.gameObject, 1);
+    }
+
+    public void DropHandCards()
+    {
+        Debug.Log("Remove all cards in hand");
+        //for(int i=0; i<cardList.Count; i++)
+        //{   
+        //    CardDisplay card = cardList[i];
+        //    CardManager.instance.usedDeck.Add(card.cardName);
+        //    usedDeckCount.text = CardManager.instance.usedDeck.Count.ToString();
+        //    cardList.Remove(card);
+        //    Destroy(card.gameObject);
+        //}
+    }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum TurnState { INITIAL, START, END, PLAYERTURN, ENEMYTURN, WIN, LOST, FLEE }
@@ -31,27 +32,30 @@ public class CombatManager : MonoBehaviour
     [Header("Combat Config")]
     [SerializeField] int count;
     [SerializeField] List<string> Deck;
-
+    [SerializeField] private float timer;
+    private float currentTime;
     //[Header("test")]
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
         instance = this;
-
-        state = TurnState.INITIAL;
-        Deck = new List<string>();
 
         PlayerCardManager.instance.Init();
         CardManager.instance.Init();
 
+        // test only
+        Deck = new List<string>();
         Deck.AddRange(CardManager.instance.cardDeck);
 
         StartCoroutine(SetupCombat());
     }
-    
+
     IEnumerator SetupCombat()
     {
+        state = TurnState.INITIAL;
+        Debug.Log("Current Turn: " + state);
+
         Instantiate(player, playerPosition);
         // Instantiate(enemy, enemyPosition);
         playerUnit = player.GetComponent<Unit>();
@@ -60,49 +64,98 @@ public class CombatManager : MonoBehaviour
         // yield return null;
         
         CombatInitial();
+
+    }
+
+    private void Update()
+    {
+        // count down timer for player turn
+        if(state == TurnState.PLAYERTURN)
+        {
+            if(currentTime <= 0)
+            {
+                Debug.Log("Reset timer");
+                state = TurnState.END;
+                currentTime = timer;
+                TurnEnd();
+            }
+            else
+            {   
+                Debug.Log(state + " Timer: " + currentTime);
+                currentTime -= Time.deltaTime;
+            }
+        }
+        
     }
 
     // Initial player hand cards
     void CombatInitial()
-    {   
-        
+    {
         // UIManager.Instance.GetUI<CombatUI>("CombatUI").CreateCardItem(3);   // initxial hand card
         // Instantiate(cardPrefab, handLeftPoint);
+        currentTime = timer;
 
         CombatUI.instance.CreateCardItem(count);
         CombatUI.instance.UpdateCardPosition();
 
+        int numHC = CombatUI.instance.cardList.Count;
+        //Debug.Log(numHC + " Cards on hand");
+
+        state = TurnState.PLAYERTURN;
     }
 
     // prepare phase of each turn
     void TurnStart()
     {
-
+        CardManager.instance.Shuffle();
+        CombatUI.instance.CreateCardItem(count);
+        CombatUI.instance.UpdateCardPosition();
+        state = TurnState.PLAYERTURN;
+        PlayerTurn();
     }
 
-    // player actions
+    // player turn
+    // Timer count down
+    // monitor player actions and enemy states
     void PlayerTurn()
     {
         Debug.Log("Current Turn: " + state);
+
+        
+        
     }
 
     // settle phase for each turn
     void TurnEnd()
-    {
+    {   
         Debug.Log("Current Turn: " + state);
         // settle player actions
 
         // chech character alive ? continue : end
 
+        // drop hand-cards
+        StartCoroutine(EmptyHand());
+
         // switch turn
+        // test only: No enemy
         state = TurnState.ENEMYTURN;
         EnemyTurn();
+    }
+
+    // empty hand-cards
+    IEnumerator EmptyHand()
+    {
+        Debug.Log("Drop cards and shuffle");
+        //CombatUI.instance.DropHandCards();
+
+        yield return new WaitForSeconds(2f);
     }
 
     // enemy actions
     void EnemyTurn()
     {
         Debug.Log("Current Turn: " + state);
+        
     }
 
     void EndCombat()
@@ -152,6 +205,18 @@ public class CombatManager : MonoBehaviour
     {
         Debug.Log(CardManager.instance.cardDeck.Count);
     }
+
+    public void EndTurnButton()
+    {   
+        if(state == TurnState.PLAYERTURN)
+        {
+            state = TurnState.END;
+            currentTime = timer;
+            Debug.Log("Ends current turn, currentTimer is " + currentTime);
+            TurnEnd();
+        }
+    }
+
 
     public void TakeDamage(int dmg)
     {

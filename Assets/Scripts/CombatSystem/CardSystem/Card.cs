@@ -39,8 +39,39 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
-        CardManager.instance.usedDeck.Add(cardName);
-        Debug.Log(CardManager.instance.usedDeck.Count);
+        if(CanUse())
+        {   
+            // add this card into used deck
+            //CardManager.instance.usedDeck.Add(cardName);
+            Debug.Log(CardManager.instance.usedDeck.Count);
+
+            // update player's UI
+            CombatUI.instance.UpdateCardsDeck();
+            CombatUI.instance.UpdateUsedCardsDeck();
+
+        }
+        
+    }
+
+    public virtual bool CanUse()
+    {
+        int cost = data.manaCost;
+
+        if(cost > CombatManager.instance.playerUnit.cost)
+        {   
+            Debug.Log("Cost is not enought");
+            return false;
+        }
+        else
+        {   
+            // update player's cost and its UI
+            CombatManager.instance.playerUnit.cost -= cost;
+            CombatUI.instance.UpdateCost();
+
+            UIManager.instance.GetUI<CombatUI>("CombatUI").RemoveCard(this);
+
+            return true;
+        }
     }
 
     public virtual void CardFunction()

@@ -8,13 +8,11 @@ public class CardManager
 {   
     public static CardManager instance = new CardManager();
 
-    public List<string> cardDeck;  //
+    public List<string> cardDeck;
     public List<string> usedDeck;   
 
-    // CardObject card;
-
     public void Init()
-    {   
+    {
         cardDeck = new List<string>();
         usedDeck = new List<string>();
 
@@ -40,13 +38,21 @@ public class CardManager
     // shuffle, used deck ==> deck
     public void Shuffle()
     {
-        Debug.Log("Shuffle cards deck.");
-        for(int i = 0; i < cardDeck.Count-1; i++)
+        //for (int i = 0; i < cardDeck.Count-1; i++)
+        //{
+        //    int tempPos = Random.Range(1, cardDeck.Count);
+        //    cardDeck[tempPos] = usedDeck[i];
+        //    usedDeck.RemoveAt(i);
+        //}
+
+        for (int i = 0; i < usedDeck.Count - 1; i++)
         {
-            int tempPos = Random.Range(1, cardDeck.Count);
-            cardDeck[tempPos] = usedDeck[i];
+            int tempPos = Random.Range(1, usedDeck.Count);
+            cardDeck.Add(usedDeck[tempPos]);
+            Debug.Log(cardDeck.Count);
             usedDeck.RemoveAt(i);
         }
+        Debug.Log("Shuffle cards deck." + cardDeck.Count);
     }
 
     // return card at the last position in the list
@@ -54,9 +60,14 @@ public class CardManager
     {
         string name = cardDeck[cardDeck.Count - 1];
         cardDeck.RemoveAt(cardDeck.Count - 1);
-        //Debug.Log("Deck has "+ cardDeck.Count + " cards left.");
+
+        CombatUI.instance.UpdateCardsDeck();
 
         return name;
     }
 
+    public void DropHandCards()
+    {
+
+    }
 }

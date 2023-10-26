@@ -14,6 +14,7 @@ public class CardDisplay : Card
         // add function script
         System.Type cardType = System.Type.GetType(data.cardName);
         Card newCard = (Card)gameObject.AddComponent(cardType);
+
         // initial functon
         newCard.data = data;
         newCard.InitialData();
