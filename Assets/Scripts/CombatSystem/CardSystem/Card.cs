@@ -41,16 +41,11 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if(CanUse())
         {   
-            // add this card into used deck
-            //CardManager.instance.usedDeck.Add(cardName);
-            Debug.Log(CardManager.instance.usedDeck.Count);
-
             // update player's UI
             CombatUI.instance.UpdateCardsDeck();
             CombatUI.instance.UpdateUsedCardsDeck();
-
         }
-        
+
     }
 
     public virtual bool CanUse()
@@ -66,9 +61,11 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {   
             // update player's cost and its UI
             CombatManager.instance.playerUnit.cost -= cost;
-            CombatUI.instance.UpdateCost();
-
+            
+            // remove card from hand, then add it into used-cards deck
             UIManager.instance.GetUI<CombatUI>("CombatUI").RemoveCard(this);
+            
+            CombatUI.instance.UpdateCost();
 
             return true;
         }

@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public int currentShield;
-    public int cost = 10;
+    [SerializeField] public int cost = 10;
     //public int damage;
     //public int shield;
 

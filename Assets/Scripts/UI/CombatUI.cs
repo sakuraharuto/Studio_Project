@@ -66,7 +66,7 @@ public class CombatUI : UIBase
     {
         UpdateCardsDeck();
         UpdateUsedCardsDeck();
-        UpdateCost();
+        //UpdateCost();
     }
 
     public void UpdateCost()
@@ -104,8 +104,6 @@ public class CombatUI : UIBase
             count = PlayerCardManager.instance.deck.Count;
         }
 
-        // Debug.Log("Draw "+ count + " cards from deck");
-
         for (int i = 0; i < count; i++)
         {   
             // Access data from scriptableObject
@@ -118,6 +116,7 @@ public class CombatUI : UIBase
             // add to hand card list
             cardList.Add(obj.GetComponent<CardDisplay>());
 
+            Debug.Log(cardList.Count);
         }
     }
 
@@ -157,6 +156,7 @@ public class CombatUI : UIBase
     {
         // disable card function
         card.enabled = false;
+        // access the UI component
         CardDisplay panel = card.GetComponent<CardDisplay>();
         // add this card into used-card deck
         CardManager.instance.usedDeck.Add(card.cardName);
@@ -167,19 +167,15 @@ public class CombatUI : UIBase
         // update hands-card pos
         UpdateCardPosition();
 
-        Destroy(card.gameObject, 1);
+        //Destroy(card.gameObject, 0.5f);
+        Destroy(card.gameObject);
     }
 
     public void DropHandCards()
     {
-        Debug.Log("Remove all cards in hand");
-        //for(int i=0; i<cardList.Count; i++)
-        //{   
-        //    CardDisplay card = cardList[i];
-        //    CardManager.instance.usedDeck.Add(card.cardName);
-        //    usedDeckCount.text = CardManager.instance.usedDeck.Count.ToString();
-        //    cardList.Remove(card);
-        //    Destroy(card.gameObject);
-        //}
+        for(int i = cardList.Count - 1; i >= 0; i--)
+        {   
+            RemoveCard(cardList[i]);
+        }
     }
 }

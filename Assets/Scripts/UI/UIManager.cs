@@ -87,7 +87,7 @@ public class UIManager : MonoBehaviour
     public T GetUI<T>(string uiName) where T : UIBase
     {
         UIBase ui = Find(uiName);
-        Debug.Log(ui);
+        //Debug.Log(ui);
         if( ui != null )
         {
             return ui.GetComponent<T>();
