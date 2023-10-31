@@ -116,7 +116,6 @@ public class CombatUI : UIBase
             // add to hand card list
             cardList.Add(obj.GetComponent<CardDisplay>());
 
-            Debug.Log(cardList.Count);
         }
     }
 

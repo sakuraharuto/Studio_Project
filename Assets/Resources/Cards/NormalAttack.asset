@@ -17,5 +17,5 @@ MonoBehaviour:
   isAOE: 0
   image: {fileID: 21300000, guid: 752cdc9b839036f4ead98691d33b8550, type: 3}
   manaCost: 2
-  damage: 10
+  damage: 3
   shield: 0

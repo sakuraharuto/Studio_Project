@@ -1,9 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class NormalAttack : Card
-{   
-
+public class Shield : Card
+{
     public override void InitialData()
     {
         cardName = data.name;
@@ -11,11 +13,9 @@ public class NormalAttack : Card
 
     public override void CardFunction()
     {
-        //Debug.Log(data.damage);
-
-        // output dmg to enemy
-        CombatManager.instance.enemyUnit.currentHP -= data.damage;
-        //Debug.Log("enemy hp: " + CombatManager.instance.enemyUnit.currentHP);
+        Debug.Log("Add " + data.shield + " shield");
+        CombatManager.instance.playerUnit.currentShield += data.shield;
+        CombatUI.instance.UpdateShield();
     }
 
     public override void OnPointerDown(PointerEventData eventData)
@@ -24,5 +24,4 @@ public class NormalAttack : Card
 
         CardFunction();
     }
-
 }

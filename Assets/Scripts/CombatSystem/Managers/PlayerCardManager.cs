@@ -19,14 +19,13 @@ public class PlayerCardManager
             "NormalAttack",
             "NormalAttack",
             "NormalAttack",
-
-            "NormalAttack",
-            "NormalAttack",
-            "NormalAttack",
             "NormalAttack",
 
-            "NormalAttack",
-            "NormalAttack"
+            "Shield",
+            "Shield",
+            "Shield",
+            "Shield",
+            "Shield"
         };
     }
     

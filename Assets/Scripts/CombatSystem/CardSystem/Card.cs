@@ -45,7 +45,6 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             CombatUI.instance.UpdateCardsDeck();
             CombatUI.instance.UpdateUsedCardsDeck();
         }
-
     }
 
     public virtual bool CanUse()

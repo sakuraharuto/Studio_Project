@@ -20,9 +20,9 @@ public class CombatManager : MonoBehaviour
 
     [Header("Character Initial")]
     public GameObject player;
-    // public GameObject enemy;
     public Transform playerPosition;
-    // public Transform enemyPosition;
+    public GameObject enemy;
+    public Transform enemyPosition;
 
     [HideInInspector] public Unit playerUnit;
     [HideInInspector] public Unit enemyUnit;
@@ -58,13 +58,18 @@ public class CombatManager : MonoBehaviour
     {
         state = TurnState.INITIAL;
 
+        // instantiate characters
         Instantiate(player, playerPosition);
-        // Instantiate(enemy, enemyPosition);
+        Instantiate(enemy, enemyPosition);
+        
+        // initial characters data
         playerUnit = player.GetComponent<Unit>();
-        //playerUnit.cost = 10;
+        playerUnit.cost = 10;
+        playerUnit.currentShield = 0;
+        enemyUnit = enemy.GetComponent<Unit>();
+        enemyUnit.currentHP = 20;
 
         yield return new WaitForSeconds(2f);
-        // yield return null;
         
         CombatInitial();
 
@@ -90,6 +95,10 @@ public class CombatManager : MonoBehaviour
             }
         }
 
+        if(state == TurnState.PLAYERTURN)
+        {
+            Debug.Log("Enemy HP: " + enemyUnit.currentHP);
+        }
     }
 
     // Initial player hand cards
@@ -98,8 +107,6 @@ public class CombatManager : MonoBehaviour
         // UIManager.Instance.GetUI<CombatUI>("CombatUI").CreateCardItem(3);   // initxial hand card
         // Instantiate(cardPrefab, handLeftPoint);
         currentTime = timer;
-
-        playerUnit.cost = 10;
 
         CombatUI.instance.CreateCardItem(count);
         CombatUI.instance.UpdateCardPosition();
@@ -136,26 +143,40 @@ public class CombatManager : MonoBehaviour
 
     // settle phase for each turn
     void TurnEnd()
-    {   
+    {
         StopAllCoroutines();
-        if(state == TurnState.ENEMYTURN)
-        {
-            //settle enemey actions
 
-            StartCoroutine(PlayerTurn());
+        // end of enemy turn
+        if(state == TurnState.ENEMYTURN)
+        {   
+            //settle enemey actions
+            if(CheckAlive(playerUnit))
+            {
+                state = TurnState.END;
+
+                StartCoroutine(PlayerTurn());
+            }
+            else
+            {
+                Defeat();
+            }
         }
 
+        // end of player turn
         if(state == TurnState.PLAYERTURN)
         {
             // settle player actions
+            if(CheckAlive(enemyUnit))
+            {
+                state = TurnState.END;
+                
+                StartCoroutine(EmptyHand());
+            }
+            else
+            {
+                Win();
+            }
 
-            // chech character alive ? continue : end
-
-            // drop hand-cards
-            state = TurnState.END;
-
-            //StopAllCoroutines();
-            StartCoroutine(EmptyHand());
         }
     }
 
@@ -169,6 +190,20 @@ public class CombatManager : MonoBehaviour
         EnemyTurn();
     }
 
+    bool CheckAlive(Unit unit)
+    {
+        int hp = unit.currentHP;
+        if(hp <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;    
+        }
+    }
+
+    // combat summary
     void EndCombat()
     {
         Debug.Log("Combat Summary");
@@ -177,16 +212,21 @@ public class CombatManager : MonoBehaviour
     void Flee()
     {
         Debug.Log("Flee Success.");
+        state = TurnState.FLEE;
     }
 
     void Win()
     {
         Debug.Log("You Win !!!");
+        state = TurnState.WIN;
+        EndCombat();
     }
 
     void Defeat()
     {
         Debug.Log("Defeat !!!");
+        state = TurnState.LOST;
+        EndCombat();
     }
 
     public void DrawCardFromDeck()
@@ -227,13 +267,13 @@ public class CombatManager : MonoBehaviour
             CardManager.instance.Shuffle();
             TurnEnd();
         }
+        else
+        {
+            Debug.Log("Cannot skip the turn");
+        }
     }
 
-    public void TakeDamage(int dmg)
-    {
-        //Debug.Log("Take " + dmg + " damage from the card");
-    }
-
+    // test only
     public void ShuffleCards()
     {
         CardManager.instance.Shuffle();
