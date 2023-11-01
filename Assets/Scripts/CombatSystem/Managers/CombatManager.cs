@@ -32,7 +32,7 @@ public class CombatManager : MonoBehaviour
 
     [Header("Combat Config")]
     [SerializeField] int count;
-    [SerializeField] List<string> Deck;
+    [SerializeField] List<string> Deck = new List<string>();
     [SerializeField] private float timer;
     private float currentTime;
     public TMP_Text timerTXT;
@@ -47,8 +47,8 @@ public class CombatManager : MonoBehaviour
         CardManager.instance.Init();
 
         // test only
-        Deck = new List<string>();
         Deck.AddRange(CardManager.instance.cardDeck);
+        
         timerTXT.text = timer.ToString();
 
         StartCoroutine(SetupCombat());
@@ -83,7 +83,7 @@ public class CombatManager : MonoBehaviour
         if (state == TurnState.PLAYERTURN || state == TurnState.ENEMYTURN)
         {
             if (currentTime <= 0)
-            {   
+            {  
                 currentTime = timer;
                 timerTXT.text = currentTime.ToString("0");
                 TurnEnd();
@@ -121,11 +121,18 @@ public class CombatManager : MonoBehaviour
 
         // reset player data 
         playerUnit.cost = 10;
+        playerUnit.currentShield = 0;
         CardManager.instance.Shuffle();
+
+        //test only
+        Deck = new List<string>();
+        Deck.AddRange(CardManager.instance.cardDeck);
 
         yield return new WaitForSeconds(2f);
         
         CombatUI.instance.UpdateCost();
+        CombatUI.instance.UpdateShield();
+
         CombatUI.instance.CreateCardItem(count);
         CombatUI.instance.UpdateCardPosition();
 
