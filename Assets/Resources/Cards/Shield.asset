@@ -16,6 +16,6 @@ MonoBehaviour:
   description: Add Shield
   isAOE: 0
   image: {fileID: 21300000, guid: 4fc7655254f13a946bc0dccca37384b4, type: 3}
-  manaCost: 0
+  manaCost: 3
   damage: 0
   shield: 3

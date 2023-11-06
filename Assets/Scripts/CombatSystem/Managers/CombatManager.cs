@@ -80,10 +80,10 @@ public class CombatManager : MonoBehaviour
         turnTXT.text = state.ToString();
 
         // count down timer for player turn
-        if (state == TurnState.PLAYERTURN || state == TurnState.ENEMYTURN)
+        if (state == TurnState.ENEMYTURN)
         {
             if (currentTime <= 0)
-            {  
+            {
                 currentTime = timer;
                 timerTXT.text = currentTime.ToString("0");
                 TurnEnd();
@@ -95,7 +95,7 @@ public class CombatManager : MonoBehaviour
             }
         }
 
-        if(state == TurnState.PLAYERTURN)
+        if (state == TurnState.PLAYERTURN)
         {
             Debug.Log("Enemy HP: " + enemyUnit.currentHP);
         }
@@ -106,7 +106,7 @@ public class CombatManager : MonoBehaviour
     {
         // UIManager.Instance.GetUI<CombatUI>("CombatUI").CreateCardItem(3);   // initxial hand card
         // Instantiate(cardPrefab, handLeftPoint);
-        currentTime = timer;
+        //currentTime = timer;
 
         CombatUI.instance.CreateCardItem(count);
         CombatUI.instance.UpdateCardPosition();
@@ -236,26 +236,6 @@ public class CombatManager : MonoBehaviour
         EndCombat();
     }
 
-    public void DrawCardFromDeck()
-    {
-        Debug.Log("click");
-        
-        if(CardManager.instance.HasCards())
-        {
-            CombatUI.instance.CreateCardItem(1);
-            CombatUI.instance.UpdateCardPosition();
-        }
-        else
-        {
-            Debug.Log("No un-used cards");
-        }
-    }
-
-    public void PrintDeck()
-    {
-        Debug.Log(CardManager.instance.usedDeck.Count);
-    }
-
     public void CheckDeck()
     {
         Debug.Log(CardManager.instance.cardDeck.Count);
@@ -264,7 +244,7 @@ public class CombatManager : MonoBehaviour
     public void EndTurnButton()
     {   
         if(state == TurnState.PLAYERTURN)
-        {   
+        {
             //reset timer
             currentTime = timer;
             timerTXT.text = timer.ToString();
@@ -280,9 +260,4 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    // test only
-    public void ShuffleCards()
-    {
-        CardManager.instance.Shuffle();
-    }
 }
