@@ -140,8 +140,10 @@ public class CombatUI : UIBase
     // arrange positions of hand cards
     public void UpdateCardPosition()
     {   
-        float offset = 480f / cardList.Count;
-        Vector2 handPos = new Vector2(-handPoint.position.x, handPoint.position.y);
+        float offset = 360 / cardList.Count;
+        
+        //Vector2 handPos = new Vector2(-handPoint.position.x, handPoint.position.y);
+        Vector2 handPos = new Vector2(-120, handPoint.position.y);  // center hand cards
 
         for (int i = 0; i < cardList.Count; i++)
         {
