@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Workshop.unity
     guid: b63feff31735440d2aa19aec6cac05d3
+  - enabled: 1
+    path: Assets/Scenes/Test_dc.unity
+    guid: 12d04d470c4461d4f807fedd00eb6f12
+  - enabled: 1
+    path: Assets/Scenes/Test_combat.unity
+    guid: cdd75b0cd6ee82940a970bee3d0802b1
   m_configObjects: {}
