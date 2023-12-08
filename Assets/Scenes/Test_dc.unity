@@ -403,6 +403,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: dummy
       objectReference: {fileID: 0}
+    - target: {fileID: 1538912531112291242, guid: 99798db7b0060fe4e95acc64eac3c447, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3997412190003028138, guid: 99798db7b0060fe4e95acc64eac3c447, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -630,9 +634,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
-  - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
-  - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   itemPrefab: {fileID: 964789412533931169, guid: 9670a3f48d968404580f6e3b4dfe2c2d, type: 3}
   canvasTransform: {fileID: 1096870804}
   player: {fileID: 1988995161}
@@ -807,11 +811,11 @@ MonoBehaviour:
   inventoryController: {fileID: 201794678}
   searchPointItemGrid: {fileID: 2688927752494941400}
   items:
-  - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
+  - {fileID: 0}
   allItems:
-  - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
-  - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
-  - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   player: {fileID: 1988995161}
 --- !u!65 &267469255
 BoxCollider:
@@ -1084,7 +1088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &446294469
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -4430,9 +4434,9 @@ MonoBehaviour:
   searchPointItemGrid: {fileID: 2688927752494941400}
   items: []
   allItems:
-  - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
-  - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
-  - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   player: {fileID: 1988995161}
 --- !u!1 &1724328507
 GameObject:
@@ -4574,7 +4578,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25976
+  m_Name: pb_Mesh25328
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
