@@ -7,15 +7,15 @@ public enum EquipmentSlot
 { 
     Weapon,
     Armor,
+    Item,
     Medicine
 }
 
 [CreateAssetMenu(fileName = "New Item Data", menuName = "Inventory System/GridSystem/ItemData")]
-public abstract class ItemData : ScriptableObject
+public class ItemData : ScriptableObject
 {
     // icon config
     public Sprite itemIcon;
     public int width = 1 ;
     public int height = 1;
-
 }

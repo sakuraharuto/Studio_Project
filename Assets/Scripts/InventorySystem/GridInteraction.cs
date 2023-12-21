@@ -1,10 +1,9 @@
-// Making Grid interactable 
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+// Making Grid interactable 
 [RequireComponent(typeof(ItemGrid))]
 public class GridInteraction : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {   

@@ -16,16 +16,14 @@ public enum CastType
 
 public abstract class ItemObject : ScriptableObject
 {
-    // Setting
-    //public GameObject prefab;
+    // Config
     public CastType castType;
 
     public int itemID;
     public string itemName;
+    public Sprite itemIcon;
     
     public int count;
-
-    public Sprite itemIcon;
 
     [TextArea(15,20)]
     public string description;

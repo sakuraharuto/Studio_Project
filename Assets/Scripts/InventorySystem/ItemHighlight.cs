@@ -30,20 +30,20 @@ public class ItemHighlight : MonoBehaviour
         highlighter.localPosition = pos;
     }
 
-    public void SetParent(ItemGrid targetGrid)
-    {   
-        if(targetGrid == null) { return; } 
-        highlighter.SetParent(targetGrid.GetComponent<RectTransform>());
-    }
-
     public void SetPosition(ItemGrid targetGrid, InventoryItem targetItem, int posX, int posY)
     {
         Vector2 pos = targetGrid.CalculatePositionOnGrid(
             targetItem,
             posX,
             posY
-        );
+            );
 
         highlighter.localPosition = pos;
+    }
+
+    public void SetParent(ItemGrid targetGrid)
+    {   
+        if(targetGrid == null) { return; } 
+        highlighter.SetParent(targetGrid.GetComponent<RectTransform>());
     }
 }
