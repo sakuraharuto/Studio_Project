@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Xml.Serialization;
 using UnityEngine;
 
@@ -150,6 +151,12 @@ public class InventoryController : MonoBehaviour
 
     public void ProcessMouseInput()
     {   
+        if(storageGrid.activeSelf == false )
+        {
+            selectedItem = null;
+            selectedItemGrid = null;
+        }
+
         //drag item's icon
         if(selectedItem != null)
         {
@@ -256,8 +263,6 @@ public class InventoryController : MonoBehaviour
 
     public void Close()
     {
-        storageGrid.SetActive(false);
-        player.GetSearchPoint().GetComponent<SearchPoint>().searchButton.SetActive(true);
-        player.GetSearchPoint().GetComponent<SearchPoint>().items.Clear();
+        storageGrid.SetActive(!storageGrid.activeInHierarchy);
     }
 }

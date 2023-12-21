@@ -26,6 +26,11 @@ public class SearchPoint : MonoBehaviour
 
     static int t = 1;
 
+    private void Start()
+    {
+        containerPanel.SetActive(false);
+    }
+
     private void Update()
     {
         if (searchButton.activeSelf ) 
@@ -64,8 +69,8 @@ public class SearchPoint : MonoBehaviour
         {
             AddItems(newItem);
         }
-
-        containerPanel.SetActive(true);
+        containerPanel.SetActive(!containerPanel.activeInHierarchy);
+        //containerPanel.SetActive(true);
         packagePanel.SetActive(true);
     }
 

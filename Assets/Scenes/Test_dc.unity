@@ -812,7 +812,6 @@ MonoBehaviour:
   gridSizeWidth: 5
   gridSizeHeight: 6
   inventoryController: {fileID: 201794678}
-  searchPointItemGrid: {fileID: 2688927752494941400}
   containerGrid: {fileID: 0}
   items:
   - {fileID: 0}
@@ -4437,7 +4436,6 @@ MonoBehaviour:
   gridSizeWidth: 5
   gridSizeHeight: 6
   inventoryController: {fileID: 201794678}
-  searchPointItemGrid: {fileID: 2688927752494941400}
   containerGrid: {fileID: 2688927752494941400}
   items: []
   allItems:
@@ -5646,7 +5644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &2688927751246032044
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6078,7 +6076,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2688927752494941400
 MonoBehaviour:
   m_ObjectHideFlags: 0

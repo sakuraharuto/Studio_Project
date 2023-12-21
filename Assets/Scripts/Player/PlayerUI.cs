@@ -8,7 +8,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] public GameObject PackageClose;
     [SerializeField] public GameObject PackageButton;
 
-    private void Awake()
+    private void Start()
     {
         PackageGrid.SetActive(false);
     }
@@ -21,7 +21,9 @@ public class PlayerUI : MonoBehaviour
 
     public void OpenPackage()
     {
-        PackageGrid.SetActive(true);
+        //PackageGrid.SetActive(true);
+        PackageGrid.SetActive(PackageGrid.activeInHierarchy);
+
         PackageButton.SetActive(false);
     }
 
