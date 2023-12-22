@@ -421,7 +421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3997412190003028138, guid: 99798db7b0060fe4e95acc64eac3c447, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.86
+      value: -1.4
       objectReference: {fileID: 0}
     - target: {fileID: 3997412190003028138, guid: 99798db7b0060fe4e95acc64eac3c447, type: 3}
       propertyPath: m_LocalPosition.y
@@ -808,17 +808,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchButton: {fileID: 1147676832}
   packagePanel: {fileID: 2688927751246032043}
-  containerPanel: {fileID: 0}
+  containerPanel: {fileID: 2688927752494941398}
   gridSizeWidth: 5
   gridSizeHeight: 6
   inventoryController: {fileID: 201794678}
-  containerGrid: {fileID: 0}
-  items:
-  - {fileID: 0}
+  containerGrid: {fileID: 2688927752494941400}
+  items: []
   allItems:
-  - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
-  - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
-  - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  inventoryItemsList: []
   player: {fileID: 1988995161}
 --- !u!65 &267469255
 BoxCollider:
@@ -4122,7 +4122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1653935921
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4226,7 +4226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653935920}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.65, y: 2.94, z: 12.02}
+  m_LocalPosition: {x: 24.87, y: 2.94, z: 10.01}
   m_LocalScale: {x: 3.261, y: 3.886704, z: 1.5051684}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4442,6 +4442,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
   - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
   - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
+  inventoryItemsList: []
   player: {fileID: 1988995161}
 --- !u!1 &1724328507
 GameObject:

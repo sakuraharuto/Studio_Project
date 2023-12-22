@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ItemGrid : MonoBehaviour
 {
@@ -232,4 +233,14 @@ public class ItemGrid : MonoBehaviour
         return true;
     }
 
+    public void EmptyGrid()
+    {
+        for (int x = 0; x < gridSizeWidth; x++)
+        {
+            for (int y = 0; y < gridSizeHeight; y++)
+            {
+                inventoryItemSlot[x, y] = null;
+            }
+        }
+    }
 }

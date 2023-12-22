@@ -58,7 +58,7 @@ public class InventoryController : MonoBehaviour
 
     }
 
-    private void InsertRandomItem()
+    public void InsertRandomItem()
     {   
         if(selectedItemGrid == null) { return; }
         CreateRandomItem();
@@ -151,7 +151,8 @@ public class InventoryController : MonoBehaviour
 
     public void ProcessMouseInput()
     {   
-        if(storageGrid.activeSelf == false )
+        // set both to null when the player hides panels
+        if(storageGrid.activeSelf == false)
         {
             selectedItem = null;
             selectedItemGrid = null;

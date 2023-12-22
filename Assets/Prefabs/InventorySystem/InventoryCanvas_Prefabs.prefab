@@ -1141,7 +1141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6677650748042234588}
   m_Layer: 0
-  m_Name: InventoryPrefabs
+  m_Name: InventoryCanvas_Prefabs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

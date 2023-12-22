@@ -22,7 +22,7 @@ public class PlayerUI : MonoBehaviour
     public void OpenPackage()
     {
         //PackageGrid.SetActive(true);
-        PackageGrid.SetActive(PackageGrid.activeInHierarchy);
+        PackageGrid.SetActive(!PackageGrid.activeInHierarchy);
 
         PackageButton.SetActive(false);
     }

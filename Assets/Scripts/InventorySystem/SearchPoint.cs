@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class SearchPoint : MonoBehaviour
 {
@@ -21,6 +23,7 @@ public class SearchPoint : MonoBehaviour
     [Header("Item List")]
     public List<ItemData> items;
     public List<ItemData> allItems;
+    public List<InventoryItem> inventoryItemsList;
 
     [SerializeField] PlayerMovement player;
 
@@ -33,23 +36,41 @@ public class SearchPoint : MonoBehaviour
 
     private void Update()
     {
-        if (searchButton.activeSelf ) 
+        if (searchButton.activeSelf) 
         {
             if (Input.GetKeyUp(KeyCode.E)) { Open(); }
         }
     }
 
-    public void AddItems(ItemData itemData)
+    private void AddItems()
     {
-        Vector2Int? positionToAdd = containerGrid.FindSpaceForObject(itemData);
+        for(int i = 0; i < items.Count; i++)
+        {
+            InventoryItem newItem = inventoryController.CreateNewInventoryItem(items[i]);
+            inventoryItemsList.Add(newItem);
 
-        if(positionToAdd == null ) { return; }
+            Vector2Int? posOnGrid = containerGrid.FindSpaceForObject(newItem.itemData);
 
-        InventoryItem newItem = inventoryController.CreateNewInventoryItem(itemData);
-        containerGrid.PlaceItem(newItem, positionToAdd.Value.x, positionToAdd.Value.y);
+            if (posOnGrid == null) { return; }
+
+            containerGrid.PlaceItem(newItem, posOnGrid.Value.x, posOnGrid.Value.y);
+        }
     }
 
-    public void RefreshResource()
+    private void RemoveItems()
+    {
+        if(inventoryItemsList == null) { return; }
+        
+        for(int i = 2; i < containerGrid.transform.childCount; i++)
+        {
+            Destroy(containerGrid.transform.GetChild(i).gameObject);
+        }
+
+        containerGrid.EmptyGrid();
+        items.Clear();
+    }
+
+    private void RefreshResource()
     {   
         int newItemCount = Random.Range(1, allItems.Count);
 
@@ -64,13 +85,7 @@ public class SearchPoint : MonoBehaviour
     public void Open()
     {
         searchButton.SetActive(false);
-        
-        foreach(ItemData newItem in items)
-        {
-            AddItems(newItem);
-        }
         containerPanel.SetActive(!containerPanel.activeInHierarchy);
-        //containerPanel.SetActive(true);
         packagePanel.SetActive(true);
     }
 
@@ -87,7 +102,7 @@ public class SearchPoint : MonoBehaviour
             }
             else
             {
-                RefreshResource();
+                AddItems();
             }
 
         }
@@ -96,11 +111,12 @@ public class SearchPoint : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-        { 
-            items.Clear();
+        {
+            // clean and refresh items in container 
+            RemoveItems();
+            RefreshResource();
 
             searchButton.SetActive(false);
-
             t++;
         }
     }
