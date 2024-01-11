@@ -18,4 +18,6 @@ public class ItemData : ScriptableObject
     public Sprite itemIcon;
     public int width = 1 ;
     public int height = 1;
+
+    public int itemID;
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,6 +34,8 @@ public class InventoryController : MonoBehaviour
     [Header("UI Setting")]
     [SerializeField] PlayerMovement player;
     [SerializeField] GameObject storageGrid;
+
+    public static event Action OnItemCollected;
 
     private void Awake()
     {
@@ -216,51 +219,94 @@ public class InventoryController : MonoBehaviour
 
     private void PlaceItemInput()
     {
-        if(selectedItemGrid.BoundaryCheck(positionOnGrid.x, positionOnGrid.y,
+        // check if the position on grid
+        if (selectedItemGrid.BoundaryCheck(positionOnGrid.x, positionOnGrid.y,
                 selectedItem.itemData.width, selectedItem.itemData.height) == false)
         {
             return;
         }
 
-        if(selectedItemGrid.OverlapCheck(positionOnGrid.x, positionOnGrid.y, 
-            selectedItem.itemData.width, selectedItem.itemData.height, 
+        // check if there is item overlapped
+        if (selectedItemGrid.OverlapCheck(positionOnGrid.x, positionOnGrid.y,
+            selectedItem.itemData.width, selectedItem.itemData.height,
             ref overlapItem) == false)
         {
             overlapItem = null;
             return;
         }
 
-        if(overlapItem != null) 
+        // clean the position of overlapped item on grid 
+        if (overlapItem != null)
         {
             selectedItemGrid.CleanGridReference(overlapItem);
         }
 
+        // Place selectedItem on the grid
         selectedItemGrid.PlaceItem(selectedItem, positionOnGrid.x, positionOnGrid.y);
+
+        // Update Item Count
+        if (selectedItemGrid.name == "Package_Grid")
+        {
+            CollectItem(selectedItem.id);
+        }
+        if (selectedItemGrid.name == "Container_Grid")
+        {
+            DropItem(selectedItem.id);
+        }
+
         NullSelectedItem();
 
-        if(overlapItem != null)
+        // Set the overlappedItem as selectedItem
+        if (overlapItem != null)
         {
             selectedItem = overlapItem;
             rectTransform = selectedItem.GetComponent<RectTransform>();
             overlapItem = null;
         }
-    }   
+    }
 
-    public void PlaceItem(Vector2Int tileGridPosition)
-    {   
-        bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem);
-        if(complete)
+    //Update the Count of item in bag
+    private void CollectItem(int itemID)
+    {
+        if(ItemStats.instance.bagStats.ContainsKey(itemID))
         {
-            selectedItem = null;
-            if(overlapItem != null)
-            {
-                selectedItem = overlapItem;
-                overlapItem = null;
-                rectTransform = selectedItem.GetComponent<RectTransform>();
-                rectTransform.SetAsLastSibling();
-            }
+            ItemStats.instance.bagStats[itemID]++;
+        }
+        else
+        {
+            ItemStats.instance.bagStats.Add(itemID, 1);
         }
     }
+
+    private void DropItem(int itemID)
+    {
+        if(ItemStats.instance.bagStats.ContainsKey(itemID))
+        {
+            ItemStats.instance.bagStats[itemID]--;
+        }
+
+        if(ItemStats.instance.bagStats[itemID] == 1)
+        {
+            ItemStats.instance.bagStats[itemID]--;
+            ItemStats.instance.bagStats.Remove(itemID);
+        }
+    }
+
+    //public void PlaceItem(Vector2Int tileGridPosition)
+    //{   
+    //    bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem);
+    //    if(complete)
+    //    {
+    //        selectedItem = null;
+    //        if(overlapItem != null)
+    //        {
+    //            selectedItem = overlapItem;
+    //            overlapItem = null;
+    //            rectTransform = selectedItem.GetComponent<RectTransform>();
+    //            rectTransform.SetAsLastSibling();
+    //        }
+    //    }
+    //}
 
     public void Close()
     {

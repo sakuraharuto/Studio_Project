@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 7927002986765568577}
   - component: {fileID: 7927002986765568606}
   - component: {fileID: 7927002986765568607}
+  - component: {fileID: 960020184}
   - component: {fileID: 7927002986765568604}
   - component: {fileID: 7927002986765568581}
-  - component: {fileID: 960020184}
+  - component: {fileID: 9108471322166848273}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -120,37 +121,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7927002986765568604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7927002986765568605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 426ccce62fec74a3d987a54e8ce6da4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  feedbackUI: {fileID: 0}
-  searchPoint: {fileID: 0}
-  teleportDoor: {fileID: 0}
---- !u!114 &7927002986765568581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7927002986765568605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8479052ae7d4e7a4d9db2db96221cc5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PackageGrid: {fileID: 0}
-  PackageClose: {fileID: 0}
-  PackageButton: {fileID: 0}
 --- !u!54 &960020184
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -167,3 +137,46 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &7927002986765568604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7927002986765568605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 426ccce62fec74a3d987a54e8ce6da4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  feedbackUI: {fileID: 0}
+  teleportDoor: {fileID: 0}
+--- !u!114 &7927002986765568581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7927002986765568605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8479052ae7d4e7a4d9db2db96221cc5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PackageGrid: {fileID: 0}
+  PackageClose: {fileID: 0}
+  PackageButton: {fileID: 0}
+--- !u!114 &9108471322166848273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7927002986765568605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40f792c62191194b87c67ecbc8492ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemTypes: 

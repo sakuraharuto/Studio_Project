@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private bool canOpenDoor = false;
    
     [Header("Function Setting")]
-    public GameObject searchPoint;
+
+
 
     private Rigidbody rb; // 添加Rigidbody引用
 
@@ -90,23 +91,12 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Teleport to location: " + transform.position);
     }
 
-    public GameObject GetSearchPoint()
-    {
-        return searchPoint;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("TeleportDoor"))
         {
             teleportDoor = other.gameObject;
             canTeleport = true;
-        }
-
-        if (other.CompareTag("SearchPoint"))
-        {
-            searchPoint = other.gameObject;
-            
         }
     }
 
@@ -116,12 +106,6 @@ public class PlayerMovement : MonoBehaviour
         {
             teleportDoor = null;
             canTeleport = false;
-        }
-
-        if (other.CompareTag("SearchPoint"))
-        {
-            searchPoint = null;
-         
         }
     }
 }

@@ -22,8 +22,6 @@ public abstract class ItemObject : ScriptableObject
     public int itemID;
     public string itemName;
     public Sprite itemIcon;
-    
-    public int count;
 
     [TextArea(15,20)]
     public string description;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -27,7 +28,7 @@ public class SearchPoint : MonoBehaviour
 
     [SerializeField] PlayerMovement player;
 
-    static int t = 1;
+    public static int t = 0;
 
     private void Start()
     {
@@ -60,10 +61,17 @@ public class SearchPoint : MonoBehaviour
     private void RemoveItems()
     {
         if(inventoryItemsList == null) { return; }
-        
+       
         for(int i = 2; i < containerGrid.transform.childCount; i++)
         {
-            Destroy(containerGrid.transform.GetChild(i).gameObject);
+            if (containerGrid.transform.GetChild(i).gameObject.name == "Highlighter")
+            {
+                break;
+            }
+            else
+            {
+                Destroy(containerGrid.transform.GetChild(i).gameObject);
+            }
         }
 
         containerGrid.EmptyGrid();
@@ -84,6 +92,7 @@ public class SearchPoint : MonoBehaviour
     // -----UI Interaction-----
     public void Open()
     {
+        SearchPoint.t++;
         searchButton.SetActive(false);
         containerPanel.SetActive(!containerPanel.activeInHierarchy);
         packagePanel.SetActive(true);
@@ -93,18 +102,10 @@ public class SearchPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player Detected.");
+            Debug.Log("Player Detected. " + SearchPoint.t);
             searchButton.SetActive(true);
 
-            if (t == 1)
-            {
-                return;
-            }
-            else
-            {
-                AddItems();
-            }
-
+            if (SearchPoint.t > 0) AddItems();
         }
     }
 
@@ -112,12 +113,14 @@ public class SearchPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (SearchPoint.t != 0)
+            {
+                RemoveItems();
+            }
             // clean and refresh items in container 
-            RemoveItems();
             RefreshResource();
 
             searchButton.SetActive(false);
-            t++;
         }
     }
 }

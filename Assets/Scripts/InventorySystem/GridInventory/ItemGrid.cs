@@ -34,7 +34,7 @@ public class ItemGrid : MonoBehaviour
 
     private void Start()
     {
-        Init(gridSizeWidth, gridSizeHeight);
+        Init();
     }
 
     // pick up item, the grid on panel will not be occupied.
@@ -49,13 +49,13 @@ public class ItemGrid : MonoBehaviour
         }
     }
 
-    public void Init(int width, int height)
+    public void Init()
     {
         rectTransform = GetComponent<RectTransform>();
-        inventoryItemSlot = new InventoryItem[width, height];
+        inventoryItemSlot = new InventoryItem[gridSizeWidth, gridSizeHeight];
         Vector2 size = new Vector2();
-        size.x = tileSizeWidth * width;
-        size.y = tileSizeHeight * height;
+        size.x = tileSizeWidth * gridSizeWidth;
+        size.y = tileSizeHeight * gridSizeHeight;
         rectTransform.sizeDelta = size;
     }
     
@@ -65,6 +65,8 @@ public class ItemGrid : MonoBehaviour
         RectTransform rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(transform);
 
+        //Debug.Log(transform);
+
         // occupy grids on the panel
         for (int x = 0; x < inventoryItem.itemData.width; x++)
         {
@@ -73,7 +75,7 @@ public class ItemGrid : MonoBehaviour
                 inventoryItemSlot[posX + x, posY + y] = inventoryItem;
             }
         }
- 
+
         inventoryItem.onGridPositionX = posX;
         inventoryItem.onGridPositionY = posY;
 
@@ -130,10 +132,10 @@ public class ItemGrid : MonoBehaviour
     }
 
     public Vector2Int GetTileGridPosition(Vector2 mousePosition)
-    {   
+    {
         positionOnGrid.x = mousePosition.x - rectTransform.position.x;
         positionOnGrid.y = rectTransform.position.y - mousePosition.y;
-        
+
         tileGridPosition.x = (int)(positionOnGrid.x / (tileSizeWidth * scaleFactor));
         tileGridPosition.y = (int)(positionOnGrid.y / (tileSizeHeight * scaleFactor));
 
@@ -141,6 +143,19 @@ public class ItemGrid : MonoBehaviour
         // tileGridPosition.y = (int)(positionOnGrid.y / (tileSizeHeight));
 
         return tileGridPosition;
+
+        ////fix canvas scaler
+        //positionOnGrid.x = mousePosition.x - rectTransform.position.x;
+        //positionOnGrid.y = rectTransform.position.y - mousePosition.y;
+
+        //Vector2 scaledGridPosition = new Vector2();
+        //scaledGridPosition.x = positionOnGrid.x.Remap(0, Screen.width, 0, 1920);
+        //scaledGridPosition.y = positionOnGrid.y.Remap(0, Screen.height, 0, 1080);
+
+        //tileGridPosition.x = (int)(scaledGridPosition.x / tileSizeWidth);
+        //tileGridPosition.y = (int)(scaledGridPosition.y / tileSizeHeight);  
+
+        //return tileGridPosition;
     }
 
     public bool PlaceItem(InventoryItem inventoryItem, int posX, int posY, ref InventoryItem overlapItem)
