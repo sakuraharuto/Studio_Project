@@ -819,7 +819,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
   - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
   - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
-  inventoryItemsList: []
   player: {fileID: 1988995161}
 --- !u!65 &267469255
 BoxCollider:
@@ -1249,7 +1248,7 @@ GameObject:
   - component: {fileID: 514007327}
   m_Layer: 0
   m_Name: SearchPoint
-  m_TagString: Untagged
+  m_TagString: SearchPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4118,7 +4117,7 @@ GameObject:
   - component: {fileID: 1653935921}
   m_Layer: 0
   m_Name: SearchPoint
-  m_TagString: Untagged
+  m_TagString: SearchPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4442,7 +4441,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
   - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
   - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
-  inventoryItemsList: []
   player: {fileID: 1988995161}
 --- !u!1 &1724328507
 GameObject:

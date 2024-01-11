@@ -195,9 +195,10 @@ public class InventoryController : MonoBehaviour
             if (selectedItem != null)
             {
                 SelectItem(selectedItem);
+                player.sp.items.Remove(selectedItem.itemData);
             }
         }
-        //click when item selected
+        //click when has item selected
         else
         {
             PlaceItemInput();
@@ -223,6 +224,10 @@ public class InventoryController : MonoBehaviour
         if (selectedItemGrid.BoundaryCheck(positionOnGrid.x, positionOnGrid.y,
                 selectedItem.itemData.width, selectedItem.itemData.height) == false)
         {
+            // if click outside of the grid, drop item
+            // Destroy(rectTransform);
+
+            NullSelectedItem();
             return;
         }
 
@@ -252,6 +257,7 @@ public class InventoryController : MonoBehaviour
         if (selectedItemGrid.name == "Container_Grid")
         {
             DropItem(selectedItem.id);
+            if(overlapItem == null) { player.sp.items.Add(selectedItem.itemData); }
         }
 
         NullSelectedItem();
@@ -285,31 +291,23 @@ public class InventoryController : MonoBehaviour
             ItemStats.instance.bagStats[itemID]--;
         }
 
+        if(!ItemStats.instance.bagStats.ContainsKey(itemID))
+        {
+            return;
+        }
+
         if(ItemStats.instance.bagStats[itemID] == 1)
         {
             ItemStats.instance.bagStats[itemID]--;
             ItemStats.instance.bagStats.Remove(itemID);
         }
-    }
 
-    //public void PlaceItem(Vector2Int tileGridPosition)
-    //{   
-    //    bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem);
-    //    if(complete)
-    //    {
-    //        selectedItem = null;
-    //        if(overlapItem != null)
-    //        {
-    //            selectedItem = overlapItem;
-    //            overlapItem = null;
-    //            rectTransform = selectedItem.GetComponent<RectTransform>();
-    //            rectTransform.SetAsLastSibling();
-    //        }
-    //    }
-    //}
+    }
 
     public void Close()
     {
         storageGrid.SetActive(!storageGrid.activeInHierarchy);
+
+        player.sp.searchButton.SetActive(true);
     }
 }

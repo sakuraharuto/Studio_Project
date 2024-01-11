@@ -30,12 +30,13 @@ public class ItemGrid : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-    }
-
-    private void Start()
-    {
         Init();
     }
+
+    //private void Start()
+    //{
+    //    Init();
+    //}
 
     // pick up item, the grid on panel will not be occupied.
     public void CleanGridReference(InventoryItem item)
@@ -258,4 +259,23 @@ public class ItemGrid : MonoBehaviour
             }
         }
     }
+
+    public bool isEmpty()
+    {
+        for (int x = 0; x < gridSizeWidth; x++)
+        {
+            for (int y = 0; y < gridSizeHeight; y++)
+            {
+                if (inventoryItemSlot[x, y] == null)
+                {
+                    continue;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }    
 }

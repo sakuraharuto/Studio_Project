@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false;
     private bool canTeleport = false;
     private bool canOpenDoor = false;
-   
+
     [Header("Function Setting")]
 
 
@@ -20,10 +20,16 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector] public GameObject teleportDoor;
 
+    //public static int t = 0;
+    public SearchPoint sp;
+
+
     private void Start()
     {
         defaultZPosition = transform.position.z;
         rb = GetComponent<Rigidbody>(); // 初始化Rigidbody引用
+
+        sp = null;
     }
 
     private void Update()
@@ -93,19 +99,29 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("TeleportDoor"))
+        if(other.CompareTag("TeleportDoor"))
         {
             teleportDoor = other.gameObject;
             canTeleport = true;
+        }
+
+        if(other.CompareTag("SearchPoint"))
+        {
+            sp = other.GetComponent<SearchPoint>();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("TeleportDoor"))
+        if(other.CompareTag("TeleportDoor"))
         {
             teleportDoor = null;
             canTeleport = false;
+        }
+
+        if (other.CompareTag("SearchPoint"))
+        {
+            sp = null;
         }
     }
 }
