@@ -304,7 +304,7 @@ public class InventoryController : MonoBehaviour
 
     public void Close()
     {
-        storageGrid.SetActive(!storageGrid.activeInHierarchy);
+        storageGrid.SetActive(false);
 
         player.sp.searchButton.SetActive(true);
     }
