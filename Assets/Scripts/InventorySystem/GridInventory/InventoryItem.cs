@@ -22,14 +22,9 @@ public class InventoryItem : MonoBehaviour
         GetComponent<Image>().sprite = itemData.itemIcon;
 
         Vector2 size = new Vector2(
-            itemData.width * ItemGrid.tileSizeWidth * ItemGrid.scaleFactor,
-            itemData.height * ItemGrid.tileSizeHeight * ItemGrid.scaleFactor
+            itemData.width * ItemGrid.tileSizeWidth,
+            itemData.height * ItemGrid.tileSizeHeight
             );
-
-        //Vector2 size = new Vector2(
-        //    itemData.width * ItemGrid.tileSizeWidth,
-        //    itemData.height * ItemGrid.tileSizeHeight
-        //    );
 
         GetComponent<RectTransform>().sizeDelta = size;
     }

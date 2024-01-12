@@ -109,7 +109,8 @@ public class SearchPoint : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            searchButton.SetActive(false);
+            //searchButton.SetActive(false);
+            inventoryController.Close();
 
             if (containerGrid.isEmpty() == true)
             {

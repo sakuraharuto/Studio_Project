@@ -21,11 +21,6 @@ public class ItemGrid : MonoBehaviour
     [SerializeField] int gridSizeWidth;
     [SerializeField] int gridSizeHeight;
 
-    // offset
-    // for item grid size scaler
-    public const float scaleFactor = 1.43625f;
-
-
     // Start is called before the first frame update 
     private void Awake()
     {
@@ -134,29 +129,18 @@ public class ItemGrid : MonoBehaviour
 
     public Vector2Int GetTileGridPosition(Vector2 mousePosition)
     {
+        // canvas scaler fixed
         positionOnGrid.x = mousePosition.x - rectTransform.position.x;
         positionOnGrid.y = rectTransform.position.y - mousePosition.y;
 
-        tileGridPosition.x = (int)(positionOnGrid.x / (tileSizeWidth * scaleFactor));
-        tileGridPosition.y = (int)(positionOnGrid.y / (tileSizeHeight * scaleFactor));
+        Vector2 scaledGridPosition = new Vector2();
+        scaledGridPosition.x = positionOnGrid.x.Remap(0, Screen.width, 0, 1920);
+        scaledGridPosition.y = positionOnGrid.y.Remap(0, Screen.height, 0, 1080);
 
-        // tileGridPosition.x = (int)(positionOnGrid.x / (tileSizeWidth));
-        // tileGridPosition.y = (int)(positionOnGrid.y / (tileSizeHeight));
+        tileGridPosition.x = (int)(scaledGridPosition.x / tileSizeWidth);
+        tileGridPosition.y = (int)(scaledGridPosition.y / tileSizeHeight);
 
         return tileGridPosition;
-
-        ////fix canvas scaler
-        //positionOnGrid.x = mousePosition.x - rectTransform.position.x;
-        //positionOnGrid.y = rectTransform.position.y - mousePosition.y;
-
-        //Vector2 scaledGridPosition = new Vector2();
-        //scaledGridPosition.x = positionOnGrid.x.Remap(0, Screen.width, 0, 1920);
-        //scaledGridPosition.y = positionOnGrid.y.Remap(0, Screen.height, 0, 1080);
-
-        //tileGridPosition.x = (int)(scaledGridPosition.x / tileSizeWidth);
-        //tileGridPosition.y = (int)(scaledGridPosition.y / tileSizeHeight);  
-
-        //return tileGridPosition;
     }
 
     public bool PlaceItem(InventoryItem inventoryItem, int posX, int posY, ref InventoryItem overlapItem)

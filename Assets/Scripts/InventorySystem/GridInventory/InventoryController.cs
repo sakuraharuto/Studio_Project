@@ -35,8 +35,6 @@ public class InventoryController : MonoBehaviour
     [SerializeField] PlayerMovement player;
     [SerializeField] GameObject storageGrid;
 
-    public static event Action OnItemCollected;
-
     private void Awake()
     {
         itemHighlight = GetComponent<ItemHighlight>();
