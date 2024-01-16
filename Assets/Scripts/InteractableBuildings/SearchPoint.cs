@@ -29,6 +29,7 @@ public class SearchPoint : MonoBehaviour
 
     private void Start()
     {
+        searchButton.SetActive(false);
         containerPanel.SetActive(!containerPanel.activeInHierarchy);
         RefreshResource();
     }
@@ -89,7 +90,7 @@ public class SearchPoint : MonoBehaviour
     // -----UI Interaction-----
     public void Open()
     {   
-        searchButton.SetActive(false);
+        searchButton.SetActive(!searchButton.activeSelf);
         containerPanel.SetActive(!containerPanel.activeInHierarchy);
         packagePanel.SetActive(true);
 
@@ -100,17 +101,19 @@ public class SearchPoint : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             searchButton.SetActive(true);
-            
+
             AddItems();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        
         if(other.CompareTag("Player"))
         {
-            searchButton.SetActive(false);
             inventoryController.Close();
+
+            searchButton.SetActive(false);
 
             if (containerGrid.isEmpty() == true)
             {

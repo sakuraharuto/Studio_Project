@@ -6,10 +6,8 @@ public class ItemStats : MonoBehaviour
 {
     public static ItemStats instance;
 
-    // use list to store items type
-    public List<int> itemTypes = new List<int>();
     // use dictionary to store items count
-    [SerializeField] public Dictionary<int, int> bagStats;
+    public Dictionary<int, int> bagStats;
 
     // Start is called before the first frame update
     void Start()
