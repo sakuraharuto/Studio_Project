@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class UIBase : MonoBehaviour
 {   
-    UIManager uiManager;
     public virtual void Open()
     {
         gameObject.SetActive(true); 
@@ -18,6 +17,6 @@ public class UIBase : MonoBehaviour
 
     public virtual void Destroy()
     {
-        uiManager.DestroyUI(gameObject.name);
+        UIManager.instance.DestroyUI(gameObject.name);
     }
 }

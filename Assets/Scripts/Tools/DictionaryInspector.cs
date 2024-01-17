@@ -16,7 +16,7 @@ public class DictionaryInspector : Editor
         {
             foreach(KeyValuePair<int, int> pair in itemStats.bagStats)
             {
-                Debug.Log("Item" + pair.Key + ", Count: " + pair.Value);
+                Debug.Log("Item " + pair.Key + ", Count: " + pair.Value);
             }
         }
     }

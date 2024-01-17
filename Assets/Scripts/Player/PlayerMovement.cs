@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>(); // 初始化Rigidbody引用
 
         sp = null;
+
+        ItemStats.instance.Init();
     }
 
     private void Update()

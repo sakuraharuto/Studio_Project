@@ -13,9 +13,9 @@ public class CombatUI : UIBase
     public Transform canvasTF;
 
     [Header("Icons")]
-    public TMP_Text deckCount;
-    public TMP_Text usedDeckCount;
-    public TMP_Text costCount;
+    [SerializeField] public TMP_Text deckCount;
+    [SerializeField] public TMP_Text usedDeckCount;
+    [SerializeField] public TMP_Text costCount;
 
     [Header("Player HUD")]
     //character HUD
@@ -45,6 +45,7 @@ public class CombatUI : UIBase
         //Debug.Log(CombatManager.instance.playerUnit.cost);
 
         StartCoroutine(AssignUIText());
+
         //assign player ui data
         //deckCount.text = PlayerCardManager.instance.deck.Count.ToString();
         //usedDeckCount.text = cardList.Count.ToString();
@@ -55,22 +56,23 @@ public class CombatUI : UIBase
     IEnumerator AssignUIText()
     {
         yield return null;
+
         //assign player ui data
         deckCount.text = PlayerCardManager.instance.deck.Count.ToString();
         usedDeckCount.text = cardList.Count.ToString();
         costCount.text = CombatManager.instance.playerUnit.cost.ToString();
     }
 
-
     public void Start()
     {
         UpdateCardsDeck();
         UpdateUsedCardsDeck();
+        //Debug.Log("costCount "+ costCount + " CM.cost " + CombatManager.instance.playerUnit.cost);
         //UpdateCost();
     }
 
     public void UpdateCost()
-    {
+    {   
         costCount.text = CombatManager.instance.playerUnit.cost.ToString();
     }
 
@@ -179,4 +181,26 @@ public class CombatUI : UIBase
             RemoveCard(cardList[i]);
         }
     }
+
+    // Open Item Menu (side menu)
+    public void OpenItemsMenu()
+    {
+
+    }
+    // Hide Item Menu
+    public void HideItemsMenu()
+    {
+
+    }
+
+    public void UpdateItemsTypes()
+    {
+
+    }
+
+    public void UpdateItemCount()
+    {
+
+    }
+
 }

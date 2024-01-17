@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
         //canvas = GameObject.Find("Canvas").transform;
 
         uiList = new List<UIBase>();
@@ -21,6 +22,9 @@ public class UIManager : MonoBehaviour
     public UIBase OpenUI<T>(string uiName) where T : UIBase
     {
         UIBase ui = Find(uiName);
+
+        // Init UI Object
+        // Need to Rewrite
         if (ui == null)
         {
             GameObject uiObject = Instantiate(Resources.Load("UI/" + uiName), canvas) as GameObject;
@@ -39,7 +43,8 @@ public class UIManager : MonoBehaviour
         return ui;
     }
     
-    public void CloseUI(string uiName)
+    // Hide a specific UI
+    public void HideUI(string uiName)
     {
         UIBase ui = Find(uiName);
         if(ui != null)
@@ -48,9 +53,21 @@ public class UIManager : MonoBehaviour
         }    
     }
 
+    // close a specific UI
+    public void CloseUI(string uiName)
+    {
+        UIBase ui = Find(uiName);
+        if( ui != null )
+        {
+            uiList.Remove(ui);
+            Destroy(ui.gameObject);
+        }
+    }
+
+    // Close All ui
     public void CloseAllUI()
     {
-        for (int i = uiList.Count-1; i >=0; i--)
+        for (int i = uiList.Count-1; i >= 0; i--)
         {
             Destroy(uiList[i].gameObject);
         }

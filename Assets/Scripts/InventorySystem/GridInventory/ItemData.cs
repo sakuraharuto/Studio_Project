@@ -14,10 +14,13 @@ public enum EquipmentSlot
 [CreateAssetMenu(fileName = "New Item Data", menuName = "Inventory System/GridSystem/ItemData")]
 public class ItemData : ScriptableObject
 {
+    public int itemID;
+    public string itemName;
+
+
     // icon config
     public Sprite itemIcon;
     public int width = 1 ;
     public int height = 1;
 
-    public int itemID;
 }

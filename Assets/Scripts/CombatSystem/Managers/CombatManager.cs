@@ -108,6 +108,8 @@ public class CombatManager : MonoBehaviour
         // Instantiate(cardPrefab, handLeftPoint);
         //currentTime = timer;
 
+        ItemMenu_Combat.instance.Init();
+
         CombatUI.instance.CreateCardItem(count);
         CombatUI.instance.UpdateCardPosition();
 
