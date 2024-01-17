@@ -9,11 +9,16 @@ public class ItemMenu_Combat : UIBase
 
     [Header("Menu Config")]
     public GameObject itemSlot;
-    [SerializeField] private float widthOffset;
+    [SerializeField] private float slotWidth = 60f;       // width of each slot
+    [SerializeField] private float widthOffset = 10f;     // blank area
     [SerializeField] private float itemMenuWidth;
     [SerializeField] private Transform menuPosition;
 
-    private int itemTypes;
+    private RectTransform menuRect;
+
+    public List<GameObject> menuList;
+
+    private int itemsCount;
 
     private void Awake()
     {
@@ -23,7 +28,9 @@ public class ItemMenu_Combat : UIBase
     // Start is called before the first frame update
     void Start()
     {
-        itemTypes = ItemStats.instance.bagStats.Count;
+        itemsCount = ItemStats.instance.bagStats.Count;
+
+        menuRect= GetComponent<RectTransform>();
     }
 
     public void Init()
@@ -35,12 +42,11 @@ public class ItemMenu_Combat : UIBase
     // Update is called once per frame
     void Update()
     {
-        UpdateItemSlotsPosition();
+        //UpdateItemSlotsPosition();
     }
 
-    //private void CreateNewItemSlot(int typeCount)
     private void CreateNewItemSlot()
-    {
+    {   
         foreach(KeyValuePair<int, int> pair in ItemStats.instance.bagStats)
         {
 
@@ -50,16 +56,27 @@ public class ItemMenu_Combat : UIBase
 
             // Init itemSlot
             GameObject newItemSlot = Instantiate(itemSlot, menuPosition);
+            newItemSlot.transform.SetParent(gameObject.transform);
             newItemSlot.transform.localPosition = Vector3.zero;
             ItemData data = ItemStats.instance.GetItemByID(itemID);
             // Set UI by ID
             newItemSlot.GetComponent<ItemSlot_Combat>().SetItemSlot(data, itemCount);
+            menuList.Add(newItemSlot);
         }
     }
 
     public void UpdateItemSlotsPosition()
-    {
-        
+    {   
+        // set menu background size
+        //itemMenuWidth = menuList.Count * ( slotWidth + widthOffset );
+        //menuRect.sizeDelta = new Vector2( 10f + itemMenuWidth, 80 );
+
+        // slot position
+        for(int i = 0; i < menuList.Count; i++)
+        {
+            Vector3 posOffset = new Vector3(i * (slotWidth + widthOffset), 0, 0);
+            menuList[i].transform.localPosition += posOffset;
+        }
     }
 
     public void OpenItemMenu()

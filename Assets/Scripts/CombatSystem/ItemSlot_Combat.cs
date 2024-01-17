@@ -21,7 +21,6 @@ public class ItemSlot_Combat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        // Update Count
         countText.text = ItemStats.instance.bagStats[id].ToString();
     }
 
@@ -30,7 +29,6 @@ public class ItemSlot_Combat : MonoBehaviour
         // set UI
         id = itemData.itemID;
         gameObject.GetComponent<Image>().sprite = itemData.itemIcon;
-        //Debug.Log(count);
         countText.text = count.ToString();
 
         // add function script
