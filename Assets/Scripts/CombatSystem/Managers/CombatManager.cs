@@ -59,8 +59,8 @@ public class CombatManager : MonoBehaviour
         state = TurnState.INITIAL;
 
         // instantiate characters
-        Instantiate(player, playerPosition);
-        Instantiate(enemy, enemyPosition);
+        //Instantiate(player, playerPosition);
+        //Instantiate(enemy, enemyPosition);
         
         // initial characters data
         playerUnit = player.GetComponent<Unit>();
@@ -107,7 +107,7 @@ public class CombatManager : MonoBehaviour
         // UIManager.Instance.GetUI<CombatUI>("CombatUI").CreateCardItem(3);   // initxial hand card
         // Instantiate(cardPrefab, handLeftPoint);
         //currentTime = timer;
-
+        Debug.Log("Initial item menu");
         ItemMenu_Combat.instance.Init();
 
         CombatUI.instance.CreateCardItem(count);

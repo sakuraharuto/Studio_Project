@@ -9,30 +9,31 @@ using UnityEngine.UI;
 /// </summary>
 public class ItemSlot_Combat : MonoBehaviour
 {
-    private int id;
-    public TMP_Text countText;
+    // item data
+    [SerializeField] private int id;
+    [SerializeField] private TMP_Text countText;
+    [SerializeField] private Image itemIcon;
 
     // Start is called before the first frame update
     void Start()
-    {   
-        countText.text = "0";
+    {
+
     }
 
     // Update is called once per frame
     void Update()
-    {   
-        countText.text = ItemStats.instance.bagStats[id].ToString();
+    {
+        
     }
 
     public void SetItemSlot(ItemData itemData, int count)
-    {
+    {   
         // set UI
-        id = itemData.itemID;
-        gameObject.GetComponent<Image>().sprite = itemData.itemIcon;
-        countText.text = count.ToString();
+        this.id = itemData.itemID;
+        this.countText.text = count.ToString();
+        this.itemIcon.sprite = itemData.itemIcon;
 
         // add function script
-        //gameObject.AddComponent(System.Type.GetType(itemData.itemName));
     }
     
 }
