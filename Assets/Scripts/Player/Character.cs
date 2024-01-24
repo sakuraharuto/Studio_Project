@@ -9,6 +9,21 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    [Header("Character Config")]
+    public int speed;
+    public int maxHP;
+    public int currentHP;
+    public int hpRegen;
+    public int damge;
+    public int Shield;
+
+    [Header("Effects Config")]
+    public bool isBleeding;
+    public bool invulnerable;
+    public bool pain;
+    public bool burning;
+    public bool isWeaken;
+    
     //[SerializeField] AttributeGroup attributes;
     //[SerializeField] StatsGroup stats;
 

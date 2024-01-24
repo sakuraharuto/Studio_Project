@@ -12,11 +12,11 @@ public class DictionaryInspector : Editor
 
         ItemStats itemStats = (ItemStats)target;
 
-        if(GUILayout.Button("Show Dictionary Contents"))
+        if(GUILayout.Button("Show Backpack Contents"))
         {
             foreach(KeyValuePair<int, int> pair in itemStats.bagStats)
             {
-                Debug.Log("Item " + pair.Key + ", Count: " + pair.Value);
+                Debug.Log("Item_" + pair.Key + " x" + pair.Value);
             }
         }
     }
