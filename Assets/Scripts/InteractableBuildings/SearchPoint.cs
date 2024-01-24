@@ -30,8 +30,8 @@ public class SearchPoint : MonoBehaviour
     private void Start()
     {
         searchButton.SetActive(false);
-        containerPanel.SetActive(!containerPanel.activeInHierarchy);
         RefreshResource();
+        containerPanel.SetActive(false);
     }
 
     private void Update()
@@ -90,8 +90,8 @@ public class SearchPoint : MonoBehaviour
     // -----UI Interaction-----
     public void Open()
     {   
-        searchButton.SetActive(!searchButton.activeSelf);
-        containerPanel.SetActive(!containerPanel.activeInHierarchy);
+        searchButton.SetActive(false);
+        containerPanel.SetActive(true);
         packagePanel.SetActive(true);
 
     }

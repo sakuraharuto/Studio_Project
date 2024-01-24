@@ -21,17 +21,11 @@ public class ItemGrid : MonoBehaviour
     [SerializeField] int gridSizeWidth;
     [SerializeField] int gridSizeHeight;
 
-    // Start is called before the first frame update 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         Init();
     }
-
-    //private void Start()
-    //{
-    //    Init();
-    //}
 
     // pick up item, the grid on panel will not be occupied.
     public void CleanGridReference(InventoryItem item)

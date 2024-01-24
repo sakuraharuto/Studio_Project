@@ -29,9 +29,9 @@ public class ItemSlot_Combat : MonoBehaviour
     public void SetItemSlot(ItemData itemData, int count)
     {   
         // set UI
-        this.id = itemData.itemID;
-        this.countText.text = count.ToString();
-        this.itemIcon.sprite = itemData.itemIcon;
+        id = itemData.itemID;
+        countText.text = count.ToString();
+        itemIcon.sprite = itemData.itemIcon;
 
         // add function script
     }
