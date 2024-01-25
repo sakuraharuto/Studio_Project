@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40f792c62191194b87c67ecbc8492ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsList:
+  allItems:
   - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
   - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
   - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}

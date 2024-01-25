@@ -6509,5 +6509,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9108471322166848273, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
+      propertyPath: allItems.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
+    - target: {fileID: 9108471322166848273, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
+      propertyPath: allItems.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
+    - target: {fileID: 9108471322166848273, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
+      propertyPath: allItems.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}

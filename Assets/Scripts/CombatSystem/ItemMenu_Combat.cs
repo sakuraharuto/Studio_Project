@@ -15,8 +15,6 @@ public class ItemMenu_Combat : UIBase
     private int itemCount;
     private RectTransform menuRect;
 
-    public ItemData itemData;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -43,13 +41,12 @@ public class ItemMenu_Combat : UIBase
     {
         int slot = 0;
         foreach (KeyValuePair<int, int> pair in ItemStats.instance.bagStats)
-        {   
+        {
             // Get item info
             int itemID = pair.Key;
             int itemCount = pair.Value;
             // Find the item
-            itemData = ItemStats.instance.GetItemByID(itemID);
-
+            ItemData itemData = ItemStats.instance.GetItemByID(itemID);
             // Assign slot
             ItemSlot_Combat itemSlot = itemSlots[slot];
             if (itemSlot != null)

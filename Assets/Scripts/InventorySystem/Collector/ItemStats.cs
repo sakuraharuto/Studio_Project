@@ -9,9 +9,8 @@ public class ItemStats : MonoBehaviour
 
     // use dictionary to store items count
     public Dictionary<int, int> bagStats;
-
-    // store all items
-    public List<ItemData> itemsList;
+    // all items
+    [SerializeField] private ItemData[] allItems;
 
     // Start is called before the first frame update
     void Start()
@@ -20,14 +19,13 @@ public class ItemStats : MonoBehaviour
 
         bagStats = new Dictionary<int, int>();
 
-        // can't use "Resources.LoadAll()". Try another way.
-        //itemsList = new List<ItemData>();
+        //allItems = new ItemData[3];
     }
 
     public void Init()
     {
         // Load All items
-        //itemsList.AddRange(allItem);
+        //allItems = Resources.LoadAll<ItemData>("Resources/Items/");
     }
 
     // Update is called once per frame
@@ -38,7 +36,8 @@ public class ItemStats : MonoBehaviour
 
     public ItemData GetItemByID(int id)
     {
-        foreach(ItemData item in itemsList) 
+        //foreach (ItemData item in itemsList) 
+        foreach (ItemData item in allItems)
         { 
             if(item.itemID == id)
             {
