@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-using UnityEditor;
+using DG.Tweening;
 
 public class CombatUI : UIBase
 {
@@ -27,12 +26,12 @@ public class CombatUI : UIBase
     [Header("Cards UI")]
     public GameObject cardPrefab;   // show as hand card
 
-    [SerializeField] private Transform handPoint;
+    [SerializeField] private RectTransform handPoint;
 
     // store all cards and data
     public CardData[] allCards;
 
-    // list of hand cards to arrange position
+    // list of hand cards to manage position
     public List<CardDisplay> cardList;
 
     public void Awake()
@@ -67,7 +66,6 @@ public class CombatUI : UIBase
     {
         UpdateCardsDeck();
         UpdateUsedCardsDeck();
-        //Debug.Log("costCount "+ costCount + " CM.cost " + CombatManager.instance.playerUnit.cost);
         //UpdateCost();
     }
 
@@ -108,16 +106,22 @@ public class CombatUI : UIBase
 
         for (int i = 0; i < count; i++)
         {   
-            // Access data from scriptableObject
-            CardData data = DrawCard();
             // instantiate a card object
-            GameObject obj = Instantiate(cardPrefab, handPoint.transform);
-            // initial card UI
+            GameObject obj = Instantiate(cardPrefab, canvasTF)  ;
+            obj.GetComponent<RectTransform>().anchoredPosition = handPoint.GetComponent<RectTransform>().position;
+            // Get card data from scriptableObject
+            CardData data = DrawCard();
+
+            // Attach card image
             CardDisplay cardDisplay = obj.GetComponent<CardDisplay>();
             cardDisplay.InitialDisplay(data);
-            // add to hand card list
+            // add to hand card list to manage position
             cardList.Add(obj.GetComponent<CardDisplay>());
-
+            Debug.Log(cardList.Count);
+            // add and initial function
+            System.Type cardType = System.Type.GetType(data.cardName);
+            Card newCard = (Card)obj.AddComponent(cardType);
+            newCard.data = data;
         }
     }
 
@@ -141,22 +145,27 @@ public class CombatUI : UIBase
 
     // arrange positions of hand cards
     public void UpdateCardPosition()
-    {   
-        float offset = 360 / cardList.Count;
+    {
+        float offset = 360f / cardList.Count;
         
-        //Vector2 handPos = new Vector2(-handPoint.position.x, handPoint.position.y);
-        Vector2 handPos = new Vector2(-120, handPoint.position.y);  // center hand cards
+        Vector2 cardPos = new Vector2(0, 0);
 
         for (int i = 0; i < cardList.Count; i++)
-        {
-            cardList[i].GetComponent<RectTransform>().anchoredPosition = handPos;
-            handPos.x += offset;
+        {   
+            cardList[i].GetComponent<RectTransform>().DOAnchorPos(cardPos, 0.5f);
+            cardPos.x += offset;
         }
     }
 
     // delete card after use
     public void RemoveCard(Card card)
-    {
+    {   
+        Debug.Log(cardList.Count);
+        if(cardList.Count == 0)
+        {
+            return;
+        }
+
         // disable card function
         card.enabled = false;
         // access the UI component
@@ -165,42 +174,23 @@ public class CombatUI : UIBase
         CardManager.instance.usedDeck.Add(card.cardName);
         // update used-card deck count ui
         usedDeckCount.text = CardManager.instance.usedDeck.Count.ToString();
-        // remove from hand-cards list
+        // remove from handcards list
         cardList.Remove(panel);
-        // update hands-card pos
+        // update handcards pos
         UpdateCardPosition();
 
-        //Destroy(card.gameObject, 0.5f);
         Destroy(card.gameObject);
     }
 
     public void DropHandCards()
-    {
+    {   
         for(int i = cardList.Count - 1; i >= 0; i--)
         {   
             RemoveCard(cardList[i]);
         }
     }
 
-    // Open Item Menu (side menu)
-    public void OpenItemsMenu()
-    {
 
-    }
-    // Hide Item Menu
-    public void HideItemsMenu()
-    {
-
-    }
-
-    public void UpdateItemsTypes()
-    {
-
-    }
-
-    public void UpdateItemCount()
-    {
-
-    }
+    
 
 }

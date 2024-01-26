@@ -7,8 +7,8 @@ public class NormalAttack : Card
 
     public override void InitialData()
     {
-        cardName = data.name;
-    }
+
+    }   
 
     public override void CardFunction()
     {

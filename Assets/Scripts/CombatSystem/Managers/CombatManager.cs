@@ -72,7 +72,6 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         
         CombatInitial();
-
     }
 
     private void Update()
@@ -97,7 +96,7 @@ public class CombatManager : MonoBehaviour
 
         if (state == TurnState.PLAYERTURN)
         {
-            Debug.Log("Enemy HP: " + enemyUnit.currentHP);
+            //Debug.Log("Enemy HP: " + enemyUnit.currentHP);
         }
     }
 
@@ -107,8 +106,9 @@ public class CombatManager : MonoBehaviour
         // UIManager.Instance.GetUI<CombatUI>("CombatUI").CreateCardItem(3);   // initxial hand card
         // Instantiate(cardPrefab, handLeftPoint);
         //currentTime = timer;
-        Debug.Log("Initial item menu");
-        ItemMenu_Combat.instance.Init();
+        
+        // Initial Items
+        //ItemMenu_Combat.instance.Init();
 
         CombatUI.instance.CreateCardItem(count);
         CombatUI.instance.UpdateCardPosition();
@@ -252,7 +252,10 @@ public class CombatManager : MonoBehaviour
             timerTXT.text = timer.ToString();
 
             //drop all hand-cards
-            CombatUI.instance.DropHandCards();
+            if (CombatUI.instance.cardList.Count != 0)
+            {
+                CombatUI.instance.DropHandCards();
+            }
             CardManager.instance.Shuffle();
             TurnEnd();
         }

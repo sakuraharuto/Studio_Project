@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,7 +7,7 @@ public class Shield : Card
 {
     public override void InitialData()
     {
-        cardName = data.name;
+
     }
 
     public override void CardFunction()

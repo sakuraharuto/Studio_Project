@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class UIManager : MonoBehaviour
         // Init UI Object
         // Need to Rewrite
         if (ui == null)
-        {
+        {   
+            // Load All UI objects in List
             GameObject uiObject = Instantiate(Resources.Load("UI/" + uiName), canvas) as GameObject;
 
             uiObject.name = uiName;
@@ -110,5 +112,10 @@ public class UIManager : MonoBehaviour
             return ui.GetComponent<T>();
         }
         return null;
+    }
+
+    public void HighlightCard(string msg, Color color, System.Action callback = null)
+    {
+
     }
 }
