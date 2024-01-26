@@ -146,26 +146,20 @@ public class CombatUI : UIBase
     // arrange positions of hand cards
     public void UpdateCardPosition()
     {
-        float offset = 360f / cardList.Count;
+        float offset = 400f / cardList.Count;
         
-        Vector2 cardPos = new Vector2(0, 0);
+        Vector2 startPos = new Vector2(-cardList.Count / 2f * offset + offset / 2f, 0);
 
         for (int i = 0; i < cardList.Count; i++)
         {   
-            cardList[i].GetComponent<RectTransform>().DOAnchorPos(cardPos, 0.5f);
-            cardPos.x += offset;
+            cardList[i].GetComponent<RectTransform>().DOAnchorPos(startPos, 0.5f);
+            startPos.x += offset;
         }
     }
 
     // delete card after use
     public void RemoveCard(Card card)
     {   
-        Debug.Log(cardList.Count);
-        if(cardList.Count == 0)
-        {
-            return;
-        }
-
         // disable card function
         card.enabled = false;
         // access the UI component
@@ -184,13 +178,12 @@ public class CombatUI : UIBase
 
     public void DropHandCards()
     {   
+        if(cardList.Count == 0) return;
+
         for(int i = cardList.Count - 1; i >= 0; i--)
         {   
             RemoveCard(cardList[i]);
         }
     }
-
-
-    
 
 }

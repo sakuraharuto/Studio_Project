@@ -252,7 +252,7 @@ public class CombatManager : MonoBehaviour
             timerTXT.text = timer.ToString();
 
             //drop all hand-cards
-            if (CombatUI.instance.cardList.Count != 0)
+            if (CombatUI.instance.cardList.Count > 0)
             {
                 CombatUI.instance.DropHandCards();
             }
