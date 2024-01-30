@@ -3,27 +3,33 @@ using UnityEngine.EventSystems;
 using UnityEditor;
 
 public class NormalAttack : Card
-{   
-
-    public override void InitialData()
-    {
-
-    }   
-
-    public override void CardFunction()
-    {
-        //Debug.Log(data.damage);
-
-        // output dmg to enemy
-        CombatManager.instance.enemyUnit.currentHP -= data.damage;
-        //Debug.Log("enemy hp: " + CombatManager.instance.enemyUnit.currentHP);
+{
+    void Start()
+    {   
+        cardName = data.name;
     }
+
+    //public override void InitialData()
+    //{
+
+    //}
+
+    //public override void CardFunction()
+    //{
+    //    // output dmg to enemy
+    //    CombatManager.instance.enemyUnit.currentHP -= data.damage;
+    //}
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        base.OnPointerDown(eventData);
+        //base.OnPointerDown(eventData);
+        //CardFunction();
 
-        CardFunction();
+        if (CanUse())
+        {
+            // update player's UI
+            CombatUI.instance.UpdateCardsDeck();
+            CombatUI.instance.UpdateUsedCardsDeck();
+        }
     }
-
 }

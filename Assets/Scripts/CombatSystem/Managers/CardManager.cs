@@ -12,7 +12,11 @@ public class CardManager
     public List<string> usedDeck = new List<string>();   
 
     public void Init()
-    {
+    {   
+        // Init card decks
+        //cardDeck = new List<string>();
+        //usedDeck = new List<string>();
+
         //load cards into deck and shuffle
         List<string> tempDeck = new List<string>();
         tempDeck.AddRange(PlayerCardManager.instance.deck);
@@ -34,11 +38,13 @@ public class CardManager
     // shuffle, used deck ==> deck
     public void Shuffle()
     {
-        Debug.Log("Shuffle");
-        while(usedDeck.Count > 0)
+        Debug.Log("Shuffling");
+        while (usedDeck.Count > 0)
         {
             int tempPos = Random.Range(0, usedDeck.Count);
+
             cardDeck.Add(usedDeck[tempPos]);
+
             usedDeck.RemoveAt(tempPos);
         }
 
@@ -48,7 +54,7 @@ public class CardManager
 
     // return card at the last position in the list
     public string DrawCard()
-    {
+    {   
         string name = cardDeck[cardDeck.Count - 1];
         cardDeck.RemoveAt(cardDeck.Count - 1);
 

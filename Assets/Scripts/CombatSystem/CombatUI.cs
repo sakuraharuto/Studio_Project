@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using DG.Tweening;
+using System.Linq;
 
 public class CombatUI : UIBase
 {
@@ -26,7 +27,7 @@ public class CombatUI : UIBase
     [Header("Cards UI")]
     public GameObject cardPrefab;   // show as hand card
 
-    [SerializeField] private RectTransform handPoint;
+    [SerializeField] private RectTransform cardPoint;
 
     // store all cards and data
     public CardData[] allCards;
@@ -93,7 +94,6 @@ public class CombatUI : UIBase
     public void UpdateShield()
     {
         shield.text = CombatManager.instance.playerUnit.currentShield.ToString();
-        Debug.Log("Player has: " + shield.text);
     }
 
     // count => draw COUNT cards from deck
@@ -107,17 +107,17 @@ public class CombatUI : UIBase
         for (int i = 0; i < count; i++)
         {   
             // instantiate a card object
-            GameObject obj = Instantiate(cardPrefab, canvasTF)  ;
-            obj.GetComponent<RectTransform>().anchoredPosition = handPoint.GetComponent<RectTransform>().position;
+            GameObject obj = Instantiate(cardPrefab, canvasTF);
+            obj.GetComponent<RectTransform>().anchoredPosition = cardPoint.GetComponent<RectTransform>().position;
             // Get card data from scriptableObject
             CardData data = DrawCard();
 
             // Attach card image
             CardDisplay cardDisplay = obj.GetComponent<CardDisplay>();
             cardDisplay.InitialDisplay(data);
-            // add to hand card list to manage position
+            // add to hand cards list to manage position
             cardList.Add(obj.GetComponent<CardDisplay>());
-            Debug.Log(cardList.Count);
+
             // add and initial function
             System.Type cardType = System.Type.GetType(data.cardName);
             Card newCard = (Card)obj.AddComponent(cardType);
@@ -151,7 +151,7 @@ public class CombatUI : UIBase
         Vector2 startPos = new Vector2(-cardList.Count / 2f * offset + offset / 2f, 0);
 
         for (int i = 0; i < cardList.Count; i++)
-        {   
+        {
             cardList[i].GetComponent<RectTransform>().DOAnchorPos(startPos, 0.5f);
             startPos.x += offset;
         }
@@ -165,6 +165,7 @@ public class CombatUI : UIBase
         // access the UI component
         CardDisplay panel = card.GetComponent<CardDisplay>();
         // add this card into used-card deck
+        Debug.Log(card.cardName);
         CardManager.instance.usedDeck.Add(card.cardName);
         // update used-card deck count ui
         usedDeckCount.text = CardManager.instance.usedDeck.Count.ToString();
@@ -173,15 +174,13 @@ public class CombatUI : UIBase
         // update handcards pos
         UpdateCardPosition();
 
-        Destroy(card.gameObject);
+        Destroy(panel.gameObject);
     }
 
     public void DropHandCards()
     {   
-        if(cardList.Count == 0) return;
-
-        for(int i = cardList.Count - 1; i >= 0; i--)
-        {   
+        for(int i = cardList.Count-1; i >= 0; i--)
+        {
             RemoveCard(cardList[i]);
         }
     }

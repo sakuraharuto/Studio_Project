@@ -9,18 +9,13 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public CardData data;
 
     [Header("Card Config")]
-    public Image cardImage;
     public string cardName;
+    public Image cardImage;
 
-    //public TMP_Text descriptionText;
-    //public TMP_Text costText;
-    //public TMP_Text attackText;
-    //public TMP_Text shieldText;
-
-    public virtual void InitialData()
-    {
+    //public virtual void InitialData()
+    //{
         
-    }
+    //}
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
@@ -34,12 +29,12 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
-        if(CanUse())
-        {   
-            // update player's UI
-            CombatUI.instance.UpdateCardsDeck();
-            CombatUI.instance.UpdateUsedCardsDeck();
-        }
+        //if(CanUse())
+        //{   
+        //    // update player's UI
+        //    CombatUI.instance.UpdateCardsDeck();
+        //    CombatUI.instance.UpdateUsedCardsDeck();
+        //}
     }
 
     public virtual bool CanUse()
@@ -54,18 +49,13 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         else
         {   
             // update player's cost and its UI
-            CombatManager.instance.playerUnit.cost -= cost;
-            
+            CombatManager.instance.playerUnit.cost -= cost; 
             // remove card from hand, then add it into used-cards deck
-            UIManager.instance.GetUI<CombatUI>("CombatUI").RemoveCard(this);
+            CombatUI.instance.RemoveCard(this);
             CombatUI.instance.UpdateCost();
 
             return true;
         }
     }
 
-    public virtual void CardFunction()
-    {
-
-    }
 }
