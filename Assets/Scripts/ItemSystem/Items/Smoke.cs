@@ -15,7 +15,7 @@ public class Smoke : Item
     {
         base.OnPointerDown(eventData);
 
-        Debug.Log(ItemStats.instance.bagStats[this.data.itemID]);
+        Debug.Log(ItemStats.instance.bagStats[data.itemID]);
     }
 
 }

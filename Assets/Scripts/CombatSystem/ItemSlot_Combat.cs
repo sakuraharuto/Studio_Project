@@ -4,19 +4,20 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEditor;
 
 /// <summary>
 /// Script of Item Slot in Item Menu
 /// </summary>
-public class ItemSlot_Combat : MonoBehaviour, IPointerClickHandler
+public class ItemSlot_Combat : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     // item data
-    [SerializeField] private int id;
     [SerializeField] private TMP_Text countText;
     [SerializeField] private Image itemIcon;
 
     [SerializeField] private GameObject highlight;
     private bool isSelected;
+    public int itemCount;
 
     // Start is called before the first frame update
     void Start()
@@ -33,9 +34,16 @@ public class ItemSlot_Combat : MonoBehaviour, IPointerClickHandler
     public void SetItemSlot(ItemData itemData, int count)
     {   
         // set UI
-        id = itemData.itemID;
-        countText.text = count.ToString();
         itemIcon.sprite = itemData.itemIcon;
+
+        if(itemData.castType == CastType.Default)
+        {
+            countText.text = count.ToString();
+        }
+        else
+        {
+            countText.text = null;
+        }
 
         // attach function script to this item
         System.Type itemType = System.Type.GetType(itemData.itemName);
@@ -44,32 +52,30 @@ public class ItemSlot_Combat : MonoBehaviour, IPointerClickHandler
     }
 
     public void UpdateItemSlotCount(ItemData itemData)
-    {
-        countText.text = ItemStats.instance.bagStats[itemData.itemID].ToString();
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
     {   
-        // left-click to use item
-        if(eventData.button == PointerEventData.InputButton.Left)
+        itemCount = ItemStats.instance.bagStats[itemData.itemID];
+
+        if(itemCount > 0)
         {
-            OnLeftClick();
+            countText.text = itemCount.ToString();
         }
-        // right-click to deSelect
-        if(eventData.button == PointerEventData.InputButton.Right)
-        {
-            OnRightClick();
+        else
+        {   
+            itemIcon.sprite = null;
+            countText.text = null;
+
+            gameObject.GetComponent<Item>().enabled = false;    
         }
     }
 
-    public void OnLeftClick()
+    public void OnPointerEnter(PointerEventData eventData)
     {
         isSelected = true;
-        
     }
 
-    public void OnRightClick()
+    public void OnPointerExit(PointerEventData eventData)
     {
         isSelected = false;
-    }
+    }    
+
 }

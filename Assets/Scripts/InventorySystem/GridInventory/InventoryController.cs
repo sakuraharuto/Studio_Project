@@ -222,9 +222,6 @@ public class InventoryController : MonoBehaviour
         if (selectedItemGrid.BoundaryCheck(positionOnGrid.x, positionOnGrid.y,
                 selectedItem.itemData.width, selectedItem.itemData.height) == false)
         {
-            // if click outside of the grid, drop item
-            // Destroy(rectTransform);
-
             NullSelectedItem();
             return;
         }
@@ -286,18 +283,20 @@ public class InventoryController : MonoBehaviour
     {
         if(ItemStats.instance.bagStats.ContainsKey(itemID))
         {
-            ItemStats.instance.bagStats[itemID]--;
+            if(ItemStats.instance.bagStats[itemID] == 1)
+            {
+                //ItemStats.instance.bagStats[itemID]--;
+                ItemStats.instance.bagStats.Remove(itemID);
+            }
+            else
+            {
+                ItemStats.instance.bagStats[itemID]--;
+            }
         }
 
         if(!ItemStats.instance.bagStats.ContainsKey(itemID))
         {
             return;
-        }
-
-        if(ItemStats.instance.bagStats[itemID] == 1)
-        {
-            ItemStats.instance.bagStats[itemID]--;
-            ItemStats.instance.bagStats.Remove(itemID);
         }
 
     }

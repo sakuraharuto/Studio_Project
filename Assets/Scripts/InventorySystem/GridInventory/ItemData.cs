@@ -23,6 +23,7 @@ public class ItemData : ScriptableObject
     public int itemID;
     public string itemName;
     public CastType castType;
+    public int cost;
 
     // icon config
     public Sprite itemIcon;
