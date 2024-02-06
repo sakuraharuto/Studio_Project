@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6693aeed67395c046b3b4e4892d69127, type: 3}
-  m_Name: Diamond
+  m_Name: Smoke
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 21300000, guid: 7c208fcbce267eb4bb92abd73daa8204, type: 3}
-  width: 1
-  height: 1
+  itemID: 5
+  itemName: Smoke
+  itemIcon: {fileID: 21300000, guid: 72235a1d910334ac4acc647da195e214, type: 3}
+  width: 2
+  height: 2

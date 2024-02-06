@@ -31,12 +31,6 @@ public class ItemMenu_Combat : UIBase
         gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void InitialItemSlots()
     {
         int slot = 0;

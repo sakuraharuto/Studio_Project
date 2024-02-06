@@ -819,6 +819,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
   - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
   - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
+  - {fileID: 11400000, guid: 511182fd2b9cd7942a869fd71a3af34f, type: 2}
   player: {fileID: 1988995161}
 --- !u!65 &267469255
 BoxCollider:
@@ -4605,6 +4606,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
   - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
   - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
+  - {fileID: 11400000, guid: 511182fd2b9cd7942a869fd71a3af34f, type: 2}
   player: {fileID: 1988995161}
 --- !u!1 &1724328507
 GameObject:
@@ -6509,10 +6511,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 9108471322166848273, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
-      propertyPath: allItems.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
     - target: {fileID: 9108471322166848273, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
       propertyPath: allItems.Array.data[4]
       value: 

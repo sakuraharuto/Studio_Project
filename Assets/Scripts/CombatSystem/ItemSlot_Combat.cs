@@ -38,6 +38,14 @@ public class ItemSlot_Combat : MonoBehaviour, IPointerClickHandler
         itemIcon.sprite = itemData.itemIcon;
 
         // attach function script to this item
+        System.Type itemType = System.Type.GetType(itemData.itemName);
+        Item newItem = (Item)gameObject.AddComponent(itemType);
+        newItem.data = itemData;
+    }
+
+    public void UpdateItemSlotCount(ItemData itemData)
+    {
+        countText.text = ItemStats.instance.bagStats[itemData.itemID].ToString();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -57,7 +65,7 @@ public class ItemSlot_Combat : MonoBehaviour, IPointerClickHandler
     public void OnLeftClick()
     {
         isSelected = true;
-        //highlight.SetActive(true);
+        
     }
 
     public void OnRightClick()

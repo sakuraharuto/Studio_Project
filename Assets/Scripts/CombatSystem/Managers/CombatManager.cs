@@ -5,7 +5,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
 
-public enum TurnState { INITIAL, END, PLAYERTURN, ENEMYTURN, WIN, LOST, FLEE }
 // gameplay flow:
 // 1.Start ==> Initial units position + Draw cards + show UI
 // 2.InitialTurn ==> Draw cards from deck, 5 cards each turn
@@ -13,6 +12,16 @@ public enum TurnState { INITIAL, END, PLAYERTURN, ENEMYTURN, WIN, LOST, FLEE }
 // 4.InitialTurn ==> Draws cards for enemy
 // 5.Enemy Turn 
 // 6.End = Win/Defeat/Flee
+public enum TurnState 
+{ 
+    INITIAL, 
+    END, 
+    PLAYERTURN, 
+    ENEMYTURN, 
+    WIN, 
+    LOST, 
+    FLEE 
+}
 
 public class CombatManager : MonoBehaviour
 {   
@@ -32,8 +41,8 @@ public class CombatManager : MonoBehaviour
 
     [Header("Combat Config")]
     [SerializeField] int count;
-    [SerializeField] List<string> Deck = new List<string>();
-    [SerializeField] List<string> useDeck = new List<string>();
+    [SerializeField] List<string> Deck = new List<string>();        //test
+    [SerializeField] List<string> useDeck = new List<string>();     //test
     [SerializeField] private float timer;
     private float currentTime;
     public TMP_Text timerTXT;
@@ -48,9 +57,6 @@ public class CombatManager : MonoBehaviour
 
         PlayerCardManager.instance.Init();
         CardManager.instance.Init();
-
-        // test only
-        //Deck.AddRange(CardManager.instance.cardDeck);
 
         timerTXT.text = timer.ToString();
 
@@ -114,7 +120,7 @@ public class CombatManager : MonoBehaviour
         //currentTime = timer;
 
         // Initial Items
-        //ItemMenu_Combat.instance.Init();
+        ItemMenu_Combat.instance.Init();
 
         CombatUI.instance.CreateCardItem(count);
         CombatUI.instance.UpdateCardPosition();
