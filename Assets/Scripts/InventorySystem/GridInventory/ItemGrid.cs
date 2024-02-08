@@ -55,8 +55,6 @@ public class ItemGrid : MonoBehaviour
         RectTransform rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(transform);
 
-        //Debug.Log(transform);
-
         // occupy grids on the panel
         for (int x = 0; x < inventoryItem.itemData.width; x++)
         {

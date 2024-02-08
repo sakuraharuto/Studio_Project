@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 //All interaction the player will do with all the inventory grids
@@ -138,6 +139,9 @@ public class InventoryController : MonoBehaviour
         RectTransform newItemRectTransform = newItem.GetComponent<RectTransform>();
         newItemRectTransform.SetParent(canvasTransform);
 
+        newInventoryItem.previousParent = newInventoryItem.transform.parent;
+        newInventoryItem.currentParent = newInventoryItem.transform.parent;
+
         newInventoryItem.Set(itemData);
 
         return newInventoryItem;
@@ -244,15 +248,22 @@ public class InventoryController : MonoBehaviour
         // Place selectedItem on the grid
         selectedItemGrid.PlaceItem(selectedItem, positionOnGrid.x, positionOnGrid.y);
 
+        selectedItem.currentParent = selectedItem.transform.parent;
+        
         // Update Item Count
-        if (selectedItemGrid.name == "Package_Grid")
+        if(CheckItemMoved(selectedItem))
         {
-            CollectItem(selectedItem.id);
-        }
-        if (selectedItemGrid.name == "Container_Grid")
-        {
-            DropItem(selectedItem.id);
-            if(overlapItem == null) { player.sp.items.Add(selectedItem.itemData); }
+            if (selectedItemGrid.name == "Package_Grid")
+            {
+                CollectItem(selectedItem.id);
+                selectedItem.previousParent = selectedItemGrid.transform;
+            }
+            if (selectedItemGrid.name == "Container_Grid")
+            {
+                DropItem(selectedItem.id);
+                selectedItem.previousParent = selectedItemGrid.transform;
+                if (overlapItem == null) { player.sp.items.Add(selectedItem.itemData); }
+            }
         }
 
         NullSelectedItem();
@@ -264,6 +275,16 @@ public class InventoryController : MonoBehaviour
             rectTransform = selectedItem.GetComponent<RectTransform>();
             overlapItem = null;
         }
+    }
+
+    private bool CheckItemMoved(InventoryItem selectedItem)
+    {
+        if(selectedItem.currentParent != selectedItem.previousParent)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     //Update the Count of item in bag
@@ -281,24 +302,22 @@ public class InventoryController : MonoBehaviour
 
     private void DropItem(int itemID)
     {
-        if(ItemStats.instance.bagStats.ContainsKey(itemID))
-        {
+        //if(ItemStats.instance.bagStats.ContainsKey(itemID))
+        //{
             if(ItemStats.instance.bagStats[itemID] == 1)
             {
-                //ItemStats.instance.bagStats[itemID]--;
                 ItemStats.instance.bagStats.Remove(itemID);
             }
             else
             {
                 ItemStats.instance.bagStats[itemID]--;
             }
-        }
+        //}
 
-        if(!ItemStats.instance.bagStats.ContainsKey(itemID))
-        {
-            return;
-        }
-
+        //if(!ItemStats.instance.bagStats.ContainsKey(itemID))
+        //{
+        //    return;
+        //}
     }
 
     public void Close()

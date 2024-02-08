@@ -13,8 +13,11 @@ public class InventoryItem : MonoBehaviour
     public int onGridPositionX;
     public int onGridPositionY;
 
+    public Transform previousParent;
+    public Transform currentParent;
+
     internal void Set(ItemData itemData)
-    {
+    {   
         this.itemData = itemData;
 
         id = itemData.itemID;
