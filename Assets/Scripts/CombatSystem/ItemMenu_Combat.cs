@@ -11,18 +11,13 @@ public class ItemMenu_Combat : UIBase
     [Header("Menu Config")]
     [SerializeField] private GameObject slotMenu;
     public ItemSlot_Combat[] itemSlots;
-
-    private int itemCount;
-    private RectTransform menuRect;
+    
+    //private RectTransform menuRect;
 
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
-
-        menuRect= GetComponent<RectTransform>();
-
-        itemCount = 0;
     }
 
     public void Init()

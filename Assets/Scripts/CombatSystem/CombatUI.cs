@@ -42,14 +42,7 @@ public class CombatUI : UIBase
         // load all cards
         allCards = Resources.LoadAll<CardData>("Cards");
 
-        //Debug.Log(CombatManager.instance.playerUnit.cost);
-
         StartCoroutine(AssignUIText());
-
-        //assign player ui data
-        //deckCount.text = PlayerCardManager.instance.deck.Count.ToString();
-        //usedDeckCount.text = cardList.Count.ToString();
-        //costCount.text = CombatManager.instance.playerUnit.cost.ToString();
 
     }
 

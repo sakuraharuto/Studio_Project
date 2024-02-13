@@ -51,6 +51,8 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
                     //Once use, in CD
                     Debug.Log(castType);
                 }
+
+                ItemMenu_Combat.instance.gameObject.SetActive(false);
             }
         }
         else
@@ -70,16 +72,11 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
             Debug.Log("Cost is not enought");
             return false;
         }
-        //else if(ItemStats.instance.bagStats[data.itemID] <= 0)
-        //{
-        //    Destroy(this);
-        //    return true;
-        //}
         else
         {
             // update player's cost and its UI
             CombatManager.instance.playerUnit.cost -= cost;
-
+            CombatUI.instance.UpdateCost();
             return true;
         }
     }
