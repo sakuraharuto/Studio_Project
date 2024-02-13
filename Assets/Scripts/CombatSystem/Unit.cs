@@ -9,12 +9,7 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public int currentShield;
-    [SerializeField] public int cost = 10;
-    //public int damage;
-    //public int shield;
-
-    //public List<Card> UsedDeck;
-    //public List<Card> NewDeck;
+    public int cost = 10;
 
     public void TakeDamage(int dmg)
     {   
@@ -24,7 +19,7 @@ public class Unit : MonoBehaviour
             Debug.Log("Current Shield: " + currentShield);
             Debug.Log("\nCurrent Hp: " + currentHP);
         }
-        else if( currentShield < dmg && currentShield >= 0)
+        else if( currentShield < dmg && currentShield >= 0 )
         {
             dmg -= currentShield;
             currentHP -= dmg;

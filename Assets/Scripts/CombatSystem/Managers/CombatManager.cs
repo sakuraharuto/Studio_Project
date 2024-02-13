@@ -266,13 +266,4 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void TestFunction()
-    {
-        Debug.Log("Manually Shuffle");
-        CardManager.instance.Shuffle();
-        Debug.Log(CardManager.instance.cardDeck.Count);
-        CombatUI.instance.CreateCardItem(count);
-        //CombatUI.instance.UpdateCardPosition();
-    }
-
 }

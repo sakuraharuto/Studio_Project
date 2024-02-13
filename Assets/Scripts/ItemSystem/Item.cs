@@ -17,6 +17,8 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
     private float lastClick;
     private float clickGap = 0.5f;
 
+    public bool canUse = false;
+
     void Update()
     {
         lastClick += Time.deltaTime;
@@ -54,6 +56,7 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
 
                 ItemMenu_Combat.instance.gameObject.SetActive(false);
             }
+
         }
         else
         {
@@ -65,19 +68,28 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
     public virtual bool CanUse()
     {
         int cost = data.cost;
-        //int count = ItemStats.instance.bagStats[data.itemID];
-
+        
+        // check cost is enough to use item
         if(cost > CombatManager.instance.playerUnit.cost)
         {
             Debug.Log("Cost is not enought");
+            canUse = false;
+
             return false;
         }
         else
-        {
+        {   
+            canUse = true;
             // update player's cost and its UI
             CombatManager.instance.playerUnit.cost -= cost;
             CombatUI.instance.UpdateCost();
+
             return true;
         }
+    }
+
+    public virtual void ItemEffect()
+    {
+
     }
 }

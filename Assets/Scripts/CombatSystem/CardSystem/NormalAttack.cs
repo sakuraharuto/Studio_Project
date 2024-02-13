@@ -11,25 +11,27 @@ public class NormalAttack : Card
 
     //public override void InitialData()
     //{
-
+    //
     //}
 
-    //public override void CardFunction()
-    //{
-    //    // output dmg to enemy
-    //    CombatManager.instance.enemyUnit.currentHP -= data.damage;
-    //}
+    public override void CardSpecialEffect()
+    {
+        // output dmg to enemy
+        CombatManager.instance.enemy.GetComponent<Unit>().TakeDamage(data.damage);
+    }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
         //base.OnPointerDown(eventData);
-        //CardFunction();
 
         if (CanUse())
         {
             // update player's UI
             CombatUI.instance.UpdateCardsDeck();
             CombatUI.instance.UpdateUsedCardsDeck();
+
+            CardSpecialEffect();
         }
+
     }
 }

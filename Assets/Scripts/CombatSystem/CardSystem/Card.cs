@@ -14,8 +14,13 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     //public virtual void InitialData()
     //{
-        
+    //
     //}
+
+    public virtual void CardSpecialEffect()
+    {
+
+    }
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {

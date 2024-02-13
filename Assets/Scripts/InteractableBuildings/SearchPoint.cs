@@ -74,7 +74,7 @@ public class SearchPoint : MonoBehaviour
         containerGrid.EmptyGrid();
     }
 
-    private void RefreshResource()
+    public void RefreshResource()
     {
         this.items.Clear();
 

@@ -15,7 +15,15 @@ public class Smoke : Item
     {
         base.OnPointerDown(eventData);
 
-        Debug.Log(ItemStats.instance.bagStats[data.itemID]);
+        if(canUse == true)
+        {
+            ItemEffect();
+            canUse = false;
+        }
     }
 
+    public override void ItemEffect()
+    {
+        Debug.Log("Using smoke");
+    }
 }
