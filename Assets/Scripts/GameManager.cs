@@ -3,17 +3,84 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
-{
+{   
+    public static GameManager instance;
+
+    public float worldTimer;
+    public float dayTimeSpeed;
+
+    public GameObject player;
+
+
+
+    /// <summary>
+    /// PopupManager
+    /// Idk what this is... dont touch
+    /// </summary>
     public PopUpManager popupManager;  // 将 PopupManager 的实例拖放到此处
 
-    void Update()
+    private void Awake()
     {
-        
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        //Initial Player bag
+        ItemStats.instance.Init();
+        //Initial Character States
+        //Character.instance.Init();
+    }
+
+    void Start()
+    {
+        worldTimer = 8f;
+    }
+
+    void Update()
+    {   
+        UpdateDayLight();
+
+
+
+
+
+
+
+
+        // dk what this is for
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             popupManager.ShowPopup("SettingPanel");
         }
-        
+    }
+
+    private void UpdateDayLight()
+    {
+        //update daytime
+        // rotate environment light by TimeDelta.time * daylightSpeed
+    }
+
+    private void UpdateInGameDate()
+    {
+        //update date
+        // add 1 day by each 360 rotation of daylight
+    }
+
+    //Switch Explore and Combat Scenes
+    private void SwitchScenes()
+    {
+
+    }
+
+    //Initial Combat Scene
+    private void InitialCombat()
+    {
+        CombatManager.instance.Init();
     }
 
 }

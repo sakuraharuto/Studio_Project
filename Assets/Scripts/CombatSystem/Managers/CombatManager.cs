@@ -19,7 +19,7 @@ public enum TurnState
     PLAYERTURN, 
     ENEMYTURN, 
     WIN, 
-    LOST, 
+    DEFEAT, 
     FLEE 
 }
 
@@ -43,10 +43,24 @@ public class CombatManager : MonoBehaviour
     [SerializeField] int count;
     [SerializeField] List<string> Deck = new List<string>();        //test
     [SerializeField] List<string> useDeck = new List<string>();     //test
+
+    /// <summary>
+    /// Varaibles for test
+    /// </summary>
+    #region
     [SerializeField] private float timer;
     private float currentTime;
     public TMP_Text timerTXT;
     public TMP_Text turnTXT;
+    public TMP_Text PlayerHP;
+    public TMP_Text MonsterHP;
+
+    #endregion
+
+    public void Init()
+    {
+
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -68,15 +82,20 @@ public class CombatManager : MonoBehaviour
         state = TurnState.INITIAL;
 
         // instantiate characters
-        //Instantiate(player, playerPosition);
-        //Instantiate(enemy, enemyPosition);
-        
+        Instantiate(player, playerPosition);
+        Instantiate(enemy, enemyPosition);
+
         // initial characters data
         playerUnit = player.GetComponent<Unit>();
-        playerUnit.cost = 10;
-        playerUnit.currentShield = 0;
+        playerUnit.InitialData();
+        PlayerHP.text = playerUnit.currentHP.ToString();
+        //playerUnit.maxHP = 10;
+        //playerUnit.cost = 10;
+        //playerUnit.currentShield = 0;
         enemyUnit = enemy.GetComponent<Unit>();
-        enemyUnit.currentHP = 20;
+        enemyUnit.InitialData();
+        MonsterHP.text = enemyUnit.currentHP.ToString();
+        //enemyUnit.currentHP = 20;
 
         yield return new WaitForSeconds(2f);
         
@@ -120,7 +139,7 @@ public class CombatManager : MonoBehaviour
         //currentTime = timer;
 
         // Initial Items
-        ItemMenu_Combat.instance.Init();
+        //ItemMenu_Combat.instance.Init();
 
         CombatUI.instance.CreateCardItem(count);
         CombatUI.instance.UpdateCardPosition();
@@ -204,8 +223,7 @@ public class CombatManager : MonoBehaviour
 
     bool CheckAlive(Unit unit)
     {
-        int hp = unit.currentHP;
-        if(hp <= 0)
+        if(unit.currentHP <= 0)
         {
             return false;
         }
@@ -222,23 +240,30 @@ public class CombatManager : MonoBehaviour
         Debug.Log("Combat Summary");
     }
 
-    void Flee()
+    public void Flee()
     {
-        Debug.Log("Flee Success.");
         state = TurnState.FLEE;
+
+        PlayerHP.text = "Escape success!";
+
+        EndCombat();
     }
 
     void Win()
     {
-        Debug.Log("You Win !!!");
         state = TurnState.WIN;
+
+        PlayerHP.text = "You win!";
+
         EndCombat();
     }
 
     void Defeat()
     {
-        Debug.Log("Defeat !!!");
-        state = TurnState.LOST;
+        state = TurnState.DEFEAT;
+
+        PlayerHP.text = "Defeated";
+
         EndCombat();
     }
     #endregion
@@ -266,4 +291,34 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    public void CombatExit()
+    {
+        // save combat results: Player data, monster alive?, loots
+
+        // load map
+    }
+
+    /// <summary>
+    /// Test Functions
+    /// </summary>
+    #region
+    public void TestPlayerTakenDamage()
+    {
+        int dmg = 2;
+        playerUnit.TakeDamage(dmg);
+        UpdatePlayerInCombat();
+        CombatUI.instance.UpdateShield();
+    }
+
+    public void UpdatePlayerInCombat()
+    {
+        PlayerHP.text = playerUnit.currentHP.ToString();
+    }
+
+    public void UpdateMonsterInCombat()
+    {
+        MonsterHP.text = enemyUnit.currentHP.ToString();
+    }
+
+    #endregion
 }

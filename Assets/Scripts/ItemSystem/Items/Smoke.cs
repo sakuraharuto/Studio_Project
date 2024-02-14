@@ -24,6 +24,6 @@ public class Smoke : Item
 
     public override void ItemEffect()
     {
-        Debug.Log("Using smoke");
+        CombatManager.instance.Flee();
     }
 }

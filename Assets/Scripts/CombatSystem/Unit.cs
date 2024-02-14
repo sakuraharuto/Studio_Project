@@ -9,7 +9,15 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public int currentShield;
-    public int cost = 10;
+    public int cost;
+
+    public void InitialData()
+    {
+        maxHP = 10;
+        currentHP = maxHP;
+        currentShield = 0;
+        cost = 10;
+    }
 
     public void TakeDamage(int dmg)
     {   

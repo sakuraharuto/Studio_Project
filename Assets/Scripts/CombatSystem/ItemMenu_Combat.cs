@@ -36,6 +36,9 @@ public class ItemMenu_Combat : UIBase
             int itemCount = pair.Value;
             // Find the item
             ItemData itemData = ItemStats.instance.GetItemByID(itemID);
+            //may need to check item category
+            //only add items into slots, not equippments.
+
             // Assign slot
             ItemSlot_Combat itemSlot = itemSlots[slot];
             if (itemSlot != null)
