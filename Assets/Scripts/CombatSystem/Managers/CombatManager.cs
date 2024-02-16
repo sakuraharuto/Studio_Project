@@ -139,7 +139,7 @@ public class CombatManager : MonoBehaviour
         //currentTime = timer;
 
         // Initial Items
-        //ItemMenu_Combat.instance.Init();
+        ItemMenu_Combat.instance.Init();
 
         CombatUI.instance.CreateCardItem(count);
         CombatUI.instance.UpdateCardPosition();

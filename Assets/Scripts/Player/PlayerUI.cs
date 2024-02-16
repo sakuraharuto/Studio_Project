@@ -10,7 +10,6 @@ public class PlayerUI : MonoBehaviour
 
     private void Start()
     {
-        //PackageClose.SetActive(false);
         PackageGrid.SetActive(false);
     }
 
@@ -23,15 +22,11 @@ public class PlayerUI : MonoBehaviour
     public void OpenPackage()
     {
         PackageGrid.SetActive(true);
-        //PackageClose.SetActive(true);
-        PackageButton.SetActive(false);
     }
 
     public void ClosePackage()
     {
         PackageGrid.SetActive(false);
-        //PackageClose.SetActive(false);
-        PackageButton.SetActive(true);
     }
 
 }

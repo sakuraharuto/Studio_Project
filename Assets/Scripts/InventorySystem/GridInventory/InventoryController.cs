@@ -178,6 +178,7 @@ public class InventoryController : MonoBehaviour
                 ItemGridInput();
             }
         }
+        //Debug.Log(positionOnGrid);
     }
 
     private void NullSelectedItem()
@@ -189,7 +190,7 @@ public class InventoryController : MonoBehaviour
     private void ItemGridInput()
     {
         positionOnGrid = GetTileGridPosition();
-
+        //Debug.Log(positionOnGrid);
         //click when no item selected
         if (selectedItem == null)
         {
@@ -210,8 +211,8 @@ public class InventoryController : MonoBehaviour
     public Vector2Int GetTileGridPosition()
     {
         Vector2 position = Input.mousePosition;
-
-        if(selectedItem != null)
+        Debug.Log(positionOnGrid);
+        if (selectedItem != null)
         {
             position.x -= (selectedItem.itemData.width - 1) * ItemGrid.tileSizeWidth / 2;
             position.y += (selectedItem.itemData.height - 1) * ItemGrid.tileSizeHeight / 2;
