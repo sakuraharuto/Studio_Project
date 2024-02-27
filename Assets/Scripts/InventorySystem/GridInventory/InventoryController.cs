@@ -155,7 +155,7 @@ public class InventoryController : MonoBehaviour
     }
 
     public void ProcessMouseInput()
-    {   
+    {
         // set both to null when the player hides panels
         if(storageGrid.activeSelf == false)
         {
@@ -178,7 +178,6 @@ public class InventoryController : MonoBehaviour
                 ItemGridInput();
             }
         }
-        //Debug.Log(positionOnGrid);
     }
 
     private void NullSelectedItem()
@@ -190,7 +189,7 @@ public class InventoryController : MonoBehaviour
     private void ItemGridInput()
     {
         positionOnGrid = GetTileGridPosition();
-        //Debug.Log(positionOnGrid);
+
         //click when no item selected
         if (selectedItem == null)
         {
@@ -211,13 +210,11 @@ public class InventoryController : MonoBehaviour
     public Vector2Int GetTileGridPosition()
     {
         Vector2 position = Input.mousePosition;
-        Debug.Log(positionOnGrid);
         if (selectedItem != null)
-        {
+        { 
             position.x -= (selectedItem.itemData.width - 1) * ItemGrid.tileSizeWidth / 2;
             position.y += (selectedItem.itemData.height - 1) * ItemGrid.tileSizeHeight / 2;
         }
-
         return selectedItemGrid.GetTileGridPosition(position);
     }
 
@@ -303,22 +300,14 @@ public class InventoryController : MonoBehaviour
 
     private void DropItem(int itemID)
     {
-        //if(ItemStats.instance.bagStats.ContainsKey(itemID))
-        //{
-            if(ItemStats.instance.bagStats[itemID] == 1)
-            {
-                ItemStats.instance.bagStats.Remove(itemID);
-            }
-            else
-            {
-                ItemStats.instance.bagStats[itemID]--;
-            }
-        //}
-
-        //if(!ItemStats.instance.bagStats.ContainsKey(itemID))
-        //{
-        //    return;
-        //}
+        if(ItemStats.instance.bagStats[itemID] == 1)
+        {
+            ItemStats.instance.bagStats.Remove(itemID);
+        }
+        else
+        {
+            ItemStats.instance.bagStats[itemID]--;
+        }
     }
 
     public void Close()

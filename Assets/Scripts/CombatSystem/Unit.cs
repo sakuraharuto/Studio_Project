@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    public enum SpecialStates
+    {   
+        Normal,
+        LieShang,
+        Stun,
+        Pain
+    }
+
     public string unitName;
 
+    public SpecialStates state;
     public int maxHP;
     public int currentHP;
     public int currentShield;
     public int cost;
 
     public void InitialData()
-    {
+    {   
+        state = SpecialStates.Normal;
         maxHP = 10;
         currentHP = maxHP;
         currentShield = 0;
@@ -24,28 +34,21 @@ public class Unit : MonoBehaviour
         if( currentShield >= dmg )
         {
             currentShield -= dmg;
-            Debug.Log("Current Shield: " + currentShield);
-            Debug.Log("\nCurrent Hp: " + currentHP);
         }
         else if( currentShield < dmg && currentShield >= 0 )
         {
             dmg -= currentShield;
             currentHP -= dmg;
-            Debug.Log("Current Shield: " + currentShield);
-            Debug.Log("\nCurrent Hp: " + currentHP);
         }
         else
         {   
             currentHP -= dmg;
-            Debug.Log("Current Shield: " + currentShield);
-            Debug.Log("\nCurrent Hp: " + currentHP);
         }
     }
     
     public void AddShield(int shield)
     {
         currentShield += shield;
-        Debug.Log("Current Shield: " + currentShield);
     }    
 
     public bool CheckAlive()

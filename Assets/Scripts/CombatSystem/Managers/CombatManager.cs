@@ -4,6 +4,7 @@ using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
+using static Unit;
 
 // gameplay flow:
 // 1.Start ==> Initial units position + Draw cards + show UI
@@ -44,10 +45,10 @@ public class CombatManager : MonoBehaviour
     [SerializeField] List<string> Deck = new List<string>();        //test
     [SerializeField] List<string> useDeck = new List<string>();     //test
 
+    #region
     /// <summary>
     /// Varaibles for test
     /// </summary>
-    #region
     [SerializeField] private float timer;
     private float currentTime;
     public TMP_Text timerTXT;
@@ -66,8 +67,6 @@ public class CombatManager : MonoBehaviour
     void Start()
     {   
         instance = this;
-
-        count = 4;
 
         PlayerCardManager.instance.Init();
         CardManager.instance.Init();
@@ -89,17 +88,50 @@ public class CombatManager : MonoBehaviour
         playerUnit = player.GetComponent<Unit>();
         playerUnit.InitialData();
         PlayerHP.text = playerUnit.currentHP.ToString();
-        //playerUnit.maxHP = 10;
-        //playerUnit.cost = 10;
-        //playerUnit.currentShield = 0;
+
         enemyUnit = enemy.GetComponent<Unit>();
         enemyUnit.InitialData();
         MonsterHP.text = enemyUnit.currentHP.ToString();
-        //enemyUnit.currentHP = 20;
+
+        // Initial Items
+        //ItemMenu_Combat.instance.Init();
 
         yield return new WaitForSeconds(2f);
         
         CombatInitial();
+    }
+
+    // Initial player hand cards
+    void CombatInitial()
+    {
+        // UIManager.Instance.GetUI<CombatUI>("CombatUI").CreateCardItem(3);   // initxial hand card
+        // Instantiate(cardPrefab, handLeftPoint);
+        //currentTime = timer;
+
+        CombatUI.instance.CreateCardItem(count);
+        CombatUI.instance.UpdateCardPosition();
+
+        state = TurnState.PLAYERTURN;
+    }
+
+    // player turn
+    IEnumerator PlayerTurn()
+    {
+        // reset player data 
+        playerUnit.cost = 10;
+        playerUnit.currentShield = 0;
+        CardManager.instance.Shuffle();
+        
+        yield return new WaitForSeconds(1f);
+
+        state = TurnState.PLAYERTURN;
+        
+        CombatUI.instance.UpdateCost();
+        CombatUI.instance.UpdateShield();
+
+        CombatUI.instance.CreateCardItem(count);
+        CombatUI.instance.UpdateCardPosition();
+
     }
 
     private void Update()
@@ -124,33 +156,6 @@ public class CombatManager : MonoBehaviour
                 timerTXT.text = currentTime.ToString("0");
             }
         }
-
-        if (CardManager.instance.cardDeck.Count == 9)
-        {
-            
-        }
-    }
-
-    // Initial player hand cards
-    void CombatInitial()
-    {
-        // UIManager.Instance.GetUI<CombatUI>("CombatUI").CreateCardItem(3);   // initxial hand card
-        // Instantiate(cardPrefab, handLeftPoint);
-        //currentTime = timer;
-
-        // Initial Items
-        ItemMenu_Combat.instance.Init();
-
-        CombatUI.instance.CreateCardItem(count);
-        CombatUI.instance.UpdateCardPosition();
-
-        state = TurnState.PLAYERTURN;
-    }
-
-    // enemy actions
-    void EnemyTurn()
-    {
-        state = TurnState.ENEMYTURN;
     }
 
     // settle phase for each turn
@@ -164,8 +169,11 @@ public class CombatManager : MonoBehaviour
             {
                 state = TurnState.END;
 
-                StartCoroutine(PlayerTurn());
+                // check player special states
+                // Buff & debuff
+                CheckUnitState(playerUnit);
 
+                StartCoroutine(PlayerTurn());
             }
             else
             {
@@ -191,34 +199,10 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    // player turn
-    IEnumerator PlayerTurn()
+    // enemy actions
+    void EnemyTurn()
     {
-        // reset player data 
-        playerUnit.cost = 10;
-        playerUnit.currentShield = 0;
-        CardManager.instance.Shuffle();
-
-        yield return new WaitForSeconds(2f);
-
-        state = TurnState.PLAYERTURN;
-        
-        CombatUI.instance.UpdateCost();
-        CombatUI.instance.UpdateShield();
-
-        CombatUI.instance.CreateCardItem(count);
-        CombatUI.instance.UpdateCardPosition();
-
-    }
-
-    // empty hand-cards
-    IEnumerator EmptyHand()
-    {
-        Debug.Log("Drop all cards in hand");
-        CombatUI.instance.DropHandCards();
-
-        yield return new WaitForSeconds(2f);
-        EnemyTurn();
+        state = TurnState.ENEMYTURN;
     }
 
     bool CheckAlive(Unit unit)
@@ -231,6 +215,65 @@ public class CombatManager : MonoBehaviour
         {
             return true;    
         }
+    }
+
+    public void EndTurnButton()
+    {   
+        if(state == TurnState.PLAYERTURN)
+        {
+            //reset timer
+            currentTime = timer;
+            timerTXT.text = timer.ToString();
+
+            //drop all hand-cards
+            if (CombatUI.instance.cardList.Count > 0)
+            {
+                CombatUI.instance.DropHandCards();
+            }
+
+            TurnEnd();
+        }
+        else
+        {
+            Debug.Log("Cannot skip the turn");
+        }
+    }
+
+    // empty hand-cards
+    IEnumerator EmptyHand()
+    {
+        CombatUI.instance.DropHandCards();
+
+        yield return new WaitForSeconds(2f);
+        EnemyTurn();
+    }
+
+    public void CheckUnitState(Unit player)
+    {
+        switch (playerUnit.state)
+        {
+            case SpecialStates.Normal:
+                // nothing
+                break;
+            case SpecialStates.LieShang:
+                // add LieShang card into player deck
+                PlayerCardManager.instance.deck.Add("LieShang");
+                break;
+            case SpecialStates.Stun:
+                // do something
+                break;
+            case SpecialStates.Pain:
+                // do something
+                PlayerCardManager.instance.deck.Add("Pain");
+                break;
+        }
+    }
+
+    public void CombatExit()
+    {
+        // save combat results: Player data, monster alive?, loots
+
+        // load map
     }
 
     #region Combat Summary
@@ -268,36 +311,6 @@ public class CombatManager : MonoBehaviour
     }
     #endregion
 
-    public void EndTurnButton()
-    {   
-        if(state == TurnState.PLAYERTURN)
-        {
-            //reset timer
-            currentTime = timer;
-            timerTXT.text = timer.ToString();
-
-            //drop all hand-cards
-            if (CombatUI.instance.cardList.Count > 0)
-            {
-                Debug.Log("Drop cards");
-                CombatUI.instance.DropHandCards();
-            }
-
-            TurnEnd();
-        }
-        else
-        {
-            Debug.Log("Cannot skip the turn");
-        }
-    }
-
-    public void CombatExit()
-    {
-        // save combat results: Player data, monster alive?, loots
-
-        // load map
-    }
-
     /// <summary>
     /// Test Functions
     /// </summary>
@@ -320,5 +333,22 @@ public class CombatManager : MonoBehaviour
         MonsterHP.text = enemyUnit.currentHP.ToString();
     }
 
+    public void RemoveDebuff()
+    {
+        playerUnit.state = SpecialStates.Normal;
+        Debug.Log("Clear debuff");
+    }
+
+    public void SwitchToLS()
+    {
+        playerUnit.state = SpecialStates.LieShang;
+        Debug.Log("To LieShang");
+    }
+
+    public void SwitchToPain()
+    {
+        playerUnit.state = SpecialStates.Pain;
+        Debug.Log("To Pain");
+    }
     #endregion
 }

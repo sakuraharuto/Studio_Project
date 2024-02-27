@@ -115,7 +115,8 @@ public class ItemGrid : MonoBehaviour
     {
         Vector2 position = new Vector2();
         position.x = posX * tileSizeWidth + tileSizeWidth * inventoryItem.itemData.width / 2;
-        position.y = -(posY * tileSizeHeight + tileSizeHeight * inventoryItem.itemData.height / 2);
+        position.y = -(posY * tileSizeHeight + tileSizeHeight * inventoryItem.itemData.height / 2) ;
+
         return position;
     }
 
@@ -123,7 +124,7 @@ public class ItemGrid : MonoBehaviour
     {
         // canvas scaler fixed
         positionOnGrid.x = mousePosition.x - rectTransform.position.x;
-        positionOnGrid.y = rectTransform.position.y - mousePosition.y;
+        positionOnGrid.y = rectTransform.position.y - mousePosition.y - 1;
 
         Vector2 scaledGridPosition = new Vector2();
         scaledGridPosition.x = positionOnGrid.x.Remap(0, Screen.width, 0, 1920);
@@ -217,8 +218,8 @@ public class ItemGrid : MonoBehaviour
     {
         if(PositionCheck(posX, posY) == false) { return false; }
 
-        posX += width - 1;
-        posY += height - 1;
+        posX += (width - 1);
+        posY += (height - 1);
 
         if(PositionCheck(posX, posY) == false) { return false; }
 
