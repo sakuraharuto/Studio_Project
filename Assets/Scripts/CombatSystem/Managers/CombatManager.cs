@@ -154,6 +154,9 @@ public class CombatManager : MonoBehaviour
             {
                 currentTime = timer;
                 timerTXT.text = currentTime.ToString("0");
+
+                CheckUnitState(playerUnit);
+
                 TurnEnd();
             }
             else
@@ -175,7 +178,7 @@ public class CombatManager : MonoBehaviour
             if(CheckAlive(playerUnit))
             {
                 state = TurnState.END;
-                CheckUnitState(playerUnit);
+                
                 StartCoroutine(PlayerTurn());
             }
             else
