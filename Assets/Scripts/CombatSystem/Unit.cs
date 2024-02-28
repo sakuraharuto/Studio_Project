@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    [SerializeField]
     public enum SpecialStates
     {   
         Normal,
@@ -27,6 +29,11 @@ public class Unit : MonoBehaviour
         currentHP = maxHP;
         currentShield = 0;
         cost = 10;
+    }
+
+    private void Update()
+    {
+
     }
 
     public void TakeDamage(int dmg)
@@ -62,5 +69,4 @@ public class Unit : MonoBehaviour
             return true;
         }
     }
-
 }

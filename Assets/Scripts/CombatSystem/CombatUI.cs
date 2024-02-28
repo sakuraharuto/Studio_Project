@@ -158,7 +158,6 @@ public class CombatUI : UIBase
         // access the UI component
         CardDisplay panel = card.GetComponent<CardDisplay>();
         // add this card into used-card deck
-        Debug.Log(card.cardName);
         CardManager.instance.usedDeck.Add(card.cardName);
         // update used-card deck count ui
         usedDeckCount.text = CardManager.instance.usedDeck.Count.ToString();

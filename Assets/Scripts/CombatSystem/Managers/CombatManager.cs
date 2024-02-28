@@ -44,6 +44,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] int count;
     [SerializeField] List<string> Deck = new List<string>();        //test
     [SerializeField] List<string> useDeck = new List<string>();     //test
+    public bool addedNewStateCard = false;
 
     #region
     /// <summary>
@@ -55,6 +56,8 @@ public class CombatManager : MonoBehaviour
     public TMP_Text turnTXT;
     public TMP_Text PlayerHP;
     public TMP_Text MonsterHP;
+
+    public SpecialStates playerState;
 
     #endregion
 
@@ -88,6 +91,7 @@ public class CombatManager : MonoBehaviour
         playerUnit = player.GetComponent<Unit>();
         playerUnit.InitialData();
         PlayerHP.text = playerUnit.currentHP.ToString();
+        playerState = playerUnit.state;
 
         enemyUnit = enemy.GetComponent<Unit>();
         enemyUnit.InitialData();
@@ -135,11 +139,13 @@ public class CombatManager : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
         turnTXT.text = state.ToString();
 
         Deck = CardManager.instance.cardDeck;
         useDeck = CardManager.instance.usedDeck;
+
+        playerState = playerUnit.state;
 
         // count down timer for player turn
         if (state == TurnState.ENEMYTURN)
@@ -160,7 +166,8 @@ public class CombatManager : MonoBehaviour
 
     // settle phase for each turn
     void TurnEnd()
-    {
+    {   
+        // settle enemy actions before switch to player turn
         // end of enemy turn
         if(state == TurnState.ENEMYTURN)
         {   
@@ -168,11 +175,7 @@ public class CombatManager : MonoBehaviour
             if(CheckAlive(playerUnit))
             {
                 state = TurnState.END;
-
-                // check player special states
-                // Buff & debuff
                 CheckUnitState(playerUnit);
-
                 StartCoroutine(PlayerTurn());
             }
             else
@@ -184,11 +187,14 @@ public class CombatManager : MonoBehaviour
         // end of player turn
         if(state == TurnState.PLAYERTURN)
         {
+            // settle player actions before switch to enemy turn
+            // check player special states
+            // add special state cards into deck
             // settle player actions
-            if(CheckAlive(enemyUnit))
+            if (CheckAlive(enemyUnit))
             {
                 state = TurnState.END;
-                
+
                 EnemyTurn();
             }
             else
@@ -196,24 +202,6 @@ public class CombatManager : MonoBehaviour
                 Win();
             }
 
-        }
-    }
-
-    // enemy actions
-    void EnemyTurn()
-    {
-        state = TurnState.ENEMYTURN;
-    }
-
-    bool CheckAlive(Unit unit)
-    {
-        if(unit.currentHP <= 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;    
         }
     }
 
@@ -239,32 +227,49 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    // empty hand-cards
-    IEnumerator EmptyHand()
+    bool CheckAlive(Unit unit)
     {
-        CombatUI.instance.DropHandCards();
+        if(unit.currentHP <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;    
+        }
+    }
 
-        yield return new WaitForSeconds(2f);
-        EnemyTurn();
+    // enemy actions
+    void EnemyTurn()
+    {
+        state = TurnState.ENEMYTURN;
     }
 
     public void CheckUnitState(Unit player)
     {
-        switch (playerUnit.state)
+        switch (playerState)
         {
             case SpecialStates.Normal:
-                // nothing
+                Debug.Log("Player State: " + playerUnit.state);
+                addedNewStateCard = false;
                 break;
             case SpecialStates.LieShang:
                 // add LieShang card into player deck
-                PlayerCardManager.instance.deck.Add("LieShang");
+                Debug.Log("Player State: " + playerUnit.state);
+                if(!addedNewStateCard)
+                {
+                    CardManager.instance.cardDeck.Add("LieShang");
+                    addedNewStateCard = true;
+                }
                 break;
             case SpecialStates.Stun:
                 // do something
+                Debug.Log("Player State: " + playerUnit.state);
                 break;
             case SpecialStates.Pain:
                 // do something
-                PlayerCardManager.instance.deck.Add("Pain");
+                Debug.Log("Player State: " + playerUnit.state);
+                //CardManager.instance.cardDeck.Add("Pain");
                 break;
         }
     }
@@ -336,19 +341,19 @@ public class CombatManager : MonoBehaviour
     public void RemoveDebuff()
     {
         playerUnit.state = SpecialStates.Normal;
-        Debug.Log("Clear debuff");
+        Debug.Log(playerState);
     }
 
     public void SwitchToLS()
     {
         playerUnit.state = SpecialStates.LieShang;
-        Debug.Log("To LieShang");
+        Debug.Log(playerState);
     }
 
     public void SwitchToPain()
     {
         playerUnit.state = SpecialStates.Pain;
-        Debug.Log("To Pain");
+        Debug.Log(playerState);
     }
     #endregion
 }

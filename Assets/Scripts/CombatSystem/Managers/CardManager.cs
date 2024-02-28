@@ -13,10 +13,6 @@ public class CardManager
 
     public void Init()
     {   
-        // Init card decks
-        //cardDeck = new List<string>();
-        //usedDeck = new List<string>();
-
         //load cards into deck and shuffle
         List<string> tempDeck = new List<string>();
         tempDeck.AddRange(PlayerCardManager.instance.deck);
@@ -39,13 +35,25 @@ public class CardManager
     public void Shuffle()
     {
         Debug.Log("Shuffling");
-        while (usedDeck.Count > 0)
+        //while (usedDeck.Count > 0)
+        //{
+        //    int tempPos = Random.Range(0, usedDeck.Count);
+
+        //    cardDeck.Add(usedDeck[tempPos]);
+
+        //    usedDeck.RemoveAt(tempPos);
+        //}
+
+        // Fisher-Yate shuffle
+        cardDeck.AddRange(usedDeck);
+        usedDeck.Clear();
+
+        for(int i = 0; i < cardDeck.Count; i++)
         {
-            int tempPos = Random.Range(0, usedDeck.Count);
-
-            cardDeck.Add(usedDeck[tempPos]);
-
-            usedDeck.RemoveAt(tempPos);
+            int tempPos = Random.Range(i, cardDeck.Count - 1);
+            string tempCard = cardDeck[tempPos];
+            cardDeck[tempPos] = cardDeck[i];
+            cardDeck[i] = tempCard;
         }
 
         CombatUI.instance.UpdateCardsDeck();

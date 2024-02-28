@@ -18,7 +18,7 @@ public class LieShang : Card
 
     public override void CardSpecialEffect()
     {
-        CombatManager.instance.player.GetComponent<Unit>().TakeDamage(data.damage);
+        CombatManager.instance.playerUnit.TakeDamage(2);
     }
 
     public override void OnPointerDown(PointerEventData eventData)
