@@ -28,7 +28,7 @@ public class CombatManager : MonoBehaviour
 {   
     public static CombatManager instance;
 
-    [Header("Character Initial")]
+    [Header("Character Config")]
     public GameObject player;
     public Transform playerPosition;
     public GameObject enemy;
@@ -42,9 +42,13 @@ public class CombatManager : MonoBehaviour
 
     [Header("Combat Config")]
     [SerializeField] int count;
+
+    [Header("Inspector Variables")]
+    public SpecialStates playerState;
+    public bool isPlayerTurn;
+    public bool addedNewStateCard = false;
     [SerializeField] List<string> Deck = new List<string>();        //test
     [SerializeField] List<string> useDeck = new List<string>();     //test
-    public bool addedNewStateCard = false;
 
     #region
     /// <summary>
@@ -56,25 +60,24 @@ public class CombatManager : MonoBehaviour
     public TMP_Text turnTXT;
     public TMP_Text PlayerHP;
     public TMP_Text MonsterHP;
-
-    public SpecialStates playerState;
-
     #endregion
-
-    public void Init()
-    {
-
-    }
 
     // Start is called before the first frame update
     void Start()
     {   
         instance = this;
 
+        timerTXT.text = timer.ToString();
+
+        Init();
+    }
+
+    public void Init()
+    {
+        isPlayerTurn = true;
         PlayerCardManager.instance.Init();
         CardManager.instance.Init();
-
-        timerTXT.text = timer.ToString();
+        //ItemMenu_Combat.instance.Init();
 
         StartCoroutine(SetupCombat());
     }
@@ -97,56 +100,31 @@ public class CombatManager : MonoBehaviour
         enemyUnit.InitialData();
         MonsterHP.text = enemyUnit.currentHP.ToString();
 
-        // Initial Items
-        //ItemMenu_Combat.instance.Init();
-
         yield return new WaitForSeconds(2f);
-        
+
         CombatInitial();
     }
 
     // Initial player hand cards
     void CombatInitial()
     {
-        // UIManager.Instance.GetUI<CombatUI>("CombatUI").CreateCardItem(3);   // initxial hand card
-        // Instantiate(cardPrefab, handLeftPoint);
-        //currentTime = timer;
+        state = TurnState.PLAYERTURN;
 
         CombatUI.instance.CreateCardItem(count);
         CombatUI.instance.UpdateCardPosition();
 
-        state = TurnState.PLAYERTURN;
-    }
-
-    // player turn
-    IEnumerator PlayerTurn()
-    {
-        // reset player data 
-        playerUnit.cost = 10;
-        playerUnit.currentShield = 0;
-        CardManager.instance.Shuffle();
-        
-        yield return new WaitForSeconds(1f);
-
-        state = TurnState.PLAYERTURN;
-        
-        CombatUI.instance.UpdateCost();
-        CombatUI.instance.UpdateShield();
-
-        CombatUI.instance.CreateCardItem(count);
-        CombatUI.instance.UpdateCardPosition();
-
+        CheckUnitPreStates(playerUnit);
     }
 
     private void Update()
-    {   
+    {
         turnTXT.text = state.ToString();
 
+        // for test
         Deck = CardManager.instance.cardDeck;
         useDeck = CardManager.instance.usedDeck;
-
         playerState = playerUnit.state;
-
+        
         // count down timer for player turn
         if (state == TurnState.ENEMYTURN)
         {
@@ -155,9 +133,10 @@ public class CombatManager : MonoBehaviour
                 currentTime = timer;
                 timerTXT.text = currentTime.ToString("0");
 
-                CheckUnitState(playerUnit);
+                //CheckUnitState(playerUnit);
+                //TurnEnd();
 
-                TurnEnd();
+                StartCoroutine(PostTurnProcess());
             }
             else
             {
@@ -167,70 +146,109 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    // settle phase for each turn
-    void TurnEnd()
-    {   
-        // settle enemy actions before switch to player turn
-        // end of enemy turn
-        if(state == TurnState.ENEMYTURN)
-        {   
-            //settle enemey actions
-            if(CheckAlive(playerUnit))
-            {
-                state = TurnState.END;
-                
-                StartCoroutine(PlayerTurn());
-            }
-            else
-            {
-                Defeat();
-            }
-        }
+    private void PreTurnProcess()
+    {
+        isPlayerTurn = !isPlayerTurn;
 
-        // end of player turn
-        if(state == TurnState.PLAYERTURN)
+        if (isPlayerTurn)
         {
-            // settle player actions before switch to enemy turn
-            // check player special states
-            // add special state cards into deck
-            // settle player actions
-            if (CheckAlive(enemyUnit))
-            {
-                state = TurnState.END;
+            Debug.Log("Turn State: Pre-Turn Process");
 
-                EnemyTurn();
-            }
-            else
-            {
-                Win();
-            }
+            state = TurnState.PLAYERTURN;
 
+            CheckUnitPreStates(playerUnit);
+
+            CardManager.instance.Shuffle();
+            CombatUI.instance.UpdateCost();
+            CombatUI.instance.UpdateShield();
+            CombatUI.instance.CreateCardItem(count);
+            CombatUI.instance.UpdateCardPosition();
+        }
+        else
+        {
+            state = TurnState.ENEMYTURN;
+
+            CheckUnitPreStates(enemyUnit);
+            
+            EnemyTurn();
         }
     }
 
-    public void EndTurnButton()
-    {   
-        if(state == TurnState.PLAYERTURN)
-        {
-            //reset timer
-            currentTime = timer;
-            timerTXT.text = timer.ToString();
+    private void CheckUnitPreStates(Unit unit)
+    {
+        Debug.Log("Check Unit PreStates");
+    }
 
+    public void EndTurnButton()
+    {
+        if(state != TurnState.PLAYERTURN)
+        {
+            Debug.Log("Cannot skip the turn!");
+        }
+        else
+        {
+            Debug.Log("Player's turn ends");
             //drop all hand-cards
             if (CombatUI.instance.cardList.Count > 0)
             {
                 CombatUI.instance.DropHandCards();
             }
 
-            TurnEnd();
-        }
-        else
-        {
-            Debug.Log("Cannot skip the turn");
+            //reset timer
+            currentTime = timer;
+            timerTXT.text = timer.ToString();
+            StartCoroutine(PostTurnProcess());
         }
     }
 
-    bool CheckAlive(Unit unit)
+    IEnumerator PostTurnProcess()
+    {
+        state = TurnState.END;
+
+        if(isPlayerTurn)
+        {
+            Debug.Log("Turn State: Post-Turn Process");
+
+            CheckUnitPostStates(playerUnit);
+            
+            if (CheckUnitAlive(enemyUnit))
+            {
+                yield return new WaitForSeconds(3f);
+
+                PreTurnProcess();
+            }
+            else
+            {
+                Win();
+            }
+        }
+        else
+        {
+            CheckUnitPostStates(enemyUnit);
+            if(CheckUnitAlive(playerUnit))
+            {   
+                CheckUnitState(playerUnit);
+
+                playerUnit.cost = 10;
+                playerUnit.currentShield = 0;
+
+                yield return new WaitForSeconds(3f);
+
+                PreTurnProcess();
+            }
+            else
+            {
+                Defeat();
+            }
+        }
+    }
+
+    private void CheckUnitPostStates(Unit unit)
+    {
+        Debug.Log("Check Unit PostStates");
+    }
+    
+    bool CheckUnitAlive(Unit unit)
     {
         if(unit.currentHP <= 0)
         {
@@ -248,17 +266,17 @@ public class CombatManager : MonoBehaviour
         state = TurnState.ENEMYTURN;
     }
 
-    public void CheckUnitState(Unit player)
+    public void CheckUnitState(Unit unit)
     {
-        switch (playerState)
+        switch (unit.state)
         {
             case SpecialStates.Normal:
-                Debug.Log("Player State: " + playerUnit.state);
+                Debug.Log("Player State: " + unit.state);
                 addedNewStateCard = false;
                 break;
             case SpecialStates.LieShang:
                 // add LieShang card into player deck
-                Debug.Log("Player State: " + playerUnit.state);
+                Debug.Log("Player State: " + unit.state);
                 if(!addedNewStateCard)
                 {
                     CardManager.instance.cardDeck.Add("LieShang");
@@ -267,16 +285,18 @@ public class CombatManager : MonoBehaviour
                 break;
             case SpecialStates.Stun:
                 // do something
-                Debug.Log("Player State: " + playerUnit.state);
+                Debug.Log("Player State: " + unit.state);
                 break;
             case SpecialStates.Pain:
                 // do something
-                Debug.Log("Player State: " + playerUnit.state);
+                Debug.Log("Player State: " + unit.state);
                 //CardManager.instance.cardDeck.Add("Pain");
                 break;
         }
     }
 
+    // combat summary
+    #region Combat Summary
     public void CombatExit()
     {
         // save combat results: Player data, monster alive?, loots
@@ -284,8 +304,6 @@ public class CombatManager : MonoBehaviour
         // load map
     }
 
-    #region Combat Summary
-    // combat summary
     void EndCombat()
     {
         Debug.Log("Combat Summary");
