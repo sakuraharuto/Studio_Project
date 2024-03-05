@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Player
-  maxHP: 50
-  currentHP: 50
+  state: 0
+  maxHP: 0
+  currentHP: 0
   currentShield: 0
-  cost: 10
+  cost: 0

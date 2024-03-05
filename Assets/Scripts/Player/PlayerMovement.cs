@@ -12,10 +12,6 @@ public class PlayerMovement : MonoBehaviour
     private bool canTeleport = false;
     private bool canOpenDoor = false;
 
-    [Header("Function Setting")]
-
-
-
     private Rigidbody rb; // 添加Rigidbody引用
 
     [HideInInspector] public GameObject teleportDoor;

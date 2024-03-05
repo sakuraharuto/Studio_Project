@@ -4,7 +4,6 @@ using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
-using static Unit;
 
 // gameplay flow:
 // 1.Start ==> Initial units position + Draw cards + show UI
@@ -33,9 +32,10 @@ public class CombatManager : MonoBehaviour
     public Transform playerPosition;
     public GameObject enemy;
     public Transform enemyPosition;
+    public Character playerCharacter;   //test for RPG system
 
-    [HideInInspector] public Unit playerUnit;
-    [HideInInspector] public Unit enemyUnit;
+    [HideInInspector] public CombatUnit playerUnit;
+    [HideInInspector] public CombatUnit enemyUnit;
 
     [Header("Turn State")]
     public TurnState state;
@@ -94,10 +94,12 @@ public class CombatManager : MonoBehaviour
         Instantiate(enemy, enemyPosition);
 
         // initial characters data
-        playerUnit = player.GetComponent<Unit>();
-        playerUnit.InitialData();
+        playerUnit = player.GetComponent<CombatUnit>();
+        //playerUnit.InitialData();
+        playerUnit.InitialData(playerCharacter);
+
         playerState = playerUnit.state;
-        enemyUnit = enemy.GetComponent<Unit>();
+        enemyUnit = enemy.GetComponent<CombatUnit>();
         enemyUnit.InitialData();
 
         //test inspector panel
@@ -124,6 +126,8 @@ public class CombatManager : MonoBehaviour
     {
         turnTXT.text = state.ToString();
 
+        //Debug.Log(playerUnit.maxHP);
+
         // for test
         Deck = CardManager.instance.cardDeck;
         useDeck = CardManager.instance.usedDeck;
@@ -136,9 +140,6 @@ public class CombatManager : MonoBehaviour
             {
                 currentTime = timer;
                 timerTXT.text = currentTime.ToString("0");
-
-                //CheckUnitState(playerUnit);
-                //TurnEnd();
 
                 StartCoroutine(PostTurnProcess());
             }
@@ -161,7 +162,7 @@ public class CombatManager : MonoBehaviour
         if (isPlayerTurn)
         {
             state = TurnState.PLAYERTURN;
-
+            Debug.Log(playerUnit.maxHP);
             CheckUnitPreStates(playerUnit);
 
             CardManager.instance.Shuffle();
@@ -180,7 +181,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void CheckUnitPreStates(Unit unit)
+    private void CheckUnitPreStates(CombatUnit unit)
     {
         Debug.Log("Check Unit PreStates");
     }
@@ -235,8 +236,8 @@ public class CombatManager : MonoBehaviour
             {   
                 CheckUnitState(playerUnit);
 
-                playerUnit.cost = 10;
-                playerUnit.currentShield = 0;
+                playerUnit.RestoreCost();
+                playerUnit.RemoveShields();
 
                 yield return new WaitForSeconds(3f);
 
@@ -249,30 +250,30 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void CheckUnitPostStates(Unit unit)
+    private void CheckUnitPostStates(CombatUnit unit)
     {
         Debug.Log("Check Unit PostStates");
     }
     
-    bool CheckUnitAlive(Unit unit)
+    bool CheckUnitAlive(CombatUnit unit)
     {
-        if(unit.currentHP <= 0)
+        if(unit.CheckAlive())
         {
-            return false;
+            return true;
         }
         else
         {
-            return true;    
+            return false;    
         }
     }
-
+     
     // enemy actions
     void EnemyTurn()
     {
         state = TurnState.ENEMYTURN;
     }
 
-    public void CheckUnitState(Unit unit)
+    public void CheckUnitState(CombatUnit unit)
     {
         switch (unit.state)
         {

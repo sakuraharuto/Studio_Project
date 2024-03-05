@@ -7841,10 +7841,15 @@ MonoBehaviour:
   playerPosition: {fileID: 111213393}
   enemy: {fileID: 1538912531112291242, guid: 99798db7b0060fe4e95acc64eac3c447, type: 3}
   enemyPosition: {fileID: 1381077962}
+  playerCharacter: {fileID: 1020302557035232275, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
   playerUnit: {fileID: 0}
   enemyUnit: {fileID: 0}
   state: 0
+  round: 0
   count: 4
+  playerState: 0
+  isPlayerTurn: 0
+  addedNewStateCard: 0
   Deck: []
   useDeck: []
   timer: 3

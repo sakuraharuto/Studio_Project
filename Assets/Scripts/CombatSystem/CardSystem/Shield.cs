@@ -11,21 +11,8 @@ public class Shield : Card
         cardName = data.name;
     }
 
-    //public override void InitialData()
-    //{
-    //    
-    //}
-
-    //public override void CardFunction()
-    //{   
-    //    CombatManager.instance.playerUnit.currentShield += data.shield;
-    //    CombatUI.instance.UpdateShield();
-    //}
-
     public override void OnPointerDown(PointerEventData eventData)
-    {
-        //base.OnPointerDown(eventData);
-
+    { 
         if (CanUse())
         {
             // update player's UI
@@ -35,10 +22,5 @@ public class Shield : Card
             CombatManager.instance.playerUnit.currentShield += data.shield;
             CombatUI.instance.UpdateShield();
         }
-
-        //CombatManager.instance.playerUnit.currentShield += data.shield;
-        //CombatUI.instance.UpdateShield();
-
-        //CardFunction();
     }
 }

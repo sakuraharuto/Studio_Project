@@ -12,14 +12,12 @@ public class NormalAttack : Card
     public override void CardSpecialEffect()
     {
         // output dmg to enemy
-        CombatManager.instance.enemy.GetComponent<Unit>().TakeDamage(data.damage);
+        CombatManager.instance.enemy.GetComponent<CombatUnit>().TakeDamage(data.damage);
         CombatManager.instance.UpdateMonsterInCombat();
     }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        //base.OnPointerDown(eventData);
-
         if (CanUse())
         {
             // update player's UI
