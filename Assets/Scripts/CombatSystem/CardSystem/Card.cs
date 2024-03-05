@@ -17,7 +17,7 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     //
     //}
 
-    public virtual void CardSpecialEffect()
+    protected virtual void OnEnable()
     {
 
     }
@@ -40,6 +40,11 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         //    CombatUI.instance.UpdateCardsDeck();
         //    CombatUI.instance.UpdateUsedCardsDeck();
         //}
+    }
+
+    public virtual void CardSpecialEffect()
+    {
+
     }
 
     public virtual bool CanUse()

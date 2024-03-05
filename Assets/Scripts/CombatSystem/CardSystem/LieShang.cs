@@ -9,10 +9,7 @@ public class LieShang : Card
     void Start()
     {
         cardName = data.name;
-    }
 
-    private void OnEnable()
-    {
         CardSpecialEffect();
     }
 

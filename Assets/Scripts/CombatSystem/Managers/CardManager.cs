@@ -35,16 +35,7 @@ public class CardManager
     public void Shuffle()
     {
         Debug.Log("Shuffling");
-        //while (usedDeck.Count > 0)
-        //{
-        //    int tempPos = Random.Range(0, usedDeck.Count);
 
-        //    cardDeck.Add(usedDeck[tempPos]);
-
-        //    usedDeck.RemoveAt(tempPos);
-        //}
-
-        // Fisher-Yate shuffle
         cardDeck.AddRange(usedDeck);
         usedDeck.Clear();
 

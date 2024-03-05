@@ -39,6 +39,7 @@ public class CombatManager : MonoBehaviour
 
     [Header("Turn State")]
     public TurnState state;
+    [SerializeField] private int round;
 
     [Header("Combat Config")]
     [SerializeField] int count;
@@ -74,10 +75,12 @@ public class CombatManager : MonoBehaviour
 
     public void Init()
     {
-        isPlayerTurn = true;
         PlayerCardManager.instance.Init();
         CardManager.instance.Init();
         //ItemMenu_Combat.instance.Init();
+        
+        isPlayerTurn = true;
+        round = 0;
 
         StartCoroutine(SetupCombat());
     }
@@ -93,11 +96,12 @@ public class CombatManager : MonoBehaviour
         // initial characters data
         playerUnit = player.GetComponent<Unit>();
         playerUnit.InitialData();
-        PlayerHP.text = playerUnit.currentHP.ToString();
         playerState = playerUnit.state;
-
         enemyUnit = enemy.GetComponent<Unit>();
         enemyUnit.InitialData();
+
+        //test inspector panel
+        PlayerHP.text = playerUnit.currentHP.ToString();
         MonsterHP.text = enemyUnit.currentHP.ToString();
 
         yield return new WaitForSeconds(2f);
@@ -148,12 +152,14 @@ public class CombatManager : MonoBehaviour
 
     private void PreTurnProcess()
     {
+        Debug.Log("Turn State: Pre-Turn Process");
+        
+        round++;
+
         isPlayerTurn = !isPlayerTurn;
 
         if (isPlayerTurn)
         {
-            Debug.Log("Turn State: Pre-Turn Process");
-
             state = TurnState.PLAYERTURN;
 
             CheckUnitPreStates(playerUnit);
@@ -203,12 +209,12 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator PostTurnProcess()
     {
+        Debug.Log("Turn State: Post-Turn Process");
+        
         state = TurnState.END;
 
         if(isPlayerTurn)
         {
-            Debug.Log("Turn State: Post-Turn Process");
-
             CheckUnitPostStates(playerUnit);
             
             if (CheckUnitAlive(enemyUnit))

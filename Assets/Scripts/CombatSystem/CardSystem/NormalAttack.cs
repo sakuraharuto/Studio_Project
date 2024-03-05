@@ -9,11 +9,6 @@ public class NormalAttack : Card
         cardName = data.name;
     }
 
-    //public override void InitialData()
-    //{
-    //
-    //}
-
     public override void CardSpecialEffect()
     {
         // output dmg to enemy

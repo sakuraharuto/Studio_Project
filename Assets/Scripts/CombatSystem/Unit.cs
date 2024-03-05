@@ -30,6 +30,16 @@ public class Unit : MonoBehaviour
         currentShield = 0;
         cost = 10;
     }
+    
+    //prepare for character system
+    //public void InitialData(Character unit)
+    //{
+    //    state = unit.state;
+    //    maxHP = unit.currentHP;
+    //    currentHP = maxHP;
+    //    currentShield = 0;
+    //    cost = 10;
+    //}
 
     private void Update()
     {
@@ -51,6 +61,9 @@ public class Unit : MonoBehaviour
         {   
             currentHP -= dmg;
         }
+
+        //test
+        CombatManager.instance.UpdatePlayerInCombat();
     }
     
     public void AddShield(int shield)
