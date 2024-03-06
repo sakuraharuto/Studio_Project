@@ -4,14 +4,6 @@ using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
-
-// gameplay flow:
-// 1.Start ==> Initial units position + Draw cards + show UI
-// 2.InitialTurn ==> Draw cards from deck, 5 cards each turn
-// 3.Player Turn
-// 4.InitialTurn ==> Draws cards for enemy
-// 5.Enemy Turn 
-// 6.End = Win/Defeat/Flee
 public enum TurnState 
 { 
     INITIAL, 
