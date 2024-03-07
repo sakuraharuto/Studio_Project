@@ -218,6 +218,7 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
+                yield return new WaitForSeconds(1f);
                 Win();
             }
         }
@@ -314,7 +315,9 @@ public class CombatManager : MonoBehaviour
 
         PlayerHP.text = "Escape success!";
 
-        EndCombat();
+        GameSceneManager.instance.StartTransition("Test_dc");
+
+        //EndCombat();
     }
 
     void Win()
@@ -323,7 +326,9 @@ public class CombatManager : MonoBehaviour
 
         PlayerHP.text = "You win!";
 
-        EndCombat();
+        GameSceneManager.instance.StartTransition("Test_dc");
+
+        //EndCombat();
     }
 
     void Defeat()

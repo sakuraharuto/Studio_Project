@@ -26,6 +26,6 @@ public class CombatTrigger : MonoBehaviour
 
     public void EnterCombat()
     {
-        SceneManager.LoadScene("Test_combat");
+        GameSceneManager.instance.StartTransition("Test_Combat");
     }    
 }

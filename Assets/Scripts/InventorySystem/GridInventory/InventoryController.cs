@@ -157,14 +157,14 @@ public class InventoryController : MonoBehaviour
     public void ProcessMouseInput()
     {
         // set both to null when the player hides panels
-        if(storageGrid.activeSelf == false)
+        if (storageGrid.activeSelf == false)
         {
             selectedItem = null;
             selectedItemGrid = null;
         }
 
         //drag item's icon
-        if(selectedItem != null)
+        if (selectedItem != null)
         {
             rectTransform.position = Input.mousePosition;
         }
