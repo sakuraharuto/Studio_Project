@@ -57,11 +57,14 @@ public class CombatManager : MonoBehaviour
     public TMP_Text MonsterHP;
     #endregion
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {   
-        instance = this;
-
         timerTXT.text = timer.ToString();
 
         Init();
@@ -119,8 +122,6 @@ public class CombatManager : MonoBehaviour
     private void Update()
     {
         turnTXT.text = state.ToString();
-
-        //Debug.Log(playerUnit.maxHP);
 
         // for test
         Deck = CardManager.instance.cardDeck;

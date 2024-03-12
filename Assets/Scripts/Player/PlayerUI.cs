@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] public GameObject PackagePanel;
-    [SerializeField] public GameObject StatsPanel;
+    public GameObject canvas;
+    public GameObject PackagePanel;
+    public GameObject StatsPanel;
+
+    private InventoryController inventoryController;
+
+    private void Awake()
+    {
+        PackagePanel.SetActive(false);
+    }
 
     private void Start()
     {
-        PackagePanel.SetActive(false);
+        inventoryController = canvas.GetComponent<InventoryController>();
     }
 
     // Update is called once per frame
@@ -24,6 +32,7 @@ public class PlayerUI : MonoBehaviour
     public void OpenPackage()
     {
         PackagePanel.SetActive(true);
+        inventoryController.InitialPlayerItems();
     }
     public void ClosePackage()
     {

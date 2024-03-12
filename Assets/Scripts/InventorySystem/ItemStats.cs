@@ -15,8 +15,14 @@ public class ItemStats : MonoBehaviour
     [SerializeField] private ItemData[] allItems;
 
     void Awake()
-    {  
-        //DontDestroyOnLoad(gameObject);
+    {
+        if (instance == null)
+        {
+            instance = this;
+            
+            DontDestroyOnLoad(gameObject);
+        }
+
         //SaveLoad.OnLoadGame += LoadPackageStats;
     }
 
@@ -28,8 +34,11 @@ public class ItemStats : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        instance = this;
+    {   
+        //if(instance == null)
+        //{
+        //    instance = this;
+        //}
 
         bagStats = new Dictionary<int, int>();
 

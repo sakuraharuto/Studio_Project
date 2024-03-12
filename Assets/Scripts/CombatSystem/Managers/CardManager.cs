@@ -9,7 +9,12 @@ public class CardManager
     public static CardManager instance = new CardManager();
 
     public List<string> cardDeck = new List<string>();
-    public List<string> usedDeck = new List<string>();   
+    public List<string> usedDeck = new List<string>();
+
+    //private void Awake()
+    //{
+    //    instance = this;
+    //}
 
     public void Init()
     {   

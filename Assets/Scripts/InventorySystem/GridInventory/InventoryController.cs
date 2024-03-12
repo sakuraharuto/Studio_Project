@@ -2,8 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Xml.Serialization;
-using UnityEditor.ShaderKeywordFilter;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 //All interaction the player will do with all the inventory grids
@@ -35,11 +34,15 @@ public class InventoryController : MonoBehaviour
     [Header("UI Setting")]
     [SerializeField] PlayerMovement player;
     [SerializeField] GameObject storageGrid;
+    [SerializeField] ItemGrid packageGrid;
 
     private void Awake()
-    {   
+    {
         //load data first
-
+        //if (ItemStats.instance.bagStats != null)
+        //{
+        //    InitialPlayerItems();
+        //}
 
         itemHighlight = GetComponent<ItemHighlight>();
     }
@@ -61,6 +64,25 @@ public class InventoryController : MonoBehaviour
             InsertRandomItem();
         }
 
+    }
+
+    public void InitialPlayerItems()
+    {
+        if (ItemStats.instance.bagStats != null)
+        {
+            foreach (var element in ItemStats.instance.bagStats)
+            {
+                ItemData newItemData = ItemStats.instance.GetItemByID(element.Key);
+                for(int i = 0; i <= element.Value; i++)
+                {
+                    InventoryItem newItem = CreateNewInventoryItem(newItemData);
+
+                    Vector2Int? posOnGrid = packageGrid.FindSpaceForObject(newItem.itemData);
+                    if (posOnGrid == null) { return; }
+                    packageGrid.PlaceItem(newItem, posOnGrid.Value.x, posOnGrid.Value.y);
+                }
+            }
+        }
     }
 
     public void InsertRandomItem()

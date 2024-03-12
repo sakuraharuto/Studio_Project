@@ -10,6 +10,11 @@ public class PlayerCardManager
     [Header("Card List")]
     public List<string> deck;
 
+    //private void Awake()
+    //{
+    //    instance = this;
+    //}
+
     public void Init()
     {
         deck = new List<string>
