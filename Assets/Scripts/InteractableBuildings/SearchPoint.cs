@@ -45,9 +45,9 @@ public class SearchPoint : MonoBehaviour
 
     private void AddItems()
     {   
-        for(int i = 0; i < this.items.Count; i++)
+        for(int i = 0; i < items.Count; i++)
         {
-            InventoryItem newItem = inventoryController.CreateNewInventoryItem(this.items[i]);
+            InventoryItem newItem = inventoryController.CreateNewInventoryItem(items[i]);
 
             Vector2Int? posOnGrid = containerGrid.FindSpaceForObject(newItem.itemData);
 
@@ -59,13 +59,9 @@ public class SearchPoint : MonoBehaviour
 
     private void RemoveItems()
     {
-        for(int i = 2; i < containerGrid.transform.childCount; i++)
+        for(int i = 0; i < containerGrid.transform.childCount; i++)
         {
-            if (containerGrid.transform.GetChild(i).gameObject.name == "Highlighter")
-            {
-                break;
-            }
-            else
+            if(containerGrid.transform.GetChild(i).gameObject.name != "Highlighter")
             {
                 Destroy(containerGrid.transform.GetChild(i).gameObject);
             }
@@ -76,14 +72,14 @@ public class SearchPoint : MonoBehaviour
 
     public void RefreshResource()
     {
-        this.items.Clear();
+        items.Clear();
 
         int newItemCount = Random.Range(1, allItems.Count);
 
         for(int i=0; i < newItemCount; i++)
         {
             int randomItem = Random.Range(0, allItems.Count);
-            this.items.Add(allItems[randomItem]);
+            items.Add(allItems[randomItem]);
         }
     }
 
@@ -115,16 +111,11 @@ public class SearchPoint : MonoBehaviour
 
             searchButton.SetActive(false);
 
-            if (containerGrid.isEmpty() == true)
-            {
-                RefreshResource();
-            }
-
             if (containerGrid.isEmpty() == false)
             {
                 RemoveItems();
             }
-    
+
         }
     }
 }

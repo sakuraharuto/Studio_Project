@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class CombatTrigger : MonoBehaviour
 {
-    public GameObject canvas;
+    public GameObject EnterCombatButton;
     
     // Start is called before the first frame update
     void Start()
-    {   
-        canvas.SetActive(false);   
+    {
+        EnterCombatButton.SetActive(false);   
     }
 
     // Update is called once per frame
@@ -21,11 +21,12 @@ public class CombatTrigger : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        canvas.SetActive(true);
+        EnterCombatButton.SetActive(true);
     }
 
     public void EnterCombat()
     {
-        GameSceneManager.instance.StartTransition("Test_Combat");
+        SceneManager.LoadScene("Test_Combat");
+        //GameSceneManager.instance.StartTransition("Test_Combat");
     }    
 }

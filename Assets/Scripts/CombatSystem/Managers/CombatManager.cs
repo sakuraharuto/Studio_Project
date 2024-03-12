@@ -4,6 +4,8 @@ using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 public enum TurnState 
 { 
     INITIAL, 
@@ -69,7 +71,7 @@ public class CombatManager : MonoBehaviour
     {
         PlayerCardManager.instance.Init();
         CardManager.instance.Init();
-        //ItemMenu_Combat.instance.Init();
+        ItemMenu_Combat.instance.Init();
         
         isPlayerTurn = true;
         round = 0;
@@ -315,7 +317,9 @@ public class CombatManager : MonoBehaviour
 
         PlayerHP.text = "Escape success!";
 
-        GameSceneManager.instance.StartTransition("Test_dc");
+        SceneManager.LoadScene("Test_dc");
+
+        //GameSceneManager.instance.StartTransition("Test_dc");
 
         //EndCombat();
     }
@@ -326,7 +330,9 @@ public class CombatManager : MonoBehaviour
 
         PlayerHP.text = "You win!";
 
-        GameSceneManager.instance.StartTransition("Test_dc");
+        SceneManager.LoadScene("Test_dc");
+
+        //GameSceneManager.instance.StartTransition("Test_dc");
 
         //EndCombat();
     }

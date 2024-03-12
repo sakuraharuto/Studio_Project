@@ -9,7 +9,7 @@ using UnityEngine;
 //All interaction the player will do with all the inventory grids
 public class InventoryController : MonoBehaviour
 {   
-    [HideInInspector] private ItemGrid selectedItemGrid;
+    private ItemGrid selectedItemGrid;
 
     public ItemGrid SelectedItemGrid {
         get => selectedItemGrid;
@@ -37,7 +37,10 @@ public class InventoryController : MonoBehaviour
     [SerializeField] GameObject storageGrid;
 
     private void Awake()
-    {
+    {   
+        //load data first
+
+
         itemHighlight = GetComponent<ItemHighlight>();
     }
 
@@ -180,12 +183,6 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private void NullSelectedItem()
-    {
-        selectedItem = null;
-        rectTransform = null;
-    }
-
     private void ItemGridInput()
     {
         positionOnGrid = GetTileGridPosition();
@@ -197,7 +194,6 @@ public class InventoryController : MonoBehaviour
             if (selectedItem != null)
             {
                 SelectItem(selectedItem);
-                player.sp.items.Remove(selectedItem.itemData);
             }
         }
         //click when has item selected
@@ -220,15 +216,16 @@ public class InventoryController : MonoBehaviour
 
     private void PlaceItemInput()
     {
-        // check if the position on grid
+        // return if the position is NOT on grid
         if (selectedItemGrid.BoundaryCheck(positionOnGrid.x, positionOnGrid.y,
                 selectedItem.itemData.width, selectedItem.itemData.height) == false)
         {
-            NullSelectedItem();
+            selectedItem = null;
+            rectTransform = null;
             return;
         }
 
-        // check if there is item overlapped
+        // return if there is NO item overlapped
         if (selectedItemGrid.OverlapCheck(positionOnGrid.x, positionOnGrid.y,
             selectedItem.itemData.width, selectedItem.itemData.height,
             ref overlapItem) == false)
@@ -255,6 +252,7 @@ public class InventoryController : MonoBehaviour
             {
                 CollectItem(selectedItem.id);
                 selectedItem.previousParent = selectedItemGrid.transform;
+                player.sp.items.Remove(selectedItem.itemData);
             }
             if (selectedItemGrid.name == "Container_Grid")
             {
@@ -264,7 +262,8 @@ public class InventoryController : MonoBehaviour
             }
         }
 
-        NullSelectedItem();
+        selectedItem = null;
+        rectTransform = null;
 
         // Set the overlappedItem as selectedItem
         if (overlapItem != null)
@@ -309,6 +308,13 @@ public class InventoryController : MonoBehaviour
             ItemStats.instance.bagStats[itemID]--;
         }
     }
+
+    //private void DropItem(InventoryItem inventoryItem)
+    //{
+    //    Debug.Log("Mouse pos is outside grids.");
+    //    Destroy(inventoryItem);
+    //    selectedItem = null;
+    //}
 
     public void Close()
     {

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ItemStats : MonoBehaviour
 {
@@ -11,6 +13,18 @@ public class ItemStats : MonoBehaviour
     public Dictionary<int, int> bagStats;
     // all items
     [SerializeField] private ItemData[] allItems;
+
+    void Awake()
+    {  
+        //DontDestroyOnLoad(gameObject);
+        //SaveLoad.OnLoadGame += LoadPackageStats;
+    }
+
+    private void LoadPackageStats(SaveData data)
+    {
+        
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -47,3 +61,16 @@ public class ItemStats : MonoBehaviour
         return null;
     }
 }
+
+[System.Serializable]
+public struct InventoryStatsData
+{
+    public ItemStats itemStats;
+
+    public InventoryStatsData(ItemStats _itemStats)
+    {
+        itemStats = _itemStats;
+    }
+}
+
+

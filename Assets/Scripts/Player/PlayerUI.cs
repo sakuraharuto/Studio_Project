@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] public GameObject PackageGrid;
-    [SerializeField] public GameObject PackageClose;
-    [SerializeField] public GameObject PackageButton;
+    [SerializeField] public GameObject PackagePanel;
+    [SerializeField] public GameObject StatsPanel;
 
     private void Start()
     {
-        PackageGrid.SetActive(false);
+        PackagePanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -19,14 +18,28 @@ public class PlayerUI : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Package Button
+    /// </summary>
     public void OpenPackage()
     {
-        PackageGrid.SetActive(true);
+        PackagePanel.SetActive(true);
     }
-
     public void ClosePackage()
     {
-        PackageGrid.SetActive(false);
+        PackagePanel.SetActive(false);
+    }
+
+    /// <summary>
+    /// Stats Button
+    /// </summary>
+    public void OpenStats()
+    {
+        StatsPanel.SetActive(true);
+    }
+    public void CloseStats()
+    {
+        StatsPanel.SetActive(false);
     }
 
 }
