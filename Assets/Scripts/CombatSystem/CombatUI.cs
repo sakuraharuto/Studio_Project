@@ -100,11 +100,15 @@ public class CombatUI : UIBase
             // Get card data from scriptableObject
             CardData data = DrawCard();
 
+            // wait for update
+            // Integrate CardDisplay into Card child scripts
+            #region
             // Attach card image
             CardDisplay cardDisplay = obj.GetComponent<CardDisplay>();
             cardDisplay.InitialDisplay(data);
             // add to hand cards list to manage position
             cardList.Add(obj.GetComponent<CardDisplay>());
+            #endregion
 
             // add and initial function
             System.Type cardType = System.Type.GetType(data.cardName);
