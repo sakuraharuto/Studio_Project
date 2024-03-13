@@ -19,11 +19,9 @@ public class ItemStats : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            
-            DontDestroyOnLoad(gameObject);
-        }
 
-        //SaveLoad.OnLoadGame += LoadPackageStats;
+            //DontDestroyOnLoad(gameObject);
+        }
     }
 
     private void LoadPackageStats(SaveData data)
@@ -35,11 +33,6 @@ public class ItemStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
-        //if(instance == null)
-        //{
-        //    instance = this;
-        //}
-
         bagStats = new Dictionary<int, int>();
 
         //allItems = new ItemData[3];

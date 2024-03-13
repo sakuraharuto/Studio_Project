@@ -12,18 +12,14 @@ public class Smoke : Item
     }
 
     public override void OnPointerDown(PointerEventData eventData)
-    {
+    {   
         base.OnPointerDown(eventData);
-
-        if(canUse == true)
-        {
-            ItemEffect();
-            canUse = false;
-        }
     }
 
     public override void ItemEffect()
     {
+        ItemMenu_Combat.instance.gameObject.SetActive(false);
+
         CombatManager.instance.Flee();
     }
 }

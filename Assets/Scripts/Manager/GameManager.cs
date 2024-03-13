@@ -6,12 +6,12 @@ public class GameManager : MonoBehaviour
 {   
     public static GameManager instance;
 
+    [Header("Time System Config")]
     public float worldTimer;
     public float dayTimeSpeed;
 
+    [Header("Player Config")]
     public GameObject player;
-
-
 
     /// <summary>
     /// PopupManager
@@ -24,21 +24,25 @@ public class GameManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
+
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
 
-        //Initial Player bag
-        ItemStats.instance.Init();
+        //Initialize Inventory
+        //ItemStats.instance.Init();
+
         //Initial Character States
         //Character.instance.Init();
     }
 
     void Start()
     {
-        worldTimer = 8f;
+        
+
     }
 
     void Update()

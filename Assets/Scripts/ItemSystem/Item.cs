@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEditor.Progress;
 
 public abstract class Item : MonoBehaviour, IPointerDownHandler
 {
@@ -17,7 +18,7 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
     private float lastClick;
     private float clickGap = 0.5f;
 
-    public bool canUse = false;
+    //public bool canUse = false;
 
     void Update()
     {
@@ -26,7 +27,7 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
-        if (lastClick < clickGap)
+        if ((Time.time - lastClick) < clickGap)
         {
             doubleClicked = true;
 
@@ -35,10 +36,15 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
                 //state = TurnState.INITIAL;
                 if ( castType == CastType.Default )
                 {
-                    //Once use, count--
-                    Debug.Log(castType);
+                    if (ItemStats.instance.bagStats[data.itemID] == 1)
+                    {
+                        ItemStats.instance.bagStats.Remove(data.itemID);
+                    }
+                    else if(ItemStats.instance.bagStats[data.itemID] > 1)
+                    {
+                        ItemStats.instance.bagStats[data.itemID]--;
+                    }
 
-                    ItemStats.instance.bagStats[data.itemID]--;
                     gameObject.GetComponent<ItemSlot_Combat>().UpdateItemSlotCount(data);
                 }
 
@@ -54,15 +60,14 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
                     Debug.Log(castType);
                 }
 
-                ItemMenu_Combat.instance.gameObject.SetActive(false);
+                ItemEffect();
             }
-
         }
         else
         {
-            lastClick = 0f;
+            doubleClicked = false;
         }
-
+        lastClick = Time.time;
     }
 
     public virtual bool CanUse()
@@ -73,13 +78,13 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
         if(cost > CombatManager.instance.playerUnit.cost)
         {
             Debug.Log("Cost is not enought");
-            canUse = false;
+            //canUse = false;
 
             return false;
         }
         else
         {   
-            canUse = true;
+            //canUse = true;
             // update player's cost and its UI
             CombatManager.instance.playerUnit.cost -= cost;
             CombatUI.instance.UpdateCost();
@@ -88,8 +93,6 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
         }
     }
 
-    public virtual void ItemEffect()
-    {
-
-    }
+    public abstract void ItemEffect();
+    
 }

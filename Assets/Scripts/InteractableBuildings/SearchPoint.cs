@@ -88,8 +88,9 @@ public class SearchPoint : MonoBehaviour
     {   
         searchButton.SetActive(false);
         containerPanel.SetActive(true);
-        packagePanel.SetActive(true);
 
+        packagePanel.SetActive(true);
+        player.GetComponent<PlayerUI>().isInitialized = true;
     }
 
     private void OnTriggerEnter(Collider other)

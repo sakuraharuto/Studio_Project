@@ -27,6 +27,11 @@ public class ItemGrid : MonoBehaviour
         Init();
     }
 
+    private void Start()
+    {
+        
+    }
+
     // pick up item, the grid on panel will not be occupied.
     public void CleanGridReference(InventoryItem item)
     {

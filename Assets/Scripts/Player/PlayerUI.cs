@@ -9,14 +9,17 @@ public class PlayerUI : MonoBehaviour
     public GameObject StatsPanel;
 
     private InventoryController inventoryController;
+    [SerializeField] private ItemGrid packageGrid;
+    public bool isInitialized;
 
     private void Awake()
     {
-        PackagePanel.SetActive(false);
+        isInitialized = false; 
     }
 
-    private void Start()
+    private void Start()    
     {
+        PackagePanel.SetActive(false);
         inventoryController = canvas.GetComponent<InventoryController>();
     }
 
@@ -31,8 +34,12 @@ public class PlayerUI : MonoBehaviour
     /// </summary>
     public void OpenPackage()
     {
+        if (packageGrid != null && isInitialized == false)
+        {
+            inventoryController.InitialPlayerItems();
+            isInitialized = true;
+        }
         PackagePanel.SetActive(true);
-        inventoryController.InitialPlayerItems();
     }
     public void ClosePackage()
     {

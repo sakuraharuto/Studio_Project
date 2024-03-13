@@ -41,10 +41,15 @@ public class InventoryController : MonoBehaviour
         //load data first
         //if (ItemStats.instance.bagStats != null)
         //{
-        //    InitialPlayerItems();
+            //InitialPlayerItems();
         //}
 
         itemHighlight = GetComponent<ItemHighlight>();
+    }
+
+    private void Start()
+    {
+        //InitialPlayerItems();
     }
 
     // Update is called once per frame
@@ -73,8 +78,9 @@ public class InventoryController : MonoBehaviour
             foreach (var element in ItemStats.instance.bagStats)
             {
                 ItemData newItemData = ItemStats.instance.GetItemByID(element.Key);
-                for(int i = 0; i <= element.Value; i++)
+                for(int i = 1; i <= element.Value; i++)
                 {
+                    //Debug.Log(i);
                     InventoryItem newItem = CreateNewInventoryItem(newItemData);
 
                     Vector2Int? posOnGrid = packageGrid.FindSpaceForObject(newItem.itemData);

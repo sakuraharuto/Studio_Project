@@ -53,10 +53,10 @@ public class ItemSlot_Combat : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void UpdateItemSlotCount(ItemData itemData)
     {   
-        itemCount = ItemStats.instance.bagStats[itemData.itemID];
 
         if(itemCount > 0)
         {
+            itemCount = ItemStats.instance.bagStats[itemData.itemID];
             countText.text = itemCount.ToString();
         }
         else

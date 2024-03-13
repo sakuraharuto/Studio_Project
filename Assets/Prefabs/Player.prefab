@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 960020184}
   - component: {fileID: 7927002986765568604}
   - component: {fileID: 7927002986765568581}
-  - component: {fileID: 9108471322166848273}
   - component: {fileID: 1020302557035232275}
   m_Layer: 0
   m_Name: Player
@@ -166,26 +165,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8479052ae7d4e7a4d9db2db96221cc5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PackageGrid: {fileID: 0}
-  PackageClose: {fileID: 0}
-  PackageButton: {fileID: 0}
---- !u!114 &9108471322166848273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7927002986765568605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c40f792c62191194b87c67ecbc8492ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allItems:
-  - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
-  - {fileID: 11400000, guid: 1a14b32eb2a70134b8c34686e32ef6a7, type: 2}
-  - {fileID: 11400000, guid: 3241700e55c38bb4fbc487a6c8182a8d, type: 2}
-  - {fileID: 11400000, guid: 511182fd2b9cd7942a869fd71a3af34f, type: 2}
+  canvas: {fileID: 0}
+  PackagePanel: {fileID: 0}
+  StatsPanel: {fileID: 0}
+  packageGrid: {fileID: 0}
+  isInitialized: 0
 --- !u!114 &1020302557035232275
 MonoBehaviour:
   m_ObjectHideFlags: 0
