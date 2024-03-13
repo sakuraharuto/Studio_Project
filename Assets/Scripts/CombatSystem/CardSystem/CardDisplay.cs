@@ -11,4 +11,9 @@ public class CardDisplay : Card
         cardName = data.cardName;
         cardImage.sprite = data.image;
     }
+
+    public override void CardSpecialEffect()
+    {
+
+    }
 }

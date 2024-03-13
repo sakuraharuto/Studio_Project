@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 // card script base class
 public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
@@ -12,24 +13,14 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public string cardName;
     public Image cardImage;
 
-    //public virtual void InitialData()
-    //{
-    //
-    //}
-
-    protected virtual void OnEnable()
-    {
-
-    }
-
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        
+        transform.DOScale(0.5f, 0.25f);
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)
     {
-
+        transform.DOScale(0.4f, 0.25f);
     }
 
     public virtual void OnPointerDown(PointerEventData eventData)
@@ -42,10 +33,7 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         //}
     }
 
-    public virtual void CardSpecialEffect()
-    {
-
-    }
+    public abstract void CardSpecialEffect();
 
     public virtual bool CanUse()
     {

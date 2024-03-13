@@ -18,9 +18,6 @@ public class CombatUI : UIBase
     [SerializeField] public TMP_Text costCount;
 
     [Header("Player HUD")]
-    //character HUD
-    //private Text hp;
-    //private Text shield;
     public TMP_Text hp;
     public TMP_Text shield;
 
@@ -43,7 +40,6 @@ public class CombatUI : UIBase
         allCards = Resources.LoadAll<CardData>("Cards");
 
         StartCoroutine(AssignUIText());
-
     }
 
     IEnumerator AssignUIText()
@@ -60,7 +56,6 @@ public class CombatUI : UIBase
     {
         UpdateCardsDeck();
         UpdateUsedCardsDeck();
-        //UpdateCost();
     }
 
     public void UpdateCost()

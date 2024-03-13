@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour
     [Header("Player Config")]
     public GameObject player;
 
+    [Header("Monster Config")]
+    //public Unit monster;
+    public CombatUnit monster;
+
+
     /// <summary>
     /// PopupManager
     /// Idk what this is... dont touch
@@ -32,9 +37,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //Initialize Inventory
-        //ItemStats.instance.Init();
-
         //Initial Character States
         //Character.instance.Init();
     }
@@ -48,8 +50,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {   
         UpdateDayLight();
-
-
 
 
 
@@ -73,18 +73,6 @@ public class GameManager : MonoBehaviour
     {
         //update date
         // add 1 day by each 360 rotation of daylight
-    }
-
-    //Switch Explore and Combat Scenes
-    private void SwitchScenes()
-    {
-
-    }
-
-    //Initial Combat Scene
-    private void InitialCombat()
-    {
-        CombatManager.instance.Init();
     }
 
 }

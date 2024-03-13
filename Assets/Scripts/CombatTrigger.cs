@@ -20,12 +20,15 @@ public class CombatTrigger : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider other)
-    {
+    {   
         EnterCombatButton.SetActive(true);
     }
 
     public void EnterCombat()
     {
+        GameManager.instance.monster = gameObject.GetComponent<CombatUnit>();
+
+
         SceneManager.LoadScene("Test_Combat");
         //GameSceneManager.instance.StartTransition("Test_Combat");
     }    

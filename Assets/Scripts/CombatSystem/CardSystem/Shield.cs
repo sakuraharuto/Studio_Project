@@ -23,4 +23,8 @@ public class Shield : Card
             CombatUI.instance.UpdateShield();
         }
     }
+    public override void CardSpecialEffect()
+    {
+
+    }
 }

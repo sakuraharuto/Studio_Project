@@ -60,24 +60,26 @@ public class CombatManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        Init();
     }
 
     // Start is called before the first frame update
     void Start()
     {   
         timerTXT.text = timer.ToString();
-
-        Init();
     }
 
     public void Init()
     {
+        ItemMenu_Combat.instance.Init();
         PlayerCardManager.instance.Init();
         CardManager.instance.Init();
-        ItemMenu_Combat.instance.Init();
         
         isPlayerTurn = true;
         round = 0;
+
+        Debug.Log(GameManager.instance.monster.unitName);
 
         StartCoroutine(SetupCombat());
     }
@@ -88,16 +90,19 @@ public class CombatManager : MonoBehaviour
 
         // instantiate characters
         Instantiate(player, playerPosition);
-        Instantiate(enemy, enemyPosition);
+        //Instantiate(enemy, enemyPosition);
+
 
         // initial characters data
         playerUnit = player.GetComponent<CombatUnit>();
-        //playerUnit.InitialData();
-        playerUnit.InitialData(playerCharacter);
+        playerUnit.InitialData();
+        //.InitialData(playerCharacter);
 
         playerState = playerUnit.state;
-        enemyUnit = enemy.GetComponent<CombatUnit>();
-        enemyUnit.InitialData();
+        //enemyUnit = enemy.GetComponent<CombatUnit>();
+        //enemyUnit.InitialData();
+        enemyUnit = GameManager.instance.monster;
+        enemyUnit.InitialData(GameManager.instance.monster);
 
         //test inspector panel
         PlayerHP.text = playerUnit.currentHP.ToString();

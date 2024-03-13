@@ -11,18 +11,18 @@ public class ItemMenu_Combat : UIBase
     [Header("Menu Config")]
     [SerializeField] private GameObject slotMenu;
     public ItemSlot_Combat[] itemSlots;
-    
-    //private RectTransform menuRect;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         instance = this;
     }
 
     public void Init()
-    {
-        InitialItemSlots();
+    {   
+        if(ItemStats.instance.bagStats != null) 
+        { 
+            InitialItemSlots();
+        }
         gameObject.SetActive(false);
     }
 

@@ -12,7 +12,7 @@ public class NormalAttack : Card
     public override void CardSpecialEffect()
     {
         // output dmg to enemy
-        CombatManager.instance.enemy.GetComponent<CombatUnit>().TakeDamage(data.damage);
+        CombatManager.instance.enemyUnit.TakeDamage(data.damage);
         CombatManager.instance.UpdateMonsterInCombat();
     }
 

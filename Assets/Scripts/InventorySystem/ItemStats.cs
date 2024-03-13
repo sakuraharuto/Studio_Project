@@ -19,8 +19,6 @@ public class ItemStats : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-
-            //DontDestroyOnLoad(gameObject);
         }
     }
 
