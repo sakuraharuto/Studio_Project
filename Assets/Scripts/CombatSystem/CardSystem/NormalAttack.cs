@@ -4,18 +4,6 @@ using UnityEditor;
 
 public class NormalAttack : Card
 {
-    void Start()
-    {   
-        cardName = data.name;
-    }
-
-    public override void CardSpecialEffect()
-    {
-        // output dmg to enemy
-        CombatManager.instance.enemyUnit.TakeDamage(data.damage);
-        CombatManager.instance.UpdateMonsterInCombat();
-    }
-
     public override void OnPointerDown(PointerEventData eventData)
     {
         if (CanUse())
@@ -26,6 +14,12 @@ public class NormalAttack : Card
 
             CardSpecialEffect();
         }
+    }
 
+    public override void CardSpecialEffect()
+    {
+        // output dmg to enemy
+        CombatManager.instance.enemyUnit.TakeDamage(data.damage);
+        CombatManager.instance.UpdateMonsterInCombat();
     }
 }

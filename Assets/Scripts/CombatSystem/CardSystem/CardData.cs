@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardData : ScriptableObject
 {
     [Header("Card Config")]
+    public int cardID;
     public string cardName;
     public string description;
     public bool isAOE;

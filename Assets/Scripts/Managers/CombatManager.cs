@@ -196,7 +196,7 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log("Player's turn ends");
             //drop all hand-cards
-            if (CombatUI.instance.cardList.Count > 0)
+            if (CombatUI.instance.inHandCards.Count > 0)
             {
                 CombatUI.instance.DropHandCards();
             }

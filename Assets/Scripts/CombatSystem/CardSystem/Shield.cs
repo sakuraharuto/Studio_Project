@@ -5,12 +5,6 @@ using UnityEngine.EventSystems;
 
 public class Shield : Card
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        cardName = data.name;
-    }
-
     public override void OnPointerDown(PointerEventData eventData)
     { 
         if (CanUse())

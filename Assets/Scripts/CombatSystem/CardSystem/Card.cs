@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 // card script base class
 public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
@@ -9,28 +10,39 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [HideInInspector]
     public CardData data;
 
-    [Header("Card Config")]
+    [Header("Card Info")]
     public string cardName;
-    public Image cardImage;
+
+    public virtual void Start()
+    {
+        // Initial Card Image
+        cardName = data.cardName;
+
+        transform.Find("card_name").GetComponent<TMP_Text>().text = data.cardName;
+        //transform.Find("card_description").GetComponent<TMP_Text>().text = data.description;
+        transform.Find("card_bg").GetComponent<Image>().sprite = data.image;
+        //transform.Find("card_icon").GetComponent<Image>().sprite = cardIcon;
+
+    }
+
+    public void InitData(CardData data)
+    {
+        this.data = data;
+    }
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        transform.DOScale(0.5f, 0.25f);
+        transform.DOScale(1.2f, 0.25f);
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)
     {
-        transform.DOScale(0.4f, 0.25f);
+        transform.DOScale(1, 0.25f);
     }
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
-        //if(CanUse())
-        //{   
-        //    // update player's UI
-        //    CombatUI.instance.UpdateCardsDeck();
-        //    CombatUI.instance.UpdateUsedCardsDeck();
-        //}
+
     }
 
     public abstract void CardSpecialEffect();
@@ -55,5 +67,4 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return true;
         }
     }
-
 }

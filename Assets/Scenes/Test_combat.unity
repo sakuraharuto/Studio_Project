@@ -2466,7 +2466,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: deae4815b7fe0ac45b8cd95e9df3388a, type: 2}
   - {fileID: 11400000, guid: 268210e2c445dd1459908c87eaca7d68, type: 2}
   - {fileID: 11400000, guid: 972d360412dafad46837d6830696f609, type: 2}
-  cardList: []
+  inHandCards: []
 --- !u!1 &399665613
 GameObject:
   m_ObjectHideFlags: 0
@@ -3412,10 +3412,10 @@ MonoBehaviour:
   costCount: {fileID: 399665615}
   hp: {fileID: 0}
   shield: {fileID: 1062506220}
-  cardPrefab: {fileID: 6650913384327855659, guid: db22c40b5780c42468b8453fa8e4ce91, type: 3}
+  cardPrefab: {fileID: 5331693997960973808, guid: 6bcdac6b0b8f3174bae1ff7ca53b564a, type: 3}
   cardPoint: {fileID: 1337298871}
   allCards: []
-  cardList: []
+  inHandCards: []
 --- !u!1 &552019476
 GameObject:
   m_ObjectHideFlags: 0
@@ -6878,7 +6878,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -130}
+  m_AnchoredPosition: {x: 0, y: -166.4}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1340990179

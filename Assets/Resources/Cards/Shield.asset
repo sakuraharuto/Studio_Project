@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f87c9bddb86ba42aee56dcc5aa8206, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
+  cardID: 2
   cardName: Shield
   description: Add Shield
   isAOE: 0

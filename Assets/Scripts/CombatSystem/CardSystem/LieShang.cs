@@ -6,9 +6,9 @@ using UnityEngine.EventSystems;
 public class LieShang : Card
 {
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        cardName = data.name;
+        base.Start();
 
         CardSpecialEffect();
     }
@@ -20,6 +20,6 @@ public class LieShang : Card
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-
+        Debug.Log("Player cannot use this card!");
     }
 }
