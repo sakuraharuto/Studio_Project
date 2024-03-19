@@ -21,16 +21,13 @@ public class BuildingScript : MonoBehaviour
     public BuildingClickedEvent onBuildingClicked; // 建筑物点击事件
     public string buildingName; // 建筑物名称或标识符
     public string sceneName; // 建筑物索引或其他变量
- 
+
 
     private void OnMouseDown()
     {
         BuildingEventData eventData = new BuildingEventData(buildingName, sceneName);
         onBuildingClicked.Invoke(eventData);
     }
-
-
-
 
     private Vector3 originalScale;
     private bool isMouseOver = false;

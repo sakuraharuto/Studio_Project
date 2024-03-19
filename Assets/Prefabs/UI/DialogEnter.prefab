@@ -93,6 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingName: unnamed
+  sceneName: 
+  loadPanel: {fileID: 0}
 --- !u!1 &1352077693526136487
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec13e06b8d734e688a4d8b57e427bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogEnter: {fileID: 1352077693049815632}
 --- !u!1 &1352077693788212754
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +391,7 @@ GameObject:
   - component: {fileID: 1352077693788212767}
   - component: {fileID: 1352077693788212764}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Cancel_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -499,7 +500,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1352077693049815632}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DialogEnter, Assembly-CSharp
         m_MethodName: CancelEnter
         m_Mode: 1
@@ -524,7 +525,7 @@ GameObject:
   - component: {fileID: 1352077693869222615}
   - component: {fileID: 1352077693869222612}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Confirm_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -633,7 +634,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1352077693049815632}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DialogEnter, Assembly-CSharp
         m_MethodName: ConfirmEnter
         m_Mode: 1

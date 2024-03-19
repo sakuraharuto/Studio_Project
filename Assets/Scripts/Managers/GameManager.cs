@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     //public Unit monster;
     public CombatUnit monster;
 
-
     /// <summary>
     /// PopupManager
     /// Idk what this is... dont touch

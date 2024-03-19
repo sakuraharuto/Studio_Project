@@ -6,12 +6,20 @@ public class DialogManager : MonoBehaviour
     public GameObject dialogEnterPrefab; // 对话框的Prefab引用
     public Canvas canvas; // Canvas的引用
 
+    [SerializeField]private ConfirmPanel confirmPanel;
+
+    private void Awake()
+    {
+        confirmPanel.gameObject.SetActive(false);
+    }
+
     private void Start()
     {
         BuildingScript[] buildings = FindObjectsOfType<BuildingScript>();
         foreach (BuildingScript building in buildings)
         {
-            building.onBuildingClicked.AddListener(CreateDialogEnter);
+            //building.onBuildingClicked.AddListener(CreateDialogEnter);
+            building.onBuildingClicked.AddListener(OpenConfirmPanel);
         }
     }
 
@@ -23,5 +31,10 @@ public class DialogManager : MonoBehaviour
 
         // 设置建筑物信息
         dialogEnterScript.SetBuildingName(eventData.buildingName,eventData.sceneName);
+    }
+
+    private void OpenConfirmPanel(BuildingEventData eventData)
+    {
+        confirmPanel.gameObject.SetActive(true);
     }
 }

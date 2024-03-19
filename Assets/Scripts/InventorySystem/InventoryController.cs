@@ -38,18 +38,12 @@ public class InventoryController : MonoBehaviour
 
     private void Awake()
     {
-        //load data first
-        //if (ItemStats.instance.bagStats != null)
-        //{
-            //InitialPlayerItems();
-        //}
-
         itemHighlight = GetComponent<ItemHighlight>();
     }
 
     private void Start()
     {
-        //InitialPlayerItems();
+        
     }
 
     // Update is called once per frame
@@ -80,7 +74,6 @@ public class InventoryController : MonoBehaviour
                 ItemData newItemData = ItemStats.instance.GetItemByID(element.Key);
                 for(int i = 1; i <= element.Value; i++)
                 {
-                    //Debug.Log(i);
                     InventoryItem newItem = CreateNewInventoryItem(newItemData);
 
                     Vector2Int? posOnGrid = packageGrid.FindSpaceForObject(newItem.itemData);

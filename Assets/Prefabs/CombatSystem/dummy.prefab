@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnterCombatButton: {fileID: 0}
+  postMessage: Test_Combat
 --- !u!114 &3389262334047998107
 MonoBehaviour:
   m_ObjectHideFlags: 0

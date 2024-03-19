@@ -323,9 +323,7 @@ public class CombatManager : MonoBehaviour
 
         PlayerHP.text = "Escape success!";
 
-        SceneManager.LoadScene("Test_dc");
-
-        //GameSceneManager.instance.StartTransition("Test_dc");
+        GameSceneManager.instance.StartTransition("Test_dc");
 
         //EndCombat();
     }

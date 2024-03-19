@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class CombatTrigger : MonoBehaviour
 {
     public GameObject EnterCombatButton;
+    [SerializeField] string postMessage;
     
     // Start is called before the first frame update
     void Start()
@@ -26,10 +27,10 @@ public class CombatTrigger : MonoBehaviour
 
     public void EnterCombat()
     {
-        GameManager.instance.monster = gameObject.GetComponent<CombatUnit>();
-
-
-        SceneManager.LoadScene("Test_Combat");
-        //GameSceneManager.instance.StartTransition("Test_Combat");
+        if(postMessage != null )
+        {
+            GameManager.instance.monster = gameObject.GetComponent<CombatUnit>();
+            GameSceneManager.instance.StartTransition(postMessage);
+        }
     }    
 }

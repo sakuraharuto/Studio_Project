@@ -1,9 +1,7 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class GameSceneManager : MonoBehaviour
 {   
@@ -24,7 +22,7 @@ public class GameSceneManager : MonoBehaviour
     {
         for(int i = 0; i < SceneManager.sceneCount; i++)
         {
-            if(SceneManager.GetSceneAt(i).name != "Test_dc")
+            if(SceneManager.GetSceneAt(i).name != "Global") //NavigationMap
             {
                 currentScene = SceneManager.GetSceneAt(i).name;
                 break;
@@ -47,7 +45,10 @@ public class GameSceneManager : MonoBehaviour
     {   
         SwitchScene(toSceneName);
 
-        while(load.isDone == false && unload.isDone == false)
+        Debug.Log(load);
+        Debug.Log(unload);
+
+        while (load.isDone == false && unload.isDone == false)
         {
             yield return new WaitForSeconds(0.1f);
         }

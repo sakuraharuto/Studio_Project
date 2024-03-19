@@ -22,12 +22,6 @@ public class ItemStats : MonoBehaviour
         }
     }
 
-    private void LoadPackageStats(SaveData data)
-    {
-        
-    }
-
-
     // Start is called before the first frame update
     void Start()
     {   
