@@ -3557,7 +3557,7 @@ MonoBehaviour:
   worldTimer: 0
   dayTimeSpeed: 0
   player: {fileID: 207835224}
-  monster: {fileID: 0}
+  enemy: {fileID: 0}
   popupManager: {fileID: 0}
 --- !u!114 &1207121051
 MonoBehaviour:
@@ -3572,6 +3572,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentScene: 
+  LoadPanel: {fileID: 0}
+  animLoad: {fileID: 0}
 --- !u!1 &1220430679
 GameObject:
   m_ObjectHideFlags: 0

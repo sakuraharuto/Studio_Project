@@ -10,12 +10,9 @@ public class GameManager : MonoBehaviour
     public float worldTimer;
     public float dayTimeSpeed;
 
-    [Header("Player Config")]
+    [Header("Characters Config")]
     public GameObject player;
-
-    [Header("Monster Config")]
-    //public Unit monster;
-    public CombatUnit monster;
+    public GameObject enemy;
 
     /// <summary>
     /// PopupManager
@@ -35,9 +32,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        //Initial Character States
-        //Character.instance.Init();
     }
 
     void Start()
@@ -53,9 +47,7 @@ public class GameManager : MonoBehaviour
 
 
 
-
-
-        // dk what this is for
+        // UI interact
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             popupManager.ShowPopup("SettingPanel");

@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec4ad94b8756bf45a5452e8c151e20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: Player
   state: 0
   attributes:
     attributeValues: []
@@ -193,4 +194,4 @@ MonoBehaviour:
     maxValue:
       statisticType: 0
       value: 20
-    currentValue: 10
+    currentValue: 15

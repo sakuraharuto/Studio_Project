@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TeleportDoor
   - SearchPoint
+  - Monster
   layers:
   - Default
   - TransparentFX

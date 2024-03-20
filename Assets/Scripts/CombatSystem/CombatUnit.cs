@@ -15,28 +15,14 @@ public class CombatUnit : MonoBehaviour
     public int currentShield;
     public int cost;
 
-    public void InitialData()
-    {   
-        state = SpecialStates.Normal;
-        maxHP = 10;
-        currentHP = maxHP;
+    public void InitialUnitData(Character character)
+    {
+        unitName = character.characterName;
+        state = character.state;
+        currentHP = character.HP_Pool.currentValue;
+        maxHP = character.HP_Pool.maxValue.value;
         currentShield = 0;
         cost = 10;
-    }
-
-    //prepare for character system
-    public void InitialData(CombatUnit unit)
-    {
-        unitName = unit.unitName;
-        state = unit.state;
-        //state = SpecialStates.Normal;
-        maxHP = unit.maxHP;
-        currentHP = unit.currentHP;
-        currentShield = unit.currentShield;
-        cost = 10;
-        
-        // for Character script
-        //maxHP = unit.stats.Get(Statistic.HP).value;
     }
 
     private void Update()

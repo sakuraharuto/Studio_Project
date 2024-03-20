@@ -23,13 +23,11 @@ public class CombatManager : MonoBehaviour
 
     [Header("Character Config")]
     public GameObject player;
-    public Transform playerPosition;
     public GameObject enemy;
-    public Transform enemyPosition;
-    public Character playerCharacter;   //test for RPG system
-
-    [HideInInspector] public CombatUnit playerUnit;
-    [HideInInspector] public CombatUnit enemyUnit;
+    [SerializeField]private Transform playerPosition;
+    [SerializeField]private Transform enemyPosition;
+    public CombatUnit playerUnit;
+    public CombatUnit enemyUnit;
 
     [Header("Turn State")]
     public TurnState state;
@@ -42,6 +40,7 @@ public class CombatManager : MonoBehaviour
     public SpecialStates playerState;
     public bool isPlayerTurn;
     public bool addedNewStateCard = false;
+
     [SerializeField] List<string> Deck = new List<string>();        //test
     [SerializeField] List<string> useDeck = new List<string>();     //test
 
@@ -79,8 +78,6 @@ public class CombatManager : MonoBehaviour
         isPlayerTurn = true;
         round = 0;
 
-        Debug.Log(GameManager.instance.monster.unitName);
-
         StartCoroutine(SetupCombat());
     }
 
@@ -89,20 +86,14 @@ public class CombatManager : MonoBehaviour
         state = TurnState.INITIAL;
 
         // instantiate characters
-        Instantiate(player, playerPosition);
-        //Instantiate(enemy, enemyPosition);
-
+        Instantiate(player, playerPosition.transform);
+        Instantiate(enemy, enemyPosition.transform);
 
         // initial characters data
         playerUnit = player.GetComponent<CombatUnit>();
-        playerUnit.InitialData();
-        //.InitialData(playerCharacter);
-
-        playerState = playerUnit.state;
-        //enemyUnit = enemy.GetComponent<CombatUnit>();
-        //enemyUnit.InitialData();
-        enemyUnit = GameManager.instance.monster;
-        enemyUnit.InitialData(GameManager.instance.monster);
+        playerUnit.InitialUnitData(GameManager.instance.player.GetComponent<Character>());
+        enemyUnit = enemy.GetComponent<CombatUnit>();
+        enemyUnit.InitialUnitData(GameManager.instance.enemy.GetComponent<Character>());
 
         //test inspector panel
         PlayerHP.text = playerUnit.currentHP.ToString();
@@ -390,5 +381,11 @@ public class CombatManager : MonoBehaviour
         playerUnit.state = SpecialStates.Pain;
         Debug.Log(playerState);
     }
+
+    public void UpdateAllDataOnHUD()
+    {
+    
+    }
+
     #endregion
 }

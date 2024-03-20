@@ -16,8 +16,9 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector] public GameObject teleportDoor;
 
-    //public static int t = 0;
     public SearchPoint sp;
+
+    //public Character enemy;
 
 
     private void Start()
@@ -106,6 +107,11 @@ public class PlayerMovement : MonoBehaviour
         {
             sp = other.GetComponent<SearchPoint>();
         }
+
+        //if(other.CompareTag("Monster"))
+        //{
+        //    enemy = other.GetComponent<Character>();
+        //}
     }
 
     private void OnTriggerExit(Collider other)
@@ -120,5 +126,10 @@ public class PlayerMovement : MonoBehaviour
         {
             sp = null;
         }
+
+        //if (other.CompareTag("Monster"))
+        //{
+        //    enemy = null;
+        //}
     }
 }

@@ -29,7 +29,7 @@ public class CombatTrigger : MonoBehaviour
     {
         if(postMessage != null )
         {
-            GameManager.instance.monster = gameObject.GetComponent<CombatUnit>();
+            GameManager.instance.enemy = gameObject;
             GameSceneManager.instance.StartTransition(postMessage);
         }
     }    

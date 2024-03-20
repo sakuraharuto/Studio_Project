@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8559551436085033965}
   - component: {fileID: 4474483595414145201}
   - component: {fileID: 740675806388694222}
-  - component: {fileID: 3389262334047998107}
+  - component: {fileID: 3181456004800122804}
   m_Layer: 2
   m_Name: dummy
   m_TagString: Untagged
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a436177f314224787ab0cbc99da3f909, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnterCombatButton: {fileID: 0}
   postMessage: Test_Combat
---- !u!114 &3389262334047998107
+--- !u!114 &3181456004800122804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,12 +122,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1538912531112291242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9758915e70f6076478ebcca1b089b038, type: 3}
+  m_Script: {fileID: 11500000, guid: dec4ad94b8756bf45a5452e8c151e20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: testEnemy
+  characterName: test_monster
   state: 0
-  currentHP: 20
-  maxHP: 20
-  currentShield: 0
-  cost: 0
+  attributes:
+    attributeValues: []
+  stats:
+    stats:
+    - statisticType: 0
+      value: 20
+  HP_Pool:
+    maxValue:
+      statisticType: 0
+      value: 20
+    currentValue: 19

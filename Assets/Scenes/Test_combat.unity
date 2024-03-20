@@ -2278,7 +2278,7 @@ RectTransform:
   m_GameObject: {fileID: 352954818}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 623591860}
@@ -7701,11 +7701,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94ef09e7495bb64196dd514c50c8fd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 110885202674192799, guid: 7857ed0807ca12143a68f3798e4c6794, type: 3}
+  player: {fileID: 2041153451205749214, guid: 7857ed0807ca12143a68f3798e4c6794, type: 3}
+  enemy: {fileID: 2041153451205749214, guid: 03c8f21a55994e84db841e5fde0c190f, type: 3}
   playerPosition: {fileID: 111213393}
-  enemy: {fileID: 1538912531112291242, guid: 99798db7b0060fe4e95acc64eac3c447, type: 3}
   enemyPosition: {fileID: 1381077962}
-  playerCharacter: {fileID: 1020302557035232275, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
   playerUnit: {fileID: 0}
   enemyUnit: {fileID: 0}
   state: 0
@@ -9806,7 +9805,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1478407005}
         m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
-        m_MethodName: TestFunction
+        m_MethodName: UpdateAllDataOnHUD
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

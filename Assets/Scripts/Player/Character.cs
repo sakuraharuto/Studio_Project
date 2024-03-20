@@ -19,7 +19,7 @@ public enum Statistic
     Damage,
     Armor,
     Mana,
-    HPreg
+    HPReg
 }
 
 [Serializable]
@@ -51,7 +51,7 @@ public class StatsGroup
         stats.Add(new StatsValue(Statistic.Damage, 0));
         stats.Add(new StatsValue(Statistic.Armor, 0));
         stats.Add(new StatsValue(Statistic.Mana, 10));
-        stats.Add(new StatsValue(Statistic.HPreg, 1));
+        stats.Add(new StatsValue(Statistic.HPReg, 1));
     }
 
     internal StatsValue Get(Statistic statsToGet)
@@ -114,6 +114,8 @@ public class ValuePool
 
 public class Character : MonoBehaviour
 {
+    public string characterName;
+
     public SpecialStates state;
     [SerializeField] AttributeGroup attributes;
     public StatsGroup stats;
