@@ -8,6 +8,8 @@ public class GameSceneManager : MonoBehaviour
     public static GameSceneManager instance;
 
     [SerializeField] string currentScene;
+    [SerializeField] GameObject LoadPanel;
+    [SerializeField] Animator animLoad;
 
     AsyncOperation load;
     AsyncOperation unload;
@@ -19,7 +21,7 @@ public class GameSceneManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
         for(int i = 0; i < SceneManager.sceneCount; i++)
         {
             if(SceneManager.GetSceneAt(i).name != "Global") //NavigationMap
@@ -28,6 +30,8 @@ public class GameSceneManager : MonoBehaviour
                 break;
             }
         }
+
+        animLoad = LoadPanel.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -42,19 +46,23 @@ public class GameSceneManager : MonoBehaviour
     }
 
     public IEnumerator TransitionScene(string toSceneName) 
-    {   
-        SwitchScene(toSceneName);
+    {
+        animLoad.SetTrigger("In");
+        yield return new WaitForSeconds(1f);    
 
-        Debug.Log(load);
-        Debug.Log(unload);
+        SwitchScene(toSceneName);
 
         while (load.isDone == false && unload.isDone == false)
         {
             yield return new WaitForSeconds(0.1f);
         }
 
+        animLoad.SetTrigger("Out");
+        yield return new WaitForSeconds(1f);
+
         load = null;
         unload = null;
+
     }
 
     public void SwitchScene(string toSceneName)

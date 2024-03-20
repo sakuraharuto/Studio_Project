@@ -16,13 +16,13 @@ public class ConfirmPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        notifyText.text = "Do you want to enter: " + buildingName + "?";
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        notifyText.text = "Do you want to enter: " + buildingName + " ?";
     }
 
     public void ConfirmEnter()
