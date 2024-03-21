@@ -137,4 +137,5 @@ MonoBehaviour:
     maxValue:
       statisticType: 0
       value: 20
-    currentValue: 19
+    currentValue: 18
+  isAlive: 0

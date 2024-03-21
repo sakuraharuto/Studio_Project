@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Characters Config")]
     public GameObject player;
-    public GameObject enemy;
+    public Character enemy;
 
     /// <summary>
     /// PopupManager

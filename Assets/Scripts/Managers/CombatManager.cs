@@ -93,7 +93,7 @@ public class CombatManager : MonoBehaviour
         playerUnit = player.GetComponent<CombatUnit>();
         playerUnit.InitialUnitData(GameManager.instance.player.GetComponent<Character>());
         enemyUnit = enemy.GetComponent<CombatUnit>();
-        enemyUnit.InitialUnitData(GameManager.instance.enemy.GetComponent<Character>());
+        enemyUnit.InitialUnitData(GameManager.instance.enemy);
 
         //test inspector panel
         PlayerHP.text = playerUnit.currentHP.ToString();
@@ -209,7 +209,7 @@ public class CombatManager : MonoBehaviour
         {
             CheckUnitPostStates(playerUnit);
             
-            if (CheckUnitAlive(enemyUnit))
+            if(enemyUnit.CheckAlive())
             {
                 yield return new WaitForSeconds(3f);
 
@@ -224,7 +224,8 @@ public class CombatManager : MonoBehaviour
         else
         {
             CheckUnitPostStates(enemyUnit);
-            if(CheckUnitAlive(playerUnit))
+
+            if(playerUnit.CheckAlive())
             {   
                 CheckUnitState(playerUnit);
 
@@ -245,18 +246,6 @@ public class CombatManager : MonoBehaviour
     private void CheckUnitPostStates(CombatUnit unit)
     {
         Debug.Log("Check Unit PostStates");
-    }
-    
-    bool CheckUnitAlive(CombatUnit unit)
-    {
-        if(unit.CheckAlive())
-        {
-            return true;
-        }
-        else
-        {
-            return false;    
-        }
     }
      
     // enemy actions
@@ -306,6 +295,21 @@ public class CombatManager : MonoBehaviour
     void EndCombat()
     {
         Debug.Log("Combat Summary");
+
+        // check if the monster alive or not
+        // if alive ===> update monster data
+        if(enemyUnit.CheckAlive())
+        {
+            GameManager.instance.enemy.GetComponent<Character>().UpdateDataAfterCombat(enemyUnit);
+        }
+        // if dead ===> replace monster object
+        else
+        {   
+            //Destroy this enemy
+        }
+
+        //Update player stats after Combat
+        GameManager.instance.player.GetComponent<Character>().UpdateDataAfterCombat(playerUnit);
     }
 
     public void Flee()
@@ -325,11 +329,9 @@ public class CombatManager : MonoBehaviour
 
         PlayerHP.text = "You win!";
 
-        SceneManager.LoadScene("Test_dc");
+        EndCombat();
 
-        //GameSceneManager.instance.StartTransition("Test_dc");
-
-        //EndCombat();
+        GameSceneManager.instance.StartTransition("Test_dc");
     }
 
     void Defeat()
@@ -384,7 +386,8 @@ public class CombatManager : MonoBehaviour
 
     public void UpdateAllDataOnHUD()
     {
-    
+        PlayerHP.text = playerUnit.currentHP.ToString();
+        Debug.Log(playerUnit.currentHP);
     }
 
     #endregion

@@ -11,6 +11,7 @@ public class CardData : ScriptableObject
     public bool isAOE;
 
     public Sprite image;
+    public Sprite bg;
 
     public int manaCost;
     public int damage;

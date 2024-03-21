@@ -29,7 +29,7 @@ public class CombatTrigger : MonoBehaviour
     {
         if(postMessage != null )
         {
-            GameManager.instance.enemy = gameObject;
+            GameManager.instance.enemy = gameObject.GetComponent<Character>();
             GameSceneManager.instance.StartTransition(postMessage);
         }
     }    

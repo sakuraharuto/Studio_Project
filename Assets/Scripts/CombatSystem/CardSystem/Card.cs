@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 
 // card script base class
 public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
@@ -18,10 +19,11 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         // Initial Card Image
         cardName = data.cardName;
 
+        transform.Find("card_image").GetComponent<Image>().sprite = data.image;
+        transform.Find("card_bg").GetComponent<Image>().sprite = data.bg;
         transform.Find("card_name").GetComponent<TMP_Text>().text = data.cardName;
         //transform.Find("card_description").GetComponent<TMP_Text>().text = data.description;
-        transform.Find("card_bg").GetComponent<Image>().sprite = data.image;
-        //transform.Find("card_icon").GetComponent<Image>().sprite = cardIcon;
+        transform.Find("card_cost").GetComponent<TMP_Text>().text = data.manaCost.ToString();
 
     }
 

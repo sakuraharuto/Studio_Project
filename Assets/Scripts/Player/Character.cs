@@ -47,7 +47,7 @@ public class StatsGroup
 
     public void Init()
     {
-        stats.Add(new StatsValue(Statistic.HP, 100));
+        stats.Add(new StatsValue(Statistic.HP, 10));
         stats.Add(new StatsValue(Statistic.Damage, 0));
         stats.Add(new StatsValue(Statistic.Armor, 0));
         stats.Add(new StatsValue(Statistic.Mana, 10));
@@ -117,9 +117,11 @@ public class Character : MonoBehaviour
     public string characterName;
 
     public SpecialStates state;
-    [SerializeField] AttributeGroup attributes;
-    public StatsGroup stats;
+    [SerializeField] AttributeGroup attributes;     //RPG stats
+    public StatsGroup stats;                        //character stats
     public ValuePool HP_Pool;
+
+    public bool isAlive; //temporary for combat test
 
     // Start is called before the first frame update
     void Start()
@@ -131,5 +133,23 @@ public class Character : MonoBehaviour
         stats.Init();
 
         HP_Pool = new ValuePool(stats.Get(Statistic.HP));
+
+        isAlive = true;
+    }
+
+    public void UpdateDataAfterCombat(CombatUnit unit)
+    {
+        state = unit.state;
+        HP_Pool.currentValue = unit.currentHP;
+
+        isAlive = unit.CheckAlive();
+    }
+
+    private void Update()
+    {
+        if(isAlive == false)
+        {
+            Destroy(gameObject);
+        }
     }
 }

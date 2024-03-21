@@ -9732,7 +9732,7 @@ GameObject:
   - component: {fileID: 2041063787}
   - component: {fileID: 2041063786}
   m_Layer: 5
-  m_Name: Summary
+  m_Name: Loot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

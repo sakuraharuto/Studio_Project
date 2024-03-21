@@ -89,9 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9758915e70f6076478ebcca1b089b038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Player
+  unitName: test_monster
   state: 0
   currentHP: 0
   maxHP: 0
   currentShield: 0
-  cost: 0
+  cost: 10

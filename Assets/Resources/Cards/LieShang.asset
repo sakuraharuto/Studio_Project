@@ -17,6 +17,7 @@ MonoBehaviour:
   description: 
   isAOE: 0
   image: {fileID: 21300000, guid: 56d82710424132c449309c662df21e32, type: 3}
+  bg: {fileID: 21300000, guid: 5b85cede87f075f42b05d8de3fbc912c, type: 3}
   manaCost: 0
   damage: 2
   shield: 0
