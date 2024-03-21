@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     /// <summary>
     /// PopupManager
-    /// Idk what this is... dont touch
+    /// menu ui manager
     /// </summary>
     public PopUpManager popupManager;  // 将 PopupManager 的实例拖放到此处
 

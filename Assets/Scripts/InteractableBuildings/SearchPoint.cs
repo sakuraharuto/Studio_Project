@@ -105,7 +105,6 @@ public class SearchPoint : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        
         if(other.CompareTag("Player"))
         {
             inventoryController.Close();

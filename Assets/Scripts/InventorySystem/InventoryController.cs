@@ -264,6 +264,8 @@ public class InventoryController : MonoBehaviour
         // Place selectedItem on the grid
         selectedItemGrid.PlaceItem(selectedItem, positionOnGrid.x, positionOnGrid.y);
 
+        Debug.Log(positionOnGrid.x + " " + positionOnGrid.y);
+
         selectedItem.currentParent = selectedItem.transform.parent;
         
         // Update Item Count
