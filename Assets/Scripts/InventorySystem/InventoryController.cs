@@ -271,13 +271,13 @@ public class InventoryController : MonoBehaviour
         // Update Item Count
         if(CheckItemMoved(selectedItem))
         {
-            if (selectedItemGrid.name == "Package_Grid")
+            if (selectedItemGrid.name == "Backpack_Grid")
             {
                 CollectItem(selectedItem.id);
                 selectedItem.previousParent = selectedItemGrid.transform;
                 player.sp.items.Remove(selectedItem.itemData);
             }
-            if (selectedItemGrid.name == "Container_Grid")
+            if (selectedItemGrid.name == "LootBox_Grid")
             {
                 DropItem(selectedItem.id);
                 selectedItem.previousParent = selectedItemGrid.transform;

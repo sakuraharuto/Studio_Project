@@ -18,13 +18,12 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         // Initial Card Image
         cardName = data.cardName;
-
+        // Set UI contents
         transform.Find("card_image").GetComponent<Image>().sprite = data.image;
         transform.Find("card_bg").GetComponent<Image>().sprite = data.bg;
         transform.Find("card_name").GetComponent<TMP_Text>().text = data.cardName;
-        //transform.Find("card_description").GetComponent<TMP_Text>().text = data.description;
+        transform.Find("card_description").GetComponent<TMP_Text>().text = data.description;
         transform.Find("card_cost").GetComponent<TMP_Text>().text = data.manaCost.ToString();
-
     }
 
     public void InitData(CardData data)
