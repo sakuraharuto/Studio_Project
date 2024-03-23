@@ -20,6 +20,6 @@ public class Smoke : Item
     {
         ItemMenu_Combat.instance.gameObject.SetActive(false);
 
-        CombatManager.instance.Flee();
+        CombatManager.instance.EndCombat(CombatOutcome.FLEE);
     }
 }

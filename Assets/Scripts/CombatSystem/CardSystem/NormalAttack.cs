@@ -20,6 +20,5 @@ public class NormalAttack : Card
     {
         // output dmg to enemy
         CombatManager.instance.enemyUnit.TakeDamage(data.damage);
-        CombatManager.instance.UpdateMonsterInCombat();
     }
 }

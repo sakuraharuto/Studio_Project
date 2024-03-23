@@ -5,27 +5,34 @@ using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Linq;
+using JetBrains.Annotations;
 
 public enum TurnState 
 { 
     INITIAL, 
     END, 
     PLAYERTURN, 
-    ENEMYTURN, 
-    WIN, 
-    DEFEAT, 
-    FLEE 
+    ENEMYTURN
 }
 
+public enum CombatOutcome
+{ 
+    WIN,
+    DEFEAT,
+    FLEE
+}
+
+
 public class CombatManager : MonoBehaviour
-{   
+{
     public static CombatManager instance;
 
     [Header("Character Config")]
     public GameObject player;
     public GameObject enemy;
-    [SerializeField]private Transform playerPosition;
-    [SerializeField]private Transform enemyPosition;
+    [SerializeField] private Transform playerPosition;
+    [SerializeField] private Transform enemyPosition;
     public CombatUnit playerUnit;
     public CombatUnit enemyUnit;
 
@@ -35,6 +42,12 @@ public class CombatManager : MonoBehaviour
 
     [Header("Combat Config")]
     [SerializeField] int count;
+    public int lootDropCount;
+    public List<int> lootList= new List<int>(); // to store loots
+
+    [Header("UI Setting")]
+    public GameObject LeavePanel;
+    public GameObject LootBoard;
 
     [Header("Inspector Variables")]
     public SpecialStates playerState;
@@ -65,16 +78,18 @@ public class CombatManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
         timerTXT.text = timer.ToString();
     }
 
     public void Init()
-    {
+    {   
+        LeavePanel.SetActive(false);
+
         ItemMenu_Combat.instance.Init();
         PlayerCardManager.instance.Init();
         CardManager.instance.Init();
-        
+
         isPlayerTurn = true;
         round = 0;
 
@@ -123,7 +138,7 @@ public class CombatManager : MonoBehaviour
         Deck = CardManager.instance.cardDeck;
         useDeck = CardManager.instance.usedDeck;
         playerState = playerUnit.state;
-        
+
         // count down timer for player turn
         if (state == TurnState.ENEMYTURN)
         {
@@ -140,25 +155,32 @@ public class CombatManager : MonoBehaviour
                 timerTXT.text = currentTime.ToString("0");
             }
         }
+
+        CombatUI.instance.UpdateShield();
+        
+        UpdateCombatInspector();
     }
 
     private void PreTurnProcess()
     {
         Debug.Log("Turn State: Pre-Turn Process");
-        
+
         round++;
 
         isPlayerTurn = !isPlayerTurn;
 
         if (isPlayerTurn)
-        {
+        {   
             state = TurnState.PLAYERTURN;
-            Debug.Log(playerUnit.maxHP);
             CheckUnitPreStates(playerUnit);
 
-            CardManager.instance.Shuffle();
+            playerUnit.RemoveShields();
+
+            playerUnit.RestoreCost();
             CombatUI.instance.UpdateCost();
-            CombatUI.instance.UpdateShield();
+
+            CardManager.instance.Shuffle();
+            
             CombatUI.instance.CreateCardItem(count);
             CombatUI.instance.UpdateCardPosition();
         }
@@ -167,7 +189,7 @@ public class CombatManager : MonoBehaviour
             state = TurnState.ENEMYTURN;
 
             CheckUnitPreStates(enemyUnit);
-            
+
             EnemyTurn();
         }
     }
@@ -179,7 +201,7 @@ public class CombatManager : MonoBehaviour
 
     public void EndTurnButton()
     {
-        if(state != TurnState.PLAYERTURN)
+        if (state != TurnState.PLAYERTURN)
         {
             Debug.Log("Cannot skip the turn!");
         }
@@ -202,14 +224,14 @@ public class CombatManager : MonoBehaviour
     IEnumerator PostTurnProcess()
     {
         Debug.Log("Turn State: Post-Turn Process");
-        
+
         state = TurnState.END;
 
-        if(isPlayerTurn)
+        if (isPlayerTurn)
         {
             CheckUnitPostStates(playerUnit);
-            
-            if(enemyUnit.CheckAlive())
+
+            if (enemyUnit.CheckAlive())
             {
                 yield return new WaitForSeconds(3f);
 
@@ -218,19 +240,16 @@ public class CombatManager : MonoBehaviour
             else
             {
                 yield return new WaitForSeconds(1f);
-                Win();
+                EndCombat(CombatOutcome.WIN);
             }
         }
         else
         {
             CheckUnitPostStates(enemyUnit);
 
-            if(playerUnit.CheckAlive())
-            {   
+            if (playerUnit.CheckAlive())
+            {
                 CheckUnitState(playerUnit);
-
-                playerUnit.RestoreCost();
-                playerUnit.RemoveShields();
 
                 yield return new WaitForSeconds(3f);
 
@@ -238,7 +257,7 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
-                Defeat();
+                EndCombat(CombatOutcome.DEFEAT);
             }
         }
     }
@@ -247,16 +266,20 @@ public class CombatManager : MonoBehaviour
     {
         Debug.Log("Check Unit PostStates");
     }
-     
+
     // enemy actions
     void EnemyTurn()
     {
         state = TurnState.ENEMYTURN;
+
+        playerUnit.TakeDamage(2);
+
+        PlayerHP.text = playerUnit.currentHP.ToString();
     }
 
     public void CheckUnitState(CombatUnit unit)
     {
-        switch (unit.state)
+        switch(unit.state)
         {
             case SpecialStates.Normal:
                 Debug.Log("Player State: " + unit.state);
@@ -265,7 +288,7 @@ public class CombatManager : MonoBehaviour
             case SpecialStates.LieShang:
                 // add LieShang card into player deck
                 Debug.Log("Player State: " + unit.state);
-                if(!addedNewStateCard)
+                if (!addedNewStateCard)
                 {
                     CardManager.instance.cardDeck.Add("LieShang");
                     addedNewStateCard = true;
@@ -283,85 +306,89 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    // combat summary
-    #region Combat Summary
-    public void CombatExit()
+    // Combat Summary
+    public void EndCombat(CombatOutcome outcome)
     {
-        // save combat results: Player data, monster alive?, loots
+        state = TurnState.END;
 
-        // load map
+        // update enemy object based on combat outcome
+        switch (outcome)
+        {
+            case CombatOutcome.WIN:
+                ProcessLootDrop();
+                break;
+
+            case CombatOutcome.DEFEAT:
+                PlayerHP.text = "Defeated";
+                break;
+
+            case CombatOutcome.FLEE:
+                PlayerHP.text = "Escape success!";
+                break;
+        }
+        
+        LeavePanel.SetActive(true);
     }
 
-    void EndCombat()
+    void ProcessLootDrop()
     {
-        Debug.Log("Combat Summary");
-
-        // check if the monster alive or not
-        // if alive ===> update monster data
-        if(enemyUnit.CheckAlive())
+        for(int i = 0; i < lootDropCount; i++)
         {
-            GameManager.instance.enemy.GetComponent<Character>().UpdateDataAfterCombat(enemyUnit);
+            int id = ItemStats.instance.RandomItemID();
+            lootList.Add(id);
         }
-        // if dead ===> replace monster object
-        else
+        LeavePanel.SetActive(true);
+    }
+
+    public void CombatExit()
+    {   
+        if(lootList.Count() > 0)
         {   
-            //Destroy this enemy
+            for(int i = 0; i<lootList.Count(); i++)
+            {
+                if (ItemStats.instance.bagStats.ContainsKey(lootList[i]))
+                {
+                    ItemStats.instance.bagStats[lootList[i]] += 1;
+                }
+                else
+                {
+                    ItemStats.instance.bagStats.Add(lootList[i], 1);
+                }
+            }
         }
 
-        //Update player stats after Combat
-        GameManager.instance.player.GetComponent<Character>().UpdateDataAfterCombat(playerUnit);
+        LeavePanel.SetActive(false);
+
+        GameSceneManager.instance.StartTransition(GameSceneManager.instance.previousScene);
     }
 
     public void Flee()
     {
-        state = TurnState.FLEE;
-
         PlayerHP.text = "Escape success!";
-
-        GameSceneManager.instance.StartTransition("Test_dc");
-
-        //EndCombat();
     }
 
     void Win()
     {
-        state = TurnState.WIN;
+        //state = TurnState.WIN;
 
         PlayerHP.text = "You win!";
-
-        EndCombat();
 
         GameSceneManager.instance.StartTransition("Test_dc");
     }
 
     void Defeat()
     {
-        state = TurnState.DEFEAT;
+        //state = TurnState.DEFEAT;
 
         PlayerHP.text = "Defeated";
-
-        EndCombat();
     }
-    #endregion
 
     /// <summary>
     /// Test Functions
     /// </summary>
     #region
-    public void TestPlayerTakenDamage()
-    {
-        int dmg = 2;
-        playerUnit.TakeDamage(dmg);
-        UpdatePlayerInCombat();
-        CombatUI.instance.UpdateShield();
-    }
 
-    public void UpdatePlayerInCombat()
-    {
-        PlayerHP.text = playerUnit.currentHP.ToString();
-    }
-
-    public void UpdateMonsterInCombat()
+    private void UpdateCombatInspector()
     {
         MonsterHP.text = enemyUnit.currentHP.ToString();
     }
@@ -382,13 +409,7 @@ public class CombatManager : MonoBehaviour
     {
         playerUnit.state = SpecialStates.Pain;
         Debug.Log(playerState);
-    }
-
-    public void UpdateAllDataOnHUD()
-    {
-        PlayerHP.text = playerUnit.currentHP.ToString();
-        Debug.Log(playerUnit.currentHP);
-    }
+    }   
 
     #endregion
 }

@@ -114,8 +114,4 @@ public class UIManager : MonoBehaviour
         return null;
     }
 
-    public void HighlightCard(string msg, Color color, System.Action callback = null)
-    {
-
-    }
 }

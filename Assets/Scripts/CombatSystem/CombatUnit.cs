@@ -49,9 +49,6 @@ public class CombatUnit : MonoBehaviour
         {   
             currentHP -= dmg;
         }
-
-        //test
-        CombatManager.instance.UpdatePlayerInCombat();
     }
     
     public void AddShield(int shield)

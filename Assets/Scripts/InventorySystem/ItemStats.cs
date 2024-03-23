@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,7 +6,9 @@ public class ItemStats : MonoBehaviour
 {
     public static ItemStats instance;
 
-    // use dictionary to store items count
+    /// <summary>
+    /// Item Stats: ID, Count
+    /// </summary>
     public Dictionary<int, int> bagStats;
     // all items
     [SerializeField] private ItemData[] allItems;
@@ -19,6 +18,8 @@ public class ItemStats : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+
+            allItems = Resources.LoadAll<ItemData>("Items");
         }
     }
 
@@ -26,14 +27,6 @@ public class ItemStats : MonoBehaviour
     void Start()
     {   
         bagStats = new Dictionary<int, int>();
-
-        //allItems = new ItemData[3];
-    }
-
-    public void Init()
-    {
-        // Load All items
-        //allItems = Resources.LoadAll<ItemData>("Resources/Items/");
     }
 
     // Update is called once per frame
@@ -44,7 +37,6 @@ public class ItemStats : MonoBehaviour
 
     public ItemData GetItemByID(int id)
     {
-        //foreach (ItemData item in itemsList) 
         foreach (ItemData item in allItems)
         { 
             if(item.itemID == id)
@@ -53,6 +45,13 @@ public class ItemStats : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public int RandomItemID()
+    {
+        int id = Random.Range(1, allItems.Length);
+
+        return id;
     }
 }
 

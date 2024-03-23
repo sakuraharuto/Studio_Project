@@ -29,6 +29,7 @@ public class CombatTrigger : MonoBehaviour
     {
         if(postMessage != null )
         {
+            EnterCombatButton.SetActive(false);
             GameManager.instance.enemy = gameObject.GetComponent<Character>();
             GameSceneManager.instance.StartTransition(postMessage);
         }

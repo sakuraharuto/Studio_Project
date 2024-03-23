@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6693aeed67395c046b3b4e4892d69127, type: 3}
   m_Name: Smoke
   m_EditorClassIdentifier: 
-  itemID: 5
+  itemID: 4
   itemName: Smoke
   castType: 0
   cost: 7

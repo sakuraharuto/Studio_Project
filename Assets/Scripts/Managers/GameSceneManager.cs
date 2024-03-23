@@ -14,6 +14,8 @@ public class GameSceneManager : MonoBehaviour
     AsyncOperation load;
     AsyncOperation unload;
 
+    public string previousScene;
+
     private void Awake()
     {
         instance = this;
@@ -69,6 +71,7 @@ public class GameSceneManager : MonoBehaviour
     {
         load = SceneManager.LoadSceneAsync(toSceneName, LoadSceneMode.Additive);
         unload = SceneManager.UnloadSceneAsync(currentScene);
+        previousScene = currentScene;
         currentScene = toSceneName;
     }
 
