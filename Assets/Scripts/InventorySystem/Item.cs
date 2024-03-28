@@ -7,7 +7,7 @@ using static UnityEditor.Progress;
 public abstract class Item : MonoBehaviour, IPointerDownHandler
 {
     [HideInInspector]
-    public ItemData data;
+    protected ItemData data;
 
     [Header("Item Config")]
     public string itemName;
@@ -19,6 +19,11 @@ public abstract class Item : MonoBehaviour, IPointerDownHandler
     private float clickGap = 0.5f;
 
     //public bool canUse = false;
+
+    public void Init(ItemData itemData)
+    {
+        data = itemData;
+    }
 
     void Update()
     {

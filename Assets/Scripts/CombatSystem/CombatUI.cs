@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using DG.Tweening;
+using JetBrains.Annotations;
 
 public class CombatUI : UIBase
 {
@@ -114,9 +115,9 @@ public class CombatUI : UIBase
         string name = CardManager.instance.DrawCard();
 
         // find the card based on name
-        foreach(var CardData in allCards)
+        foreach (var CardData in allCards)
         {
-            if(CardData.cardName == name)
+            if (CardData.cardName == name)
             {
                 return CardData;
             }

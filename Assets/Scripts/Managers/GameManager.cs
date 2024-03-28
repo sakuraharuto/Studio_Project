@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,7 +13,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Characters Config")]
     public GameObject player;
-    public Character enemy;
+    public GameObject enemy;
+    public int enemyID;
 
     /// <summary>
     /// PopupManager
@@ -43,9 +45,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {   
         UpdateDayLight();
-
-
-
 
         // UI interact
         if (Input.GetKeyDown(KeyCode.Escape))

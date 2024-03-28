@@ -8,11 +8,15 @@ using Unity.VisualScripting;
 // card script base class
 public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
-    [HideInInspector]
-    public CardData data;
+    protected CardData data;
 
     [Header("Card Info")]
     public string cardName;
+
+    public void Init(CardData cardData)
+    {
+        data = cardData;
+    }
 
     public virtual void Start()
     {
@@ -43,7 +47,13 @@ public abstract class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
+        if(CanUse())
+        {
+            CombatUI.instance.UpdateCardsDeck();
+            CombatUI.instance.UpdateUsedCardsDeck();
 
+            CardSpecialEffect();
+        }
     }
 
     public abstract void CardSpecialEffect();

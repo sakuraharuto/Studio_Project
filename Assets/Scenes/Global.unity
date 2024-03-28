@@ -343,6 +343,8 @@ GameObject:
   - component: {fileID: 1887912577}
   - component: {fileID: 1887912576}
   - component: {fileID: 1887912575}
+  - component: {fileID: 1887912579}
+  - component: {fileID: 1887912580}
   m_Layer: 0
   m_Name: Global Object
   m_TagString: Untagged
@@ -395,6 +397,8 @@ MonoBehaviour:
   dayTimeSpeed: 0
   player: {fileID: 7927002986765568605, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
   enemy: {fileID: 0}
+  enemyObject: {fileID: 0}
+  enemyID: 0
   popupManager: {fileID: 0}
 --- !u!4 &1887912578
 Transform:
@@ -412,3 +416,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1887912579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887912574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef3e269dbc3252b49b65f93ee92baef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 5542379963880830366, guid: f0b6f0aeb2c5e544ca2f9ce8884853a8, type: 3}
+  allEnemies: []
+  enemyList: 
+  enemyPos: []
+  posObj: {fileID: 0}
+--- !u!114 &1887912580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887912574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3595db2c9a9eb4947ba5a5556569d18b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisObjName: EnemyLists
+  newDictionary:
+    thisPairs:
+    - mapName: Test_dc
+      enemyID: 000000000000000000000000
+    - mapName: Subway
+      enemyID: 00000000000000000000000000000000

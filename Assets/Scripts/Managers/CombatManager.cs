@@ -108,7 +108,7 @@ public class CombatManager : MonoBehaviour
         playerUnit = player.GetComponent<CombatUnit>();
         playerUnit.InitialUnitData(GameManager.instance.player.GetComponent<Character>());
         enemyUnit = enemy.GetComponent<CombatUnit>();
-        enemyUnit.InitialUnitData(GameManager.instance.enemy);
+        enemyUnit.InitialUnitData(GameManager.instance.enemy.GetComponent<Character>());
 
         //test inspector panel
         PlayerHP.text = playerUnit.currentHP.ToString();
@@ -239,7 +239,10 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
+                // enemy will be removed from list
+
                 yield return new WaitForSeconds(1f);
+                
                 EndCombat(CombatOutcome.WIN);
             }
         }
@@ -326,7 +329,10 @@ public class CombatManager : MonoBehaviour
                 PlayerHP.text = "Escape success!";
                 break;
         }
-        
+
+        //update player stats after combat
+        GameManager.instance.player.GetComponent<Character>().UpdateDataAfterCombat(playerUnit);
+
         LeavePanel.SetActive(true);
     }
 
@@ -369,8 +375,6 @@ public class CombatManager : MonoBehaviour
 
     void Win()
     {
-        //state = TurnState.WIN;
-
         PlayerHP.text = "You win!";
 
         GameSceneManager.instance.StartTransition("Test_dc");
@@ -378,8 +382,6 @@ public class CombatManager : MonoBehaviour
 
     void Defeat()
     {
-        //state = TurnState.DEFEAT;
-
         PlayerHP.text = "Defeated";
     }
 

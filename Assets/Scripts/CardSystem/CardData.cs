@@ -8,7 +8,6 @@ public class CardData : ScriptableObject
     public int cardID;
     public string cardName;
     public string description;
-    public bool isAOE;
 
     public Sprite image;
     public Sprite bg;

@@ -18,9 +18,6 @@ public class PlayerMovement : MonoBehaviour
 
     public SearchPoint sp;
 
-    //public Character enemy;
-
-
     private void Start()
     {
         defaultZPosition = transform.position.z;
@@ -106,10 +103,10 @@ public class PlayerMovement : MonoBehaviour
             sp = other.GetComponent<SearchPoint>();
         }
 
-        //if(other.CompareTag("Monster"))
-        //{
-        //    enemy = other.GetComponent<Character>();
-        //}
+        if(other.CompareTag("Enemy"))
+        {
+            GameManager.instance.enemy = other.gameObject;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -125,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
             sp = null;
         }
 
-        //if (other.CompareTag("Monster"))
+        //if (other.CompareTag("Enemy"))
         //{
         //    enemy = null;
         //}

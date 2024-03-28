@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
+using UnityEngine.UI;
 
 public class CombatUnit : MonoBehaviour
 {
@@ -16,13 +16,18 @@ public class CombatUnit : MonoBehaviour
     public int cost;
 
     public void InitialUnitData(Character character)
-    {
+    {   
+        // assign visual element
+        gameObject.GetComponent<Image>().sprite = character.combatSprite;
+
+        // assign character stats 
         unitName = character.characterName;
         state = character.state;
         currentHP = character.HP_Pool.currentValue;
         maxHP = character.HP_Pool.maxValue.value;
         currentShield = 0;
         cost = 10;
+
     }
 
     private void Update()

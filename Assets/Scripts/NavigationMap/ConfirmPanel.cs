@@ -27,8 +27,8 @@ public class ConfirmPanel : MonoBehaviour
 
     public void ConfirmEnter()
     {
-        //do transition scene
         GameSceneManager.instance.StartTransition(buildingName);
+
         gameObject.SetActive(false);
     }
 

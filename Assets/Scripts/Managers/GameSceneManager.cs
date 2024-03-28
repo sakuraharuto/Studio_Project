@@ -50,7 +50,9 @@ public class GameSceneManager : MonoBehaviour
     public IEnumerator TransitionScene(string toSceneName) 
     {
         animLoad.SetTrigger("In");
-        yield return new WaitForSeconds(1f);    
+
+
+        yield return new WaitForSeconds(1f);
 
         SwitchScene(toSceneName);
 
@@ -59,18 +61,25 @@ public class GameSceneManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
+        // test load enemies
+        if (toSceneName == "Test_dc")
+        {
+            EnemyManager.instance.posObj = GameObject.Find("PositionList");
+            EnemyManager.instance.SpawnEnemy(toSceneName);
+        }
+
         animLoad.SetTrigger("Out");
         yield return new WaitForSeconds(1f);
 
         load = null;
         unload = null;
-
     }
 
     public void SwitchScene(string toSceneName)
     {
         load = SceneManager.LoadSceneAsync(toSceneName, LoadSceneMode.Additive);
         unload = SceneManager.UnloadSceneAsync(currentScene);
+
         previousScene = currentScene;
         currentScene = toSceneName;
     }

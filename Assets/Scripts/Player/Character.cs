@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // character States
 public enum SpecialStates
@@ -116,12 +117,12 @@ public class Character : MonoBehaviour
 {
     public string characterName;
 
+    public Sprite combatSprite;
+
     public SpecialStates state;
     [SerializeField] AttributeGroup attributes;     //RPG stats
     public StatsGroup stats;                        //character stats
     public ValuePool HP_Pool;
-
-    public bool isAlive; //temporary for combat test
 
     // Start is called before the first frame update
     void Start()
@@ -133,23 +134,16 @@ public class Character : MonoBehaviour
         stats.Init();
 
         HP_Pool = new ValuePool(stats.Get(Statistic.HP));
-
-        isAlive = true;
     }
 
     public void UpdateDataAfterCombat(CombatUnit unit)
     {
         state = unit.state;
         HP_Pool.currentValue = unit.currentHP;
-
-        isAlive = unit.CheckAlive();
     }
 
     private void Update()
     {
-        if(isAlive == false)
-        {
-            Destroy(gameObject);
-        }
+        
     }
 }
