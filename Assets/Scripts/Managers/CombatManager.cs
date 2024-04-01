@@ -316,23 +316,34 @@ public class CombatManager : MonoBehaviour
 
         // update enemy object based on combat outcome
         switch (outcome)
-        {
+        {   
             case CombatOutcome.WIN:
-                ProcessLootDrop();
+                
+                // do win outcome update
+                
+                PlayerHP.text = "You Win!";
+
                 break;
 
             case CombatOutcome.DEFEAT:
+
+                // do defeat outcome update
+
                 PlayerHP.text = "Defeated";
+
                 break;
 
             case CombatOutcome.FLEE:
+
+                // do flee outcome update
+
                 PlayerHP.text = "Escape success!";
+
                 break;
         }
-
         //update player stats after combat
         GameManager.instance.player.GetComponent<Character>().UpdateDataAfterCombat(playerUnit);
-
+        
         LeavePanel.SetActive(true);
     }
 
@@ -343,46 +354,28 @@ public class CombatManager : MonoBehaviour
             int id = ItemStats.instance.RandomItemID();
             lootList.Add(id);
         }
-        LeavePanel.SetActive(true);
     }
 
     public void CombatExit()
     {   
-        if(lootList.Count() > 0)
-        {   
-            for(int i = 0; i<lootList.Count(); i++)
-            {
-                if (ItemStats.instance.bagStats.ContainsKey(lootList[i]))
-                {
-                    ItemStats.instance.bagStats[lootList[i]] += 1;
-                }
-                else
-                {
-                    ItemStats.instance.bagStats.Add(lootList[i], 1);
-                }
-            }
-        }
-
-        LeavePanel.SetActive(false);
+        //if(lootList.Count() > 0)
+        //{   
+        //    for(int i = 0; i<lootList.Count(); i++)
+        //    {
+        //        if (ItemStats.instance.bagStats.ContainsKey(lootList[i]))
+        //        {
+        //            ItemStats.instance.bagStats[lootList[i]] += 1;
+        //        }
+        //        else
+        //        {
+        //            ItemStats.instance.bagStats.Add(lootList[i], 1);
+        //        }
+        //    }
+        //}
 
         GameSceneManager.instance.StartTransition(GameSceneManager.instance.previousScene);
-    }
 
-    public void Flee()
-    {
-        PlayerHP.text = "Escape success!";
-    }
-
-    void Win()
-    {
-        PlayerHP.text = "You win!";
-
-        GameSceneManager.instance.StartTransition("Test_dc");
-    }
-
-    void Defeat()
-    {
-        PlayerHP.text = "Defeated";
+        LeavePanel.SetActive(false);
     }
 
     /// <summary>

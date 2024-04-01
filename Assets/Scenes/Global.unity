@@ -344,7 +344,6 @@ GameObject:
   - component: {fileID: 1887912576}
   - component: {fileID: 1887912575}
   - component: {fileID: 1887912579}
-  - component: {fileID: 1887912580}
   m_Layer: 0
   m_Name: Global Object
   m_TagString: Untagged
@@ -397,7 +396,6 @@ MonoBehaviour:
   dayTimeSpeed: 0
   player: {fileID: 7927002986765568605, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
   enemy: {fileID: 0}
-  enemyObject: {fileID: 0}
   enemyID: 0
   popupManager: {fileID: 0}
 --- !u!4 &1887912578
@@ -432,23 +430,5 @@ MonoBehaviour:
   allEnemies: []
   enemyList: 
   enemyPos: []
+  enemyMapping: {fileID: 11400000, guid: 48af1f1f1eafbbc4bb649ed17736f474, type: 2}
   posObj: {fileID: 0}
---- !u!114 &1887912580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887912574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3595db2c9a9eb4947ba5a5556569d18b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisObjName: EnemyLists
-  newDictionary:
-    thisPairs:
-    - mapName: Test_dc
-      enemyID: 000000000000000000000000
-    - mapName: Subway
-      enemyID: 00000000000000000000000000000000

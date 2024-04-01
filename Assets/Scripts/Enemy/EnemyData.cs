@@ -9,7 +9,6 @@ public class EnemyData : ScriptableObject
     public int enemyID;
     public string enemyName;
     public int enemyLevel;
-    public Sprite combatAvatar;
 
     [Header("Combat Config")]
     public int maxHP;

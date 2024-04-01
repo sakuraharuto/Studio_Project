@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: test_monster
+  combatSprite: {fileID: 21300000, guid: 60c3fafa11c749541940f9175488ec3d, type: 3}
   state: 0
   attributes:
     attributeValues: []
@@ -138,4 +139,3 @@ MonoBehaviour:
       statisticType: 0
       value: 20
     currentValue: 18
-  isAlive: 0

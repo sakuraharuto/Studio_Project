@@ -23,9 +23,14 @@ public class CombatTrigger : MonoBehaviour
         
     }
 
-    public void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {   
         EnterCombatButton.SetActive(true);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        EnterCombatButton.SetActive(false);
     }
 
     public void EnterCombat()
@@ -33,7 +38,6 @@ public class CombatTrigger : MonoBehaviour
         if(postMessage != null )
         {
             EnterCombatButton.SetActive(false);
-            //GameManager.instance.enemy = gameObject.GetComponent<GameObject>();
             GameSceneManager.instance.StartTransition(postMessage);
         }
     }    

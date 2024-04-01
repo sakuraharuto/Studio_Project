@@ -9,7 +9,8 @@ public class MappingDictionary : MonoBehaviour
 
     [SerializeField] NewDictionary newDictionary;
 
-    public Dictionary<string, List<int>> thisDictionary;
+    //public Dictionary<string, List<int>> thisDictionary;
+    public Dictionary<string, int[]> thisDictionary;
 
     private void Awake()
     {
@@ -22,17 +23,20 @@ public class NewDictionary
 {
     [SerializeField] NewPair[] thisPairs;
 
-    public Dictionary<string, List<int>> ToDictionary()
+    //public Dictionary<string, List<int>> ToDictionary()
+    public Dictionary<string, int[]> ToDictionary()
     {
-        Dictionary<string, List<int>> newDictionary = new Dictionary<string, List<int>>();
+        //Dictionary<string, List<int>> newDictionary = new Dictionary<string, List<int>>();
+        Dictionary<string, int[]> newDictionary = new Dictionary<string, int[]>();
         {
             foreach(var element in thisPairs)
             {
-                newDictionary.Add(element.mapName, element.enemyID);    
+                newDictionary.Add(element.key, element.valueList);    
             }
-
-            return newDictionary;
         }
+
+        return newDictionary;
+        
     }
 
 }
@@ -40,7 +44,8 @@ public class NewDictionary
 [Serializable]
 public class NewPair
 {
-    public string mapName;
-    public List<int> enemyID;
+    public string key;
+    //public List<int> valueList;
+    public int[] valueList;
 }
 

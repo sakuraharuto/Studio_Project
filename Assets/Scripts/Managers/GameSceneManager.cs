@@ -51,7 +51,6 @@ public class GameSceneManager : MonoBehaviour
     {
         animLoad.SetTrigger("In");
 
-
         yield return new WaitForSeconds(1f);
 
         SwitchScene(toSceneName);
@@ -61,9 +60,10 @@ public class GameSceneManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
+        // Load enemy list to certain scene
         // test load enemies
         if (toSceneName == "Test_dc")
-        {
+        {   
             EnemyManager.instance.posObj = GameObject.Find("PositionList");
             EnemyManager.instance.SpawnEnemy(toSceneName);
         }

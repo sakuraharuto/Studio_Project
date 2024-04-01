@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 199d30886f5617a45a88922de9aeaf48, type: 3}
-  m_Name: Enemy_Test
+  m_Script: {fileID: 11500000, guid: a88fe48a0fbe25c4ab167bb828b672fb, type: 3}
+  m_Name: EnemyList_Config
   m_EditorClassIdentifier: 
-  enemyID: 0
-  enemyName: TestLv1
-  enemyLevel: 0
-  combatAvatar: {fileID: 21300000, guid: 0ccc508108fa6ed4fa11b4a467d7f609, type: 3}
-  maxHP: 20
-  damage: 3
-  shield: 0
+  mapList:
+    thisPairs: []
