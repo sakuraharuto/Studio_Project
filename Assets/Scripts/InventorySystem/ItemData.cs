@@ -27,6 +27,7 @@ public class ItemData : ScriptableObject
 
     // icon config
     public Sprite itemIcon;
+    public Sprite itemImage;
     public int width = 1 ;
     public int height = 1;
 

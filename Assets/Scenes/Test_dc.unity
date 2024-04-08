@@ -487,9 +487,7 @@ MonoBehaviour:
   items: []
   allItems:
   - {fileID: 11400000, guid: 511182fd2b9cd7942a869fd71a3af34f, type: 2}
-  - {fileID: 11400000, guid: 511182fd2b9cd7942a869fd71a3af34f, type: 2}
-  - {fileID: 11400000, guid: 511182fd2b9cd7942a869fd71a3af34f, type: 2}
-  - {fileID: 11400000, guid: 511182fd2b9cd7942a869fd71a3af34f, type: 2}
+  - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
   player: {fileID: 1988995161}
 --- !u!65 &267469255
 BoxCollider:
@@ -1811,7 +1809,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907238014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: -2, z: 2}
+  m_LocalPosition: {x: 19.8, y: -2, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2624,7 +2622,6 @@ MonoBehaviour:
   dayTimeSpeed: 0
   player: {fileID: 207835224}
   enemy: {fileID: 0}
-  enemyObject: {fileID: 0}
   enemyID: 0
   popupManager: {fileID: 0}
 --- !u!114 &1207121051
@@ -2927,7 +2924,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh39460
+  m_Name: pb_Mesh72768
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3547,9 +3544,7 @@ MonoBehaviour:
   containerGrid: {fileID: 2688927752494941400}
   items: []
   allItems:
-  - {fileID: 11400000, guid: 511182fd2b9cd7942a869fd71a3af34f, type: 2}
-  - {fileID: 11400000, guid: 511182fd2b9cd7942a869fd71a3af34f, type: 2}
-  - {fileID: 11400000, guid: 511182fd2b9cd7942a869fd71a3af34f, type: 2}
+  - {fileID: 11400000, guid: a8e9ac87305034d42809d90fce559f19, type: 2}
   - {fileID: 11400000, guid: 511182fd2b9cd7942a869fd71a3af34f, type: 2}
   player: {fileID: 1988995161}
 --- !u!1 &1762665828
@@ -3883,7 +3878,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110925417}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 2}
+  m_LocalPosition: {x: 0.54, y: -2, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4294,7 +4289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.4745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

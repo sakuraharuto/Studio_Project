@@ -28,15 +28,13 @@ public class NewDictionary
     {
         //Dictionary<string, List<int>> newDictionary = new Dictionary<string, List<int>>();
         Dictionary<string, int[]> newDictionary = new Dictionary<string, int[]>();
+        
+        foreach(var element in thisPairs)
         {
-            foreach(var element in thisPairs)
-            {
-                newDictionary.Add(element.key, element.valueList);    
-            }
+            newDictionary.Add(element.key, element.valueList);    
         }
 
         return newDictionary;
-        
     }
 
 }

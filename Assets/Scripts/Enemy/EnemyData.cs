@@ -11,6 +11,7 @@ public class EnemyData : ScriptableObject
     public int enemyLevel;
 
     [Header("Combat Config")]
+    public Sprite combatSprite;
     public int maxHP;
     public int damage;
     public int shield;

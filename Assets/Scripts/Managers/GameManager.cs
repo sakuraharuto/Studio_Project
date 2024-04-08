@@ -51,6 +51,11 @@ public class GameManager : MonoBehaviour
         {
             popupManager.ShowPopup("SettingPanel");
         }
+
+        if(enemy != null)
+        {
+            enemyID = enemy.GetComponent<Enemy>().enemyID;
+        }
     }
 
     private void UpdateDayLight()

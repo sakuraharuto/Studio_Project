@@ -116,17 +116,18 @@ public class ValuePool
 public class Character : MonoBehaviour
 {
     public string characterName;
-
     public Sprite combatSprite;
 
     public SpecialStates state;
-    [SerializeField] AttributeGroup attributes;     //RPG stats
+
+    //[SerializeField] AttributeGroup attributes;     //RPG stats
+    public AttributeGroup attributes;
     public StatsGroup stats;                        //character stats
     public ValuePool HP_Pool;
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
         // Init character data
         attributes = new AttributeGroup();
         attributes.Init();
@@ -134,12 +135,6 @@ public class Character : MonoBehaviour
         stats.Init();
 
         HP_Pool = new ValuePool(stats.Get(Statistic.HP));
-    }
-
-    public void UpdateDataAfterCombat(CombatUnit unit)
-    {
-        state = unit.state;
-        HP_Pool.currentValue = unit.currentHP;
     }
 
     private void Update()

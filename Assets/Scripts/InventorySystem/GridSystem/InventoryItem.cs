@@ -22,7 +22,7 @@ public class InventoryItem : MonoBehaviour
 
         id = itemData.itemID;
 
-        GetComponent<Image>().sprite = itemData.itemIcon;
+        GetComponent<Image>().sprite = itemData.itemImage;
 
         Vector2 size = new Vector2(
             itemData.width * ItemGrid.tileSizeWidth,

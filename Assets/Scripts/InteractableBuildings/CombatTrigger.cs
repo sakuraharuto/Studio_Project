@@ -38,6 +38,7 @@ public class CombatTrigger : MonoBehaviour
         if(postMessage != null )
         {
             EnterCombatButton.SetActive(false);
+            EnemyManager.instance.SaveEnemyStates();
             GameSceneManager.instance.StartTransition(postMessage);
         }
     }    

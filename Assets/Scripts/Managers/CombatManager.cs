@@ -1,12 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
-using System.Linq;
-using JetBrains.Annotations;
+using UnityEngine.UI;
 
 public enum TurnState 
 { 
@@ -101,18 +97,19 @@ public class CombatManager : MonoBehaviour
         state = TurnState.INITIAL;
 
         // instantiate characters
-        Instantiate(player, playerPosition.transform);
-        Instantiate(enemy, enemyPosition.transform);
+        player = Instantiate(player, playerPosition.transform);
+        enemy = Instantiate(enemy, enemyPosition.transform);
 
         // initial characters data
         playerUnit = player.GetComponent<CombatUnit>();
         playerUnit.InitialUnitData(GameManager.instance.player.GetComponent<Character>());
+
         enemyUnit = enemy.GetComponent<CombatUnit>();
         enemyUnit.InitialUnitData(GameManager.instance.enemy.GetComponent<Character>());
 
         //test inspector panel
         PlayerHP.text = playerUnit.currentHP.ToString();
-        MonsterHP.text = enemyUnit.currentHP.ToString();
+        //MonsterHP.text = enemyUnit.currentHP.ToString();
 
         yield return new WaitForSeconds(2f);
 
@@ -318,9 +315,11 @@ public class CombatManager : MonoBehaviour
         switch (outcome)
         {   
             case CombatOutcome.WIN:
-                
+
                 // do win outcome update
                 
+
+
                 PlayerHP.text = "You Win!";
 
                 break;
@@ -342,7 +341,7 @@ public class CombatManager : MonoBehaviour
                 break;
         }
         //update player stats after combat
-        GameManager.instance.player.GetComponent<Character>().UpdateDataAfterCombat(playerUnit);
+        //GameManager.instance.player.GetComponent<Character>().UpdateDataAfterCombat(playerUnit);
         
         LeavePanel.SetActive(true);
     }

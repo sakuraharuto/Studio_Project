@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,13 @@ public class EnemyManager : MonoBehaviour
     
     // enemy object
     [SerializeField] EnemyMapping enemyMapping;
-    //public Dictionary<string, List<int>> enemyInSceneDict = new Dictionary<string, List<int>>();
-    //[SerializeField] List<int> enemyList = new List<int>();
 
     public Dictionary<string, int[]> enemyInSceneDict = new Dictionary<string, int[]>();
     int[] enemyList;
+
+    public List<GameObject> enemyInScene;
+    //public List<EnemyState> enemyStates = new List<EnemyState>();   
+    public List<EnemyState> enemyStates;
 
     // spawn position
     public GameObject posObj;
@@ -29,38 +32,21 @@ public class EnemyManager : MonoBehaviour
     {
         instance = this;
 
+        // Process enemy database
         allEnemy = Resources.LoadAll<EnemyData>("Enemy");
-        
         enemyInSceneDict = enemyMapping.mapList.ToDictionary();
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        enemyStates = new List<EnemyState>();
     }
 
     // load enemies based on sceneName
     // Only invoked when player enter a building
-    //private List<int> LoadEnemyList(string sceneName)
     private int[] LoadEnemyList(string sceneName)
     {   
-        //if (enemyInSceneDict.TryGetValue(sceneName, out List<int> enemyList))
-        //{ 
-        //    return enemyList;
-        //}
-
         if (enemyInSceneDict.TryGetValue(sceneName, out int[] enemyList))
         {
             return enemyList;
         }
-
 
         return null;
     }
@@ -69,13 +55,6 @@ public class EnemyManager : MonoBehaviour
     {
         enemyPos.Clear();
 
-        //if(posObj != null && posObj.transform.childCount >= enemyList.Count)
-        //{
-        //    for (int i = 0; i < enemyList.Count; i++)
-        //    {
-        //        enemyPos.Add(posObj.transform.GetChild(i).gameObject);
-        //    }
-        //}   
         if (posObj != null && posObj.transform.childCount >= enemyList.Length)
         {
             for (int i = 0; i < enemyList.Length; i++)
@@ -91,32 +70,34 @@ public class EnemyManager : MonoBehaviour
         enemyList = LoadEnemyList(sceneName);
         
         LoadEnemyPos();
-
-        //if(enemyPos != null)
-        //{
-        //    for (int i = 0; i < enemyList.Count; i++)
-        //    {
-        //        GameObject obj = Instantiate(enemyPrefab, enemyPos[i].transform);
-
-        //        EnemyData newData = GetEnemyData(enemyList[i]);
-
-        //        Enemy newEnemy = obj.AddComponent(System.Type.GetType(newData.enemyName)) as Enemy;
-
-        //        newEnemy.Init(newData);
-        //    }
-        //}
-        if (enemyPos != null)
+ 
+        if(!enemyStates.Any())
         {
-            for (int i = 0; i < enemyList.Length; i++)
-            {
-                GameObject obj = Instantiate(enemyPrefab, enemyPos[i].transform);
+            CreateEnemyInScene();
+        }
+        else
+        {
+            CreateEnemyInScene();
+            LoadEnemyStates();
+        }
 
-                EnemyData newData = GetEnemyData(enemyList[i]);
+    }
 
-                Enemy newEnemy = obj.AddComponent(System.Type.GetType(newData.enemyName)) as Enemy;
+    private void CreateEnemyInScene()
+    {
+        for (int i = 0; i < enemyList.Length; i++)
+        {
+            Debug.Log("Spawn Enemy");
 
-                newEnemy.Init(newData);
-            }
+            GameObject obj = Instantiate(enemyPrefab, enemyPos[i].transform);
+
+            EnemyData newData = GetEnemyData(enemyList[i]);
+
+            Enemy newEnemy = obj.AddComponent(System.Type.GetType(newData.enemyName)) as Enemy;
+
+            newEnemy.Init(newData);
+
+            enemyInScene.Add(obj);
         }
     }
 
@@ -130,10 +111,44 @@ public class EnemyManager : MonoBehaviour
 
         return null;
     }
-    
-    public void UpdateEnemyList(string toSceneName, int enemyID)
+
+    public void LoadEnemyStates()
     {
+        int i = 0;
+        foreach(GameObject enemyObj in enemyInScene)
+        {   
+            Enemy enemy = enemyObj.GetComponent<Enemy>();
+            enemy.UpdateStates(enemyStates[i]);
+            i++;
+        }
+    }
 
-    }    
-
+    public void SaveEnemyStates()
+    {
+        enemyStates.Clear();
+        foreach(var enemyObj in enemyInScene)
+        {
+            Enemy enemyComponent = enemyObj.GetComponent<Enemy>();
+            if(enemyComponent != null)
+            {
+                enemyStates.Add(new EnemyState() 
+                {
+                    pos = enemyObj.transform.position,
+                    currentHP = enemyComponent.HP_Pool.currentValue
+                });
+            }
+        }
+    }
 }
+
+//[System.Serializable]
+//public class EnemyState
+//{
+//    public int enemyID;
+//    public Vector3 pos;
+//    public bool isAlive;
+//    public int currentHP;
+//}
+
+
+

@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // save player cards and decks
-public class PlayerCardManager
+public class PlayerCardManager : MonoBehaviour
 {
-    public static PlayerCardManager instance = new PlayerCardManager();
+    public static PlayerCardManager instance;
 
     [Header("Card List")]
     public List<string> deck;
 
-    //private void Awake()
-    //{
-    //    instance = this;
-    //}
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void Init()
     {

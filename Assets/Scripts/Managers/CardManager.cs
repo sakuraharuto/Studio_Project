@@ -1,20 +1,19 @@
-//using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // Manager all interaction of cards and deck
-public class CardManager
+public class CardManager : MonoBehaviour
 {   
-    public static CardManager instance = new CardManager();
+    public static CardManager instance;
 
     public List<string> cardDeck = new List<string>();
     public List<string> usedDeck = new List<string>();
 
-    //private void Awake()
-    //{
-    //    instance = this;
-    //}
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void Init()
     {   

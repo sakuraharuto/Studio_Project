@@ -15,9 +15,8 @@ MonoBehaviour:
   cardID: 1
   cardName: NormalAttack
   description: Attack the enemy, cause 1 damage
-  isAOE: 0
   image: {fileID: 21300000, guid: 15155164891ee534ca545192eed966ca, type: 3}
   bg: {fileID: 21300000, guid: 5b85cede87f075f42b05d8de3fbc912c, type: 3}
   manaCost: 2
-  damage: 3
+  damage: 15
   shield: 0

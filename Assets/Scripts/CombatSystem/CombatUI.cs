@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using DG.Tweening;
-using JetBrains.Annotations;
+using UnityEngine.UI;
 
 public class CombatUI : UIBase
 {
@@ -20,6 +20,7 @@ public class CombatUI : UIBase
     [Header("Player HUD")]
     public TMP_Text hp;
     public TMP_Text shield;
+    public Slider healthBarSlider;
 
     [Header("Cards UI")]
     public GameObject cardPrefab;   // show as hand card
@@ -55,6 +56,9 @@ public class CombatUI : UIBase
 
     public void Start()
     {
+        healthBarSlider = CombatManager.instance.player.transform.GetChild(0).GetComponent<Slider>();
+
+        UpdateHealthBar();
         UpdateCardsDeck();
         UpdateUsedCardsDeck();
     }
@@ -79,6 +83,12 @@ public class CombatUI : UIBase
         hp.text = CombatManager.instance.playerUnit.currentHP.ToString();
         Debug.Log("Player has: " + hp.text);
     }
+
+    public void UpdateHealthBar()
+    {
+        healthBarSlider.value = CombatManager.instance.playerUnit.currentHP;
+    }
+
 
     public void UpdateShield()
     {
