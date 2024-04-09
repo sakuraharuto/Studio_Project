@@ -316,30 +316,29 @@ public class CombatManager : MonoBehaviour
         {   
             case CombatOutcome.WIN:
 
-                // do win outcome update
-                
-
-
                 PlayerHP.text = "You Win!";
+                // do win outcome update
+                EnemyManager.instance.enemyStates[GameManager.instance.enemyIndex].isAlive = false;
 
                 break;
 
             case CombatOutcome.DEFEAT:
 
+                PlayerHP.text = "Defeated";
                 // do defeat outcome update
 
-                PlayerHP.text = "Defeated";
 
                 break;
 
             case CombatOutcome.FLEE:
 
+                PlayerHP.text = "Escape success!";
                 // do flee outcome update
 
-                PlayerHP.text = "Escape success!";
 
                 break;
         }
+
         //update player stats after combat
         //GameManager.instance.player.GetComponent<Character>().UpdateDataAfterCombat(playerUnit);
         

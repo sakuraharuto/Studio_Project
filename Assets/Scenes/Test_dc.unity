@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1538912531112291242, guid: 99798db7b0060fe4e95acc64eac3c447, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3997412190003028138, guid: 99798db7b0060fe4e95acc64eac3c447, type: 3}
       propertyPath: m_RootOrder
@@ -2622,7 +2622,7 @@ MonoBehaviour:
   dayTimeSpeed: 0
   player: {fileID: 207835224}
   enemy: {fileID: 0}
-  enemyID: 0
+  enemyIndex: 0
   popupManager: {fileID: 0}
 --- !u!114 &1207121051
 MonoBehaviour:

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [Header("Characters Config")]
     public GameObject player;
     public GameObject enemy;
-    public int enemyID;
+    public int enemyIndex;
 
     /// <summary>
     /// PopupManager
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
         if(enemy != null)
         {
-            enemyID = enemy.GetComponent<Enemy>().enemyID;
+            enemyIndex = enemy.GetComponent<Enemy>().enemyIndex;
         }
     }
 

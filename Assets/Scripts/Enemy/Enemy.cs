@@ -6,14 +6,13 @@ public abstract class Enemy : Character
 {
     protected EnemyData data;
     
-    public int enemyID;
+    public int enemyIndex;
     public bool isAlive = true;
 
     public void Init(EnemyData enemyData)
     {
         data = enemyData;
 
-        enemyID = data.enemyID;
         combatSprite = data.combatSprite;
         characterName = data.name;
 
@@ -28,8 +27,7 @@ public abstract class Enemy : Character
 
     public void UpdateStates(EnemyState newState)
     {
-        this.isAlive = newState.isAlive;
-        this.HP_Pool.currentValue = newState.currentHP;
+        Debug.Log("Update...");
     }
 
     // Start is called before the first frame update
@@ -41,17 +39,14 @@ public abstract class Enemy : Character
     // Update is called once per frame
     void Update()
     {
-        //if(!isAlive)
-        //{
-        //    Destroy(gameObject);
-        //}
+        
     }
 }
 
 [System.Serializable]
 public class EnemyState
 {
-    public int enemyID;
+    public int enemyIndex;
     public Vector3 pos;
     public bool isAlive;
     public int currentHP;

@@ -15,4 +15,4 @@ MonoBehaviour:
   mapList:
     thisPairs:
     - key: Test_dc
-      valueList: 01000000
+      valueList: 010000000100000001000000
