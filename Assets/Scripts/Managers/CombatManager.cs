@@ -318,7 +318,8 @@ public class CombatManager : MonoBehaviour
 
                 PlayerHP.text = "You Win!";
                 // do win outcome update
-                EnemyManager.instance.enemyStates[GameManager.instance.enemyIndex].isAlive = false;
+                EnemyManager.instance.enemyStates[GameManager.instance.enemyIndex] = null;
+
 
                 break;
 
@@ -326,7 +327,7 @@ public class CombatManager : MonoBehaviour
 
                 PlayerHP.text = "Defeated";
                 // do defeat outcome update
-
+                EnemyManager.instance.enemyStates[GameManager.instance.enemyIndex].currentHP = enemyUnit.currentHP;
 
                 break;
 
@@ -334,7 +335,7 @@ public class CombatManager : MonoBehaviour
 
                 PlayerHP.text = "Escape success!";
                 // do flee outcome update
-
+                EnemyManager.instance.enemyStates[GameManager.instance.enemyIndex].currentHP = enemyUnit.currentHP;
 
                 break;
         }

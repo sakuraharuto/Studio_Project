@@ -18,14 +18,14 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] EnemyMapping enemyMapping;
 
     public Dictionary<string, int[]> enemyInSceneDict = new Dictionary<string, int[]>();
-    int[] enemyList;
+    public int[] enemyList;
 
     // spawn position
     public GameObject posObj;
     [SerializeField] List<GameObject> enemyPos;
 
-    public List<GameObject> enemyInScene;
-    public List<EnemyState> enemyStates;
+    public GameObject[] enemyInScene;
+    public EnemyState[] enemyStates;
     public int index;
 
     private void Awake()
@@ -35,8 +35,6 @@ public class EnemyManager : MonoBehaviour
         // Process enemy database
         allEnemy = Resources.LoadAll<EnemyData>("Enemy");
         enemyInSceneDict = enemyMapping.mapList.ToDictionary();
-
-        enemyStates = new List<EnemyState>();
     }
 
     // load enemies based on sceneName
@@ -68,6 +66,7 @@ public class EnemyManager : MonoBehaviour
     public void SpawnEnemy(string sceneName)
     {
         enemyList = LoadEnemyList(sceneName);
+        enemyInScene = new GameObject[enemyList.Length];
         
         LoadEnemyPos();
         CreateEnemyInScene();
@@ -77,24 +76,43 @@ public class EnemyManager : MonoBehaviour
     {
         for (int i = 0; i < enemyList.Length; i++)
         {
-            GameObject obj = Instantiate(enemyPrefab, enemyPos[i].transform);
-
-            EnemyData newData = GetEnemyData(enemyList[i]);
-
-            Enemy newEnemy = obj.AddComponent(System.Type.GetType(newData.enemyName)) as Enemy;
-
-            //check if need to load enemy states
-            if(enemyStates.Any())
+            //load enemy states if saved
+            if (enemyStates.Any())
             {
-                obj.GetComponent<Enemy>().UpdateStates(enemyStates[i]);
+                // enemy is eliminated, go next
+                if (enemyStates[i] == null)
+                {
+                    enemyInScene[i] = null;
+                    continue;
+                }
+                else  // enemy is alive update new state
+                {
+                    // create new enemy object
+                    GameObject obj = Instantiate(enemyPrefab, enemyPos[i].transform);
+                    // get enemy config
+                    EnemyData newData = GetEnemyData(enemyList[i]);
+                    // attach enemy functional script
+                    Enemy newEnemy = obj.AddComponent(System.Type.GetType(newData.enemyName)) as Enemy;
 
-                if (enemyStates[i].isAlive == false) Destroy(obj);
+                    //update enemy states
+                    newEnemy.UpdateStates(enemyStates[i]);
+                    newEnemy.enemyIndex = i;
+
+                    enemyInScene[i] = obj;
+                }
             }
-            else
-            {   
+            else // new enemies
+            {
+                // create new enemy object
+                GameObject obj = Instantiate(enemyPrefab, enemyPos[i].transform);
+                // get enemy config
+                EnemyData newData = GetEnemyData(enemyList[i]);
+                // attach enemy functional script
+                Enemy newEnemy = obj.AddComponent(System.Type.GetType(newData.enemyName)) as Enemy;
+
                 newEnemy.Init(newData);
                 newEnemy.enemyIndex = i;
-                enemyInScene.Add(obj);
+                enemyInScene[i] = obj;
             }
         }
     }
@@ -112,17 +130,28 @@ public class EnemyManager : MonoBehaviour
 
     public void SaveEnemyStates()
     {
-        enemyStates.Clear();
-        foreach(var enemyObj in enemyInScene)
-        {
-            Enemy enemyComponent = enemyObj.GetComponent<Enemy>();
-            if(enemyComponent != null)
+        enemyStates = new EnemyState[enemyList.Length];
+
+        // array
+        for(int i = 0; i<enemyInScene.Length; i++)
+        {   
+            if(enemyInScene[i] != null)
             {
-                enemyStates.Add(new EnemyState()
+                Enemy enemyComponent = enemyInScene[i].GetComponent<Enemy>();
+
+                enemyStates[i] = new EnemyState()
                 {
+                    enemyIndex = i,
+                    data = enemyComponent.data,
                     isAlive = enemyComponent.isAlive,
-                    currentHP = enemyComponent.HP_Pool.currentValue
-                });
+                    attributes = enemyComponent.attributes,
+                    stats = enemyComponent.stats,
+                    HP_Pool = enemyComponent.HP_Pool
+                };
+            }
+            else
+            {
+                enemyStates[i] = null;
             }
         }
     }

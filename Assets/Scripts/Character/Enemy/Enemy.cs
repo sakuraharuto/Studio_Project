@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Enemy : Character
 {
-    protected EnemyData data;
+    public EnemyData data;
     
     public int enemyIndex;
     public bool isAlive = true;
@@ -13,21 +13,22 @@ public abstract class Enemy : Character
     {
         data = enemyData;
 
-        combatSprite = data.combatSprite;
-        characterName = data.name;
-
         attributes = new AttributeGroup();
         attributes.Init();
         stats = new StatsGroup();
-        stats.Init();
-
+        //stats.Init();
+        stats.stats.Add(new StatsValue(Statistic.HP, data.maxHP));
+        
         HP_Pool = new ValuePool(stats.Get(Statistic.HP));
         HP_Pool.currentValue = data.maxHP;
     }
 
     public void UpdateStates(EnemyState newState)
     {
-        Debug.Log("Update...");
+        data = newState.data;
+        attributes = newState.attributes;
+        stats = newState.stats;
+        HP_Pool = newState.HP_Pool;
     }
 
     // Start is called before the first frame update
@@ -47,7 +48,14 @@ public abstract class Enemy : Character
 public class EnemyState
 {
     public int enemyIndex;
-    public Vector3 pos;
+
+    public EnemyData data;
+
     public bool isAlive;
+
+    public AttributeGroup attributes;
+    public StatsGroup stats;     
+    public ValuePool HP_Pool;
+
     public int currentHP;
 }

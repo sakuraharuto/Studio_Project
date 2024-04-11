@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 960020184}
   - component: {fileID: 7927002986765568604}
   - component: {fileID: 7927002986765568581}
-  - component: {fileID: 1020302557035232275}
+  - component: {fileID: 4620745321783157626}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -170,7 +170,7 @@ MonoBehaviour:
   StatsPanel: {fileID: 0}
   packageGrid: {fileID: 0}
   isInitialized: 0
---- !u!114 &1020302557035232275
+--- !u!114 &4620745321783157626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7927002986765568605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dec4ad94b8756bf45a5452e8c151e20b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2562b062f7f0ed34d9ed18f03591dd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Player
@@ -190,9 +190,9 @@ MonoBehaviour:
   stats:
     stats:
     - statisticType: 0
-      value: 20
+      value: 120
   HP_Pool:
     maxValue:
       statisticType: 0
-      value: 120
+      value: 0
     currentValue: 100

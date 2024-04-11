@@ -23,7 +23,7 @@ public class CombatUnit : MonoBehaviour
         // assign character stats 
         unitName = character.characterName;
         state = character.state;
-        currentHP = character.HP_Pool.currentValue;
+        this.currentHP = character.HP_Pool.currentValue;
         maxHP = character.HP_Pool.maxValue.value;
         currentShield = 0;
         cost = 10;

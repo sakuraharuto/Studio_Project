@@ -48,11 +48,11 @@ public class StatsGroup
 
     public void Init()
     {
-        stats.Add(new StatsValue(Statistic.HP, 10));
-        stats.Add(new StatsValue(Statistic.Damage, 0));
-        stats.Add(new StatsValue(Statistic.Armor, 0));
-        stats.Add(new StatsValue(Statistic.Mana, 10));
-        stats.Add(new StatsValue(Statistic.HPReg, 1));
+        //stats.Add(new StatsValue(Statistic.HP, 0));
+        //stats.Add(new StatsValue(Statistic.Damage, 0));
+        //stats.Add(new StatsValue(Statistic.Armor, 0));
+        //stats.Add(new StatsValue(Statistic.Mana, 0));
+        //stats.Add(new StatsValue(Statistic.HPReg, 0));
     }
 
     internal StatsValue Get(Statistic statsToGet)
@@ -113,28 +113,27 @@ public class ValuePool
     }
 }
 
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
     public string characterName;
     public Sprite combatSprite;
 
     public SpecialStates state;
 
-    //[SerializeField] AttributeGroup attributes;     //RPG stats
-    public AttributeGroup attributes;
-    public StatsGroup stats;                        //character stats
+    public AttributeGroup attributes;                               //RPG stats
+    public StatsGroup stats;                                        //character stats
     public ValuePool HP_Pool;
 
     // Start is called before the first frame update
     void Start()
     {
         // Init character data
-        attributes = new AttributeGroup();
-        attributes.Init();
-        stats = new StatsGroup();
-        stats.Init();
+        //attributes = new AttributeGroup();
+        //attributes.Init();
+        //stats = new StatsGroup();
+        //stats.Init();
 
-        HP_Pool = new ValuePool(stats.Get(Statistic.HP));
+        //HP_Pool = new ValuePool(stats.Get(Statistic.HP));
     }
 
     private void Update()
