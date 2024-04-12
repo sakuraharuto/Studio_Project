@@ -13,6 +13,5 @@ public class Shield : Card
     public override void CardSpecialEffect()
     {
         CombatManager.instance.playerUnit.currentShield += data.shield;
-        CombatUI.instance.UpdateShield();
     }
 }

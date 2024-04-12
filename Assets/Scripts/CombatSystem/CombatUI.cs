@@ -5,6 +5,7 @@ using TMPro;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class CombatUI : UIBase
 {
@@ -12,15 +13,10 @@ public class CombatUI : UIBase
     public static CombatUI instance;
     public Transform canvasTF;
 
-    [Header("Icons")]
-    [SerializeField] public TMP_Text deckCount;
-    [SerializeField] public TMP_Text usedDeckCount;
-    [SerializeField] public TMP_Text costCount;
-
-    [Header("Player HUD")]
-    public TMP_Text hp;
-    public TMP_Text shield;
-    public Slider healthBarSlider;
+    [Header("Card Deck Setting")]
+    public TMP_Text deckCount;
+    public TMP_Text usedDeckCount;
+    public TMP_Text costCount;
 
     [Header("Cards UI")]
     public GameObject cardPrefab;   // show as hand card
@@ -33,34 +29,24 @@ public class CombatUI : UIBase
     // list of hand cards to manage position
     public List<Card> inHandCards;
 
-
     public void Awake()
     {
         instance = this;
 
         // load all cards
         allCards = Resources.LoadAll<CardData>("Cards");
-
-        StartCoroutine(AssignUIText());
-    }
-
-    IEnumerator AssignUIText()
-    {
-        yield return null;
-
-        //assign player ui data
-        deckCount.text = PlayerCardManager.instance.deck.Count.ToString();
-        usedDeckCount.text = inHandCards.Count.ToString();
-        costCount.text = CombatManager.instance.playerUnit.cost.ToString();
     }
 
     public void Start()
     {
-        healthBarSlider = CombatManager.instance.player.transform.GetChild(0).GetComponent<Slider>();
-
-        UpdateHealthBar();
+        UpdateCost();
         UpdateCardsDeck();
         UpdateUsedCardsDeck();
+    }
+
+    private void Update()
+    {
+        
     }
 
     public void UpdateCost()
@@ -76,23 +62,6 @@ public class CombatUI : UIBase
     public void UpdateUsedCardsDeck()
     {
         usedDeckCount.text = CardManager.instance.usedDeck.Count.ToString();
-    }
-
-    public void UpdateCurrentHP()
-    {
-        hp.text = CombatManager.instance.playerUnit.currentHP.ToString();
-        Debug.Log("Player has: " + hp.text);
-    }
-
-    public void UpdateHealthBar()
-    {
-        healthBarSlider.value = CombatManager.instance.playerUnit.currentHP;
-    }
-
-
-    public void UpdateShield()
-    {
-        shield.text = CombatManager.instance.playerUnit.currentShield.ToString();
     }
 
     // count => draw COUNT cards from deck

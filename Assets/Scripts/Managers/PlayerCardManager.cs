@@ -16,7 +16,7 @@ public class PlayerCardManager : MonoBehaviour
     }
 
     public void Init()
-    {
+    {   
         deck = new List<string>
         {
             // Assign cards in deck

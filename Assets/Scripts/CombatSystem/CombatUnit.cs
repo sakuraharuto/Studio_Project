@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,11 +24,10 @@ public class CombatUnit : MonoBehaviour
         // assign character stats 
         unitName = character.characterName;
         state = character.state;
-        this.currentHP = character.HP_Pool.currentValue;
         maxHP = character.HP_Pool.maxValue.value;
+        currentHP = character.HP_Pool.currentValue;
         currentShield = 0;
         cost = 10;
-
     }
 
     private void Update()
@@ -47,8 +47,11 @@ public class CombatUnit : MonoBehaviour
         }
         else if( currentShield < dmg && currentShield >= 0 )
         {
+            gameObject.GetComponent<CharacterHUD>().shieldIcon.sprite = gameObject.GetComponent<CharacterHUD>().shieldBroken;
+
             dmg -= currentShield;
             currentHP -= dmg;
+            currentShield = 0;
         }
         else
         {   

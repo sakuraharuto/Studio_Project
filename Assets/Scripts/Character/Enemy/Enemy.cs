@@ -16,8 +16,7 @@ public abstract class Enemy : Character
         attributes = new AttributeGroup();
         attributes.Init();
         stats = new StatsGroup();
-        //stats.Init();
-        stats.stats.Add(new StatsValue(Statistic.HP, data.maxHP));
+        stats.Init(data.maxHP);
         
         HP_Pool = new ValuePool(stats.Get(Statistic.HP));
         HP_Pool.currentValue = data.maxHP;
@@ -28,6 +27,7 @@ public abstract class Enemy : Character
         data = newState.data;
         attributes = newState.attributes;
         stats = newState.stats;
+
         HP_Pool = newState.HP_Pool;
     }
 

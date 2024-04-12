@@ -11,11 +11,10 @@ public class Player : Character
         attributes = new AttributeGroup();
         attributes.Init();
         stats = new StatsGroup();
-        stats.stats.Add(new StatsValue(Statistic.HP, 120));
-        
+        stats.Init(120);
+
         HP_Pool = new ValuePool(stats.Get(Statistic.HP));
         HP_Pool.currentValue = 100;
-       
     }
 
     // Update is called once per frame

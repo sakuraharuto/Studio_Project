@@ -9,8 +9,6 @@ public class TestLv1 : Enemy
     {   
         characterName = data.enemyName;
         combatSprite = data.combatSprite;
-
-        HP_Pool.currentValue = data.maxHP;
     }
 
     // Update is called once per frame

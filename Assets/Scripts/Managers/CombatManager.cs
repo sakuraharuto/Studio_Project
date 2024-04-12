@@ -25,12 +25,13 @@ public class CombatManager : MonoBehaviour
     public static CombatManager instance;
 
     [Header("Character Config")]
-    public GameObject player;
-    public GameObject enemy;
-    [SerializeField] private Transform playerPosition;
-    [SerializeField] private Transform enemyPosition;
+    public GameObject combatCharacter;
     public CombatUnit playerUnit;
     public CombatUnit enemyUnit;
+    [SerializeField] private Transform playerPosition;
+    [SerializeField] private Transform enemyPosition;
+    private GameObject player;
+    private GameObject enemy;
 
     [Header("Turn State")]
     public TurnState state;
@@ -97,8 +98,8 @@ public class CombatManager : MonoBehaviour
         state = TurnState.INITIAL;
 
         // instantiate characters
-        player = Instantiate(player, playerPosition.transform);
-        enemy = Instantiate(enemy, enemyPosition.transform);
+        player = Instantiate(combatCharacter, playerPosition.transform);
+        enemy = Instantiate(combatCharacter, enemyPosition.transform);
 
         // initial characters data
         playerUnit = player.GetComponent<CombatUnit>();
@@ -106,10 +107,6 @@ public class CombatManager : MonoBehaviour
 
         enemyUnit = enemy.GetComponent<CombatUnit>();
         enemyUnit.InitialUnitData(GameManager.instance.enemy.GetComponent<Character>());
-
-        //test inspector panel
-        PlayerHP.text = playerUnit.currentHP.ToString();
-        //MonsterHP.text = enemyUnit.currentHP.ToString();
 
         yield return new WaitForSeconds(2f);
 
@@ -152,9 +149,8 @@ public class CombatManager : MonoBehaviour
                 timerTXT.text = currentTime.ToString("0");
             }
         }
-
-        CombatUI.instance.UpdateShield();
         
+        //delete later
         UpdateCombatInspector();
     }
 
@@ -272,7 +268,7 @@ public class CombatManager : MonoBehaviour
     {
         state = TurnState.ENEMYTURN;
 
-        playerUnit.TakeDamage(2);
+        playerUnit.TakeDamage(10);
 
         PlayerHP.text = playerUnit.currentHP.ToString();
     }
@@ -319,7 +315,6 @@ public class CombatManager : MonoBehaviour
                 PlayerHP.text = "You Win!";
                 // do win outcome update
                 EnemyManager.instance.enemyStates[GameManager.instance.enemyIndex] = null;
-
 
                 break;
 
@@ -384,6 +379,7 @@ public class CombatManager : MonoBehaviour
 
     private void UpdateCombatInspector()
     {
+        PlayerHP.text = playerUnit.currentHP.ToString();
         MonsterHP.text = enemyUnit.currentHP.ToString();
     }
 

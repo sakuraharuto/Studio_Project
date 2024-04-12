@@ -398,7 +398,7 @@ MonoBehaviour:
   dayTimeSpeed: 0
   player: {fileID: 7927002986765568605, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
   enemy: {fileID: 0}
-  enemyID: 0
+  enemyIndex: 0
   popupManager: {fileID: 0}
 --- !u!4 &1887912578
 Transform:
@@ -431,10 +431,12 @@ MonoBehaviour:
   enemyPrefab: {fileID: 5542379963880830366, guid: f0b6f0aeb2c5e544ca2f9ce8884853a8, type: 3}
   allEnemy: []
   enemyMapping: {fileID: 11400000, guid: 48af1f1f1eafbbc4bb649ed17736f474, type: 2}
-  enemyInScene: []
-  enemyStates: []
+  enemyList: 
   posObj: {fileID: 0}
   enemyPos: []
+  enemyInScene: []
+  enemyStates: []
+  index: 0
 --- !u!114 &1887912580
 MonoBehaviour:
   m_ObjectHideFlags: 0

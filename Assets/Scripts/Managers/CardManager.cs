@@ -16,7 +16,10 @@ public class CardManager : MonoBehaviour
     }
 
     public void Init()
-    {   
+    {
+        cardDeck.Clear();
+        usedDeck.Clear();
+
         //load cards into deck and shuffle
         List<string> tempDeck = new List<string>();
         tempDeck.AddRange(PlayerCardManager.instance.deck);

@@ -46,14 +46,16 @@ public class StatsGroup
         stats = new List<StatsValue>();
     }
 
-    public void Init()
+    //public void Init(int hp, int dmg, int armor, int mn, int hpReg)
+    public void Init(int hp)
     {
-        //stats.Add(new StatsValue(Statistic.HP, 0));
-        //stats.Add(new StatsValue(Statistic.Damage, 0));
-        //stats.Add(new StatsValue(Statistic.Armor, 0));
-        //stats.Add(new StatsValue(Statistic.Mana, 0));
-        //stats.Add(new StatsValue(Statistic.HPReg, 0));
+        stats.Add(new StatsValue(Statistic.HP, hp));
+        //stats.Add(new StatsValue(Statistic.Damage, dmg));
+        //stats.Add(new StatsValue(Statistic.Armor, armor));
+        //stats.Add(new StatsValue(Statistic.Mana, mn));
+        //stats.Add(new StatsValue(Statistic.HPReg, hpReg));
     }
+
 
     internal StatsValue Get(Statistic statsToGet)
     {
