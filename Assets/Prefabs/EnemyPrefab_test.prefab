@@ -483,7 +483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnterCombatButton: {fileID: 0}
-  postMessage: 
+  postMessage: Test_combat
 --- !u!1 &5542379964139255581
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,6 @@ public class CombatTrigger : MonoBehaviour
     void Start()
     {
         EnterCombatButton = transform.Find("Canvas/Button").gameObject;
-        postMessage = "test_Combat";
         EnterCombatButton.SetActive(false);   
     }
 

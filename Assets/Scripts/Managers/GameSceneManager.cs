@@ -62,8 +62,15 @@ public class GameSceneManager : MonoBehaviour
 
         // Load enemy list to certain scene
         // test load enemies
-        if (toSceneName == "Test_dc")
-        {   
+        if (toSceneName != "Test_combat" && toSceneName != "Navigation")
+        {
+            ////Assign Player Component
+            //if (GameObject.FindWithTag("Player") != null)
+            //{
+            //    GameManager.instance.player = GameObject.FindWithTag("Player");
+            //}
+
+            //Spawn Enemies
             EnemyManager.instance.posObj = GameObject.Find("PositionList");
             EnemyManager.instance.SpawnEnemy(toSceneName);
         }

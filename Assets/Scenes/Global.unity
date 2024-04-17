@@ -396,7 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldTimer: 0
   dayTimeSpeed: 0
-  player: {fileID: 7927002986765568605, guid: f1ef765fe596f4c72bf56b9e09ed710c, type: 3}
+  player: {fileID: 0}
   enemy: {fileID: 0}
   enemyIndex: 0
   popupManager: {fileID: 0}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 public class GameManager : MonoBehaviour
 {   
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject enemy;
     public int enemyIndex;
+    public CombatUnit postCombatPlayerStats;
 
     /// <summary>
     /// PopupManager
@@ -39,12 +41,16 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         
-
     }
 
     void Update()
-    {   
-        UpdateDayLight();
+    {
+        //UpdateDayLight();
+        if(GameObject.FindWithTag("Player") != null)
+        {
+            player = GameObject.FindWithTag("Player");
+        }
+
 
         // UI interact
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -69,5 +75,4 @@ public class GameManager : MonoBehaviour
         //update date
         // add 1 day by each 360 rotation of daylight
     }
-
 }

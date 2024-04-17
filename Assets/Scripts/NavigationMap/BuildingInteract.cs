@@ -14,7 +14,6 @@ public class BuildingInteract : MonoBehaviour, IPointerEnterHandler, IPointerExi
     // Start is called before the first frame update
     void Start()
     {
-        //buildingName = gameObject.name;
         originalScale = transform.localScale;
     }
 

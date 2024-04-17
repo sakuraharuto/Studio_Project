@@ -38,19 +38,19 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private int round;
 
     [Header("Combat Config")]
-    [SerializeField] int count;
+    [SerializeField] int count;     // card count each turn
     public int lootDropCount;
     public List<int> lootList= new List<int>(); // to store loots
 
     [Header("UI Setting")]
     public GameObject LeavePanel;
-    public GameObject LootBoard;
+    public TMP_Text combatOutcome;
 
+    // will remove later
     [Header("Inspector Variables")]
     public SpecialStates playerState;
     public bool isPlayerTurn;
     public bool addedNewStateCard = false;
-
     [SerializeField] List<string> Deck = new List<string>();        //test
     [SerializeField] List<string> useDeck = new List<string>();     //test
 
@@ -232,8 +232,6 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
-                // enemy will be removed from list
-
                 yield return new WaitForSeconds(1f);
                 
                 EndCombat(CombatOutcome.WIN);
@@ -312,7 +310,8 @@ public class CombatManager : MonoBehaviour
         {   
             case CombatOutcome.WIN:
 
-                PlayerHP.text = "You Win!";
+                combatOutcome.text = "You Win!";
+
                 // do win outcome update
                 EnemyManager.instance.enemyStates[GameManager.instance.enemyIndex] = null;
 
@@ -320,7 +319,8 @@ public class CombatManager : MonoBehaviour
 
             case CombatOutcome.DEFEAT:
 
-                PlayerHP.text = "Defeated";
+                combatOutcome.text = "Defeated!";
+
                 // do defeat outcome update
                 EnemyManager.instance.enemyStates[GameManager.instance.enemyIndex].currentHP = enemyUnit.currentHP;
 
@@ -328,45 +328,22 @@ public class CombatManager : MonoBehaviour
 
             case CombatOutcome.FLEE:
 
-                PlayerHP.text = "Escape success!";
+                combatOutcome.text = "Escape Success!";
+
                 // do flee outcome update
                 EnemyManager.instance.enemyStates[GameManager.instance.enemyIndex].currentHP = enemyUnit.currentHP;
 
                 break;
         }
-
-        //update player stats after combat
-        //GameManager.instance.player.GetComponent<Character>().UpdateDataAfterCombat(playerUnit);
         
         LeavePanel.SetActive(true);
     }
 
-    void ProcessLootDrop()
-    {
-        for(int i = 0; i < lootDropCount; i++)
-        {
-            int id = ItemStats.instance.RandomItemID();
-            lootList.Add(id);
-        }
-    }
-
     public void CombatExit()
-    {   
-        //if(lootList.Count() > 0)
-        //{   
-        //    for(int i = 0; i<lootList.Count(); i++)
-        //    {
-        //        if (ItemStats.instance.bagStats.ContainsKey(lootList[i]))
-        //        {
-        //            ItemStats.instance.bagStats[lootList[i]] += 1;
-        //        }
-        //        else
-        //        {
-        //            ItemStats.instance.bagStats.Add(lootList[i], 1);
-        //        }
-        //    }
-        //}
-
+    {
+        //Update Player stats after combat
+        GameManager.instance.postCombatPlayerStats = playerUnit;
+        
         GameSceneManager.instance.StartTransition(GameSceneManager.instance.previousScene);
 
         LeavePanel.SetActive(false);
